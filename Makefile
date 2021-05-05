@@ -27,7 +27,7 @@ PATH_SRCS	= srcs
 PATH_OBJS	= objs
 LST_SRCS	= main.c
 LST_OBJS	= ${LST_SRCS:.c=.o}
-DIRS		= cmd utils cmd/cd cmd/echo cmd/env cmd/exit cmd/export cmd/pwd cmd/unset
+DIRS		= cmd pars utils cmd/cd cmd/echo cmd/env cmd/exit cmd/export cmd/pwd cmd/unset
 DIRS_OBJS	= $(addprefix $(PATH_OBJS)/,$(DIRS))
 SRCS		= $(addprefix $(PATH_SRCS)/,$(LST_SRCS))
 OBJS		= $(addprefix $(PATH_OBJS)/,$(LST_OBJS))

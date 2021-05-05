@@ -10,9 +10,21 @@
 
 # include "libft.h"
 
+// typedef enum	e_error
+// {
+
+// }				t_e_error;
+
+typedef struct	s_cmd
+{
+	char			*line;
+	struct s_cmd	*next;
+}				t_cmd;
+
 typedef struct	s_main
 {
 	t_list	*malloc;
+	t_cmd	*cmd;
 }				t_main;
 
 #endif

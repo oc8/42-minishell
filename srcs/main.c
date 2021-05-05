@@ -6,7 +6,7 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:11:28 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/02 17:20:43 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/05 14:39:30 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,9 @@
 
 int	main(int argc, char *argv[])
 {
+	while (42)
+	{
+		;
+	}
 	return (0);
 }
