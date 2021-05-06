@@ -15,16 +15,37 @@
 
 // }				t_e_error;
 
-typedef struct	s_cmd
+// typedef struct	s_cmd
+// {
+// 	char			*line;
+// 	struct s_cmd	*next;
+// }				t_cmd;
+
+// typedef struct	s_main
+// {
+// 	t_list	*malloc;
+// 	t_cmd	*cmd;
+// }				t_main;
+
+// typedef struct	s_histo
+// {
+// 	char			*line;
+// 	struct s_histo	*next;
+// }				t_histo;
+
+typedef struct	s_res
 {
 	char			*line;
-	struct s_cmd	*next;
-}				t_cmd;
+	t_list			*histo;
+	t_list			*free;
+}				t_res;
 
-typedef struct	s_main
-{
-	t_list	*malloc;
-	t_cmd	*cmd;
-}				t_main;
+
+// -->  PARSING  <--
+void	get_operator_command(t_res *res);
+
+// -->  UTILS  <--
+void	fail(char *error_str, t_res *res);
+int		ft_strncmp_minishell(const char *s1, const char *s2, size_t n);
 
 #endif
