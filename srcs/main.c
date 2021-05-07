@@ -6,17 +6,17 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:11:28 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/06 19:16:49 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/07 14:09:53 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_histo(t_res *res)
+void	print_histo(t_main *main)
 {
 	t_list *tmp;
 
-	tmp = res->histo;
+	tmp = main->histo;
 	while (tmp != NULL)
 	{
 		printf("%s\n", tmp->content);
@@ -26,20 +26,23 @@ void	print_histo(t_res *res)
 
 int	main(int argc, char *argv[])
 {
-	t_res	res;
+	t_main	main;
 	
-	(void)argc;
 	(void)argv;
+	if (argc != 1)
+		fail("minishell as to be launch without args\n", &main);
 	setbuf(stdout, NULL);
-	ft_bzero(&res, sizeof(t_res));
-	while (ft_strncmp_minishell(res.line, "exit", 5))
+	ft_bzero(&main, sizeof(t_main));
+	while (ft_strncmp_minishell(main.line, "exit", 5))
 	{
-		if (res.line != NULL)
-			free(res.line);
-		get_operator_command(&res);
+		if (main.line != NULL)
+			free(main.line);
+		get_operator_command(&main);
+		parse_line(&main);
+		print_line(&main);
 	}
-	print_histo(&res);
-	free(res.line);
-	ft_lstclear(&res.free, free);
+	print_histo(&main);
+	free(main.line);
+	ft_lstclear(&main.free, free);
 	return (0);
 }

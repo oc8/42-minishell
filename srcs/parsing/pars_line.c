@@ -1,32 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_operator_command.c                             :+:      :+:    :+:   */
+/*   pars_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/06 16:43:55 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/07 15:10:24 by tdayde           ###   ########lyon.fr   */
+/*   Created: 2021/05/07 11:52:39 by tdayde            #+#    #+#             */
+/*   Updated: 2021/05/07 15:10:02 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	get_operator_command(t_main *main)
+void	reconize(t_main *main)
 {
-	int		ret;
-	t_list	*new_elem;
-	char	*new_line;
+	int i;
 
-	write(1, "bash_des_freros$ ", 17);
-	ret = get_next_line(0, &main->line);
-	if (ret == -1)
+	i = -1;
+	reconize_commands(main);
+	while (main->line[++i])
 	{
-		free(main->line);
-		fail("Error read operator command\n", main);
 	}
-	new_line = ft_strdup(&main->free, main->line);
-	new_elem = ft_calloc_lst(&main->free, 1, sizeof(t_list));
-	new_elem->content = new_line;
-	ft_lstadd_front(&main->histo, new_elem);
+}
+
+void	lexer(t_main *main)
+{
+	int i;
+
+	i = -1;
+	reconize_commands(main);
+	while (main->line[++i])
+	{
+	}
+}
+
+void	pars_line(t_main *main)
+{
+	lexer(main);
 }
