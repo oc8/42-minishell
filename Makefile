@@ -2,6 +2,7 @@ NAME			= minishell
 LST_SRCS		=	main.c \
 					cmd/cmd_exec.c \
 					cmd/echo/echo.c \
+					cmd/exit/exit.c \
 					parsing/get_operator_command.c \
 					utils/fail.c \
 					utils/ft_strncmp_minishell.c \

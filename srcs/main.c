@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:11:28 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/10 17:22:04 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/10 18:18:05 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char *argv[])
 		if (main.line != NULL)
 			free(main.line);
 		if(main.lexer != NULL)
-			ft_lstclear(main.lexer, free);
+			ft_lstclear(&main.lexer, free);
 		get_operator_command(&main);
 		// parse_line(&main);
 		// print_line(&main);

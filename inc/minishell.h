@@ -20,7 +20,7 @@ typedef enum	e_type_lex
 	COMMAND,
 	ARGUMENT,
 	OPERAND,
-	FILE
+	FILE_NAME
 }				t_type_lex;
 
 typedef struct	s_lexer
@@ -47,6 +47,8 @@ void	get_operator_command(t_main *main);
 */
 void	cmd_exec(t_main *main);
 int		cmd_echo(char **arg);
+void	cmd_exit(t_main *main);
+void	cmd_pwd(t_main *main);
 
 /*
 **	-->	UTILS <--
