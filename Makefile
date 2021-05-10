@@ -1,24 +1,14 @@
-ERASE	= \033[2K\r
-GREY	= \033[30m
-RED		= \033[31m
-GREEN	= \033[32m
-YELLOW	= \033[33m
-BLUE	= \033[34m
-PINK	= \033[35m
-CYAN	= \033[36m
-WHITE	= \033[37m
-END		= \033[0m
-BOLD	= \033[1m
-UNDER	= \033[4m
-SUR		= \033[7m
-
 NAME			= minishell
-SRCS			=	srcs/main.c \
-					srcs/parsing/get_operator_command.c \
-					srcs/utils/fail.c \
-					srcs/utils/ft_strncmp_minishell.c
-OBJS			= $(SRCS:srcs/%.c=$(OBJS_DIR)/%.o) $(OBJS_SHARED)
+LST_SRCS		=	main.c \
+					cmd/cmd_exec.c \
+					cmd/echo/echo.c \
+					parsing/get_operator_command.c \
+					utils/fail.c \
+					utils/ft_strncmp_minishell.c
+SRCS_DIR		= srcs
 OBJS_DIR		= objs
+SRCS			= $(addprefix $(PATH_SRCS)/,$(LST_SRCS))
+OBJS			= $(LST_SRCS:%.c=$(OBJS_DIR)/%.o) $(OBJS_SHARED)
 CC				= gcc
 # CFLAGS			= -Wall -Werror -Wextra
 CFLAGS			= -Wall -Werror -Wextra -fsanitize=address -g3
@@ -40,7 +30,7 @@ ${NAME}:		${OBJS_DIR} ${OBJS}
 				echo "$(BOLD)${GREEN}--> minishell generated <--${END}"
 
 
-$(OBJS_DIR)/%.o:srcs/%.c inc/*.h
+$(OBJS_DIR)/%.o:$(SRCS_DIR)/%.c inc/*.h
 				$(MKDIR) $(dir $@)
 				${CC} ${CFLAGS} $(INCLUDE) -c  $< -o $@
 
@@ -57,3 +47,17 @@ re:				fclean all
 
 .PHONY: 		clean fclean all re compil libft
 .SILENT:		clean fclean all re compil libft $(OBJS) $(NAME) $(OBJS_DIR)
+
+ERASE	= \033[2K\r
+GREY	= \033[30m
+RED		= \033[31m
+GREEN	= \033[32m
+YELLOW	= \033[33m
+BLUE	= \033[34m
+PINK	= \033[35m
+CYAN	= \033[36m
+WHITE	= \033[37m
+END		= \033[0m
+BOLD	= \033[1m
+UNDER	= \033[4m
+SUR		= \033[7m

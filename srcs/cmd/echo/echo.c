@@ -3,12 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 18:18:27 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/06 18:18:55 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/10 14:47:59 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	cmd_echo(char **arg)
+{
+	int	i;
+	
+	i = 0;
+	if (arg[0][0] == '-' && arg[0][1] == 'n' && !arg[0][2])
+		i++;
+	while (arg[i])
+		printf("%s", arg[i++]);
+	if (!(arg[0][0] == '-' && arg[0][1] == 'n' && !arg[0][2]))
+		printf("\n");
+	return (0);
+}

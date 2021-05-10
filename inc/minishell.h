@@ -36,10 +36,20 @@ typedef struct	s_main
 	t_list			*free;
 }				t_main;
 
-// -->  PARSING  <--
+/*
+**	-->	PARSING <--
+*/
 void	get_operator_command(t_main *main);
 
-// -->  UTILS  <--
+/*
+**	-->	CMD <--
+*/
+void	cmd_exec(t_main *main);
+int		cmd_echo(char **arg);
+
+/*
+**	-->	UTILS <--
+*/
 void	fail(char *error_str, t_main *main);
 int		ft_strncmp_minishell(const char *s1, const char *s2, size_t n);
 
