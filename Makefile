@@ -4,7 +4,8 @@ LST_SRCS		=	main.c \
 					cmd/echo/echo.c \
 					parsing/get_operator_command.c \
 					utils/fail.c \
-					utils/ft_strncmp_minishell.c
+					utils/ft_strncmp_minishell.c \
+					utils/ft_strdup_no_list.c
 SRCS_DIR		= srcs
 OBJS_DIR		= objs
 SRCS			= $(addprefix $(PATH_SRCS)/,$(LST_SRCS))

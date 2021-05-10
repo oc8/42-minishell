@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fail.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/06 16:51:10 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/10 14:25:29 by tdayde           ###   ########lyon.fr   */
+/*   Created: 2020/11/24 17:32:29 by odroz-ba          #+#    #+#             */
+/*   Updated: 2021/05/10 17:11:20 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	fail(char *error_str, t_main *main)
+char	*ft_strdup_no_list(const char *s1)
 {
-	write(1, "Error : ", 8);
-	write(1, error_str, ft_strlen(error_str));
-	if (main->lexer != NULL)
-		ft_lstclear(main->lexer, free);
-	ft_lstclear(&main->free, free);
-	exit(1);
+	char	*s1copy;
+	int		i;
+
+	s1copy = malloc(ft_strlen(s1) + 1);
+	if (!s1copy)
+		return (0);
+	i = -1;
+	while (s1[++i])
+		s1copy[i] = s1[i];
+	s1copy[i] = '\0';
+	return (s1copy);
 }

@@ -19,7 +19,8 @@ typedef enum	e_type_lex
 {
 	COMMAND,
 	ARGUMENT,
-	OPERAND
+	OPERAND,
+	FILE
 }				t_type_lex;
 
 typedef struct	s_lexer
@@ -52,5 +53,6 @@ int		cmd_echo(char **arg);
 */
 void	fail(char *error_str, t_main *main);
 int		ft_strncmp_minishell(const char *s1, const char *s2, size_t n);
+char	*ft_strdup_no_list(const char *s1);
 
 #endif
