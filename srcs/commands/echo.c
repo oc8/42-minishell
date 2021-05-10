@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_line.c                                        :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/07 11:52:39 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/07 17:04:35 by odroz-ba         ###   ########lyon.fr   */
+/*   Created: 2021/05/06 18:18:27 by tdayde            #+#    #+#             */
+/*   Updated: 2021/05/07 16:59:17 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pars_line(t_main *main)
+int	cmd_echo(char **arg)
 {
-	lexer(main);
+	int	i;
+	
+	i = 0;
+	if (arg[0] == "-n")
+		i++;
+	while (arg[i])
+		printf("%s\n", arg[i++]);
+	if (arg[0] == "-n")
+		printf("\n");
+	return (0);
 }

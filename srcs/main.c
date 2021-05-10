@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:11:28 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/07 14:09:53 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/07 17:01:11 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	print_histo(t_main *main)
 int	main(int argc, char *argv[])
 {
 	t_main	main;
-	
+
 	(void)argv;
+	setbuf(stdout, NULL);	
 	if (argc != 1)
 		fail("minishell as to be launch without args\n", &main);
-	setbuf(stdout, NULL);
 	ft_bzero(&main, sizeof(t_main));
 	while (ft_strncmp_minishell(main.line, "exit", 5))
 	{
