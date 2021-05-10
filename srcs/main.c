@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:11:28 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/10 18:18:05 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/10 19:17:59 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,28 @@ void	print_histo(t_main *main)
 	}
 }
 
+void	print_lexer(t_main *main)
+{
+	t_lexer	*tmp;
+	t_list	*iter;
+	
+	printf("Lexer :\n");
+	iter = main->lexer;
+	while (iter != NULL)
+	{
+		tmp = iter->content;
+		printf("| Value = %s|\n", tmp->value);
+		if (tmp->type == 0)
+			printf("| Type = COMMAND|\n");
+		else if (tmp->type == 1)
+			printf("| Type = OPERATOR|\n");
+		else if (tmp->type == 2)
+			printf("| Type = ARGUMENT|\n");
+		printf("\n");
+		iter = iter->next;
+	}
+}
+
 int	main(int argc, char *argv[])
 {
 	t_main	main;
@@ -37,12 +59,13 @@ int	main(int argc, char *argv[])
 	{
 		if (main.line != NULL)
 			free(main.line);
-		if(main.lexer != NULL)
-			ft_lstclear(&main.lexer, free);
 		get_operator_command(&main);
-		// parse_line(&main);
+		pars_line(&main);
 		// print_line(&main);
 		cmd_exec(&main);
+		print_lexer(&main);
+		if(main.lexer != NULL)
+			ft_lstclear(&main.lexer, free_lexer);
 	}
 	print_histo(&main);
 	free(main.line);

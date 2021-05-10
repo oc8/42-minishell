@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_line.c                                        :+:      :+:    :+:   */
+/*   free_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/07 11:52:39 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/10 18:55:06 by tdayde           ###   ########lyon.fr   */
+/*   Created: 2021/05/10 18:16:20 by tdayde            #+#    #+#             */
+/*   Updated: 2021/05/10 18:28:57 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pars_line(t_main *main)
+void	free_lexer(void *s)
 {
-	lexer(main);
+	t_lexer	*lexer;
+	
+	lexer = (t_lexer*)s;
+	free(lexer->value);
+	free(lexer);
 }

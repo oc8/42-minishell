@@ -18,15 +18,15 @@
 typedef enum	e_type_lex
 {
 	COMMAND,
+	OPERATOR,
 	ARGUMENT,
-	OPERAND,
 	FILE_NAME
 }				t_type_lex;
 
 typedef struct	s_lexer
 {
-	char			*type;
-	char			*value;
+	int		type;
+	char	*value;
 }				t_lexer;
 
 typedef struct	s_main
@@ -41,6 +41,8 @@ typedef struct	s_main
 **	-->	PARSING <--
 */
 void	get_operator_command(t_main *main);
+void	pars_line(t_main *main);
+void	lexer(t_main *main);
 
 /*
 **	-->	CMD <--
@@ -56,5 +58,6 @@ void	cmd_pwd(t_main *main);
 void	fail(char *error_str, t_main *main);
 int		ft_strncmp_minishell(const char *s1, const char *s2, size_t n);
 char	*ft_strdup_no_list(const char *s1);
+void	free_lexer(void *s);
 
 #endif
