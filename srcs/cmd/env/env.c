@@ -6,8 +6,14 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 16:56:50 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/10 16:56:53 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/11 18:51:12 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	cmd_env(char **arg, t_main *main)
+{
+	(void)arg;
+	(void)main;
+}

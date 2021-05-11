@@ -6,8 +6,15 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 16:56:24 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/10 16:56:34 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/11 18:51:01 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+
+void	cmd_unset(char **arg, t_main *main)
+{
+	(void)arg;
+	(void)main;
+}

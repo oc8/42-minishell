@@ -6,16 +6,17 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 18:18:27 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/10 14:47:59 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/11 18:48:33 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	cmd_echo(char **arg)
+void	cmd_echo(char **arg, t_main *main)
 {
 	int	i;
 	
+	(void)main;
 	i = 0;
 	if (arg[0][0] == '-' && arg[0][1] == 'n' && !arg[0][2])
 		i++;
@@ -23,5 +24,4 @@ int	cmd_echo(char **arg)
 		printf("%s", arg[i++]);
 	if (!(arg[0][0] == '-' && arg[0][1] == 'n' && !arg[0][2]))
 		printf("\n");
-	return (0);
 }

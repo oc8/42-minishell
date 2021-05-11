@@ -25,6 +25,28 @@ typedef enum	e_type_lex
 	FILE_NAME
 }				t_type_lex;
 
+typedef enum	e_type_cmd
+{
+	ECHO_CMD,
+	PWD_CMD,
+	CD_CMD,
+	ENV_CMD,
+	EXPORT_CMD,
+	UNSET_CMD,
+	EXIT_CMD
+
+}				t_type_cmd;
+
+struct s_main;
+
+typedef void	(*t_fct_cmd)(char **, struct s_main *);
+
+typedef struct	s_function
+{
+	t_fct_cmd		fct;
+	int				cmd;
+}				t_function;
+
 typedef struct	s_lexer
 {
 	int		type;
@@ -37,7 +59,7 @@ typedef struct	s_main
 	t_list			*lexer;
 	t_list			*histo;
 	t_list			*free;
-
+	t_function		cmd_fct[7];
 }				t_main;
 
 /*
@@ -50,11 +72,15 @@ void	lexer(t_main *main);
 /*
 **	-->	CMD <--
 */
-void	cmd_exec(t_main *main);
-int		cmd_echo(char **arg);
-void	cmd_exit(t_main *main);
-void	cmd_pwd(t_main *main);
-void	cmd_cd(t_main *main, char **arg);
+void	cmd_exec(int cmd, char **arg, t_main *main);
+void	cmd_echo(char **arg, t_main *main);
+void	cmd_pwd(char **arg, t_main *main);
+void	cmd_env(char **arg, t_main *main);
+void	cmd_export(char **arg, t_main *main);
+void	cmd_unset(char **arg, t_main *main);
+void	cmd_cd(char **arg, t_main *main);
+void	cmd_exit(char **arg, t_main *main);
+void	test_cmd_exec(t_main *main); // temp
 
 /*
 **	-->	UTILS <--
@@ -63,5 +89,6 @@ void	quit_prog(char *error_str, t_main *main);
 int		ft_strncmp_minishell(const char *s1, const char *s2, size_t n);
 char	*ft_strdup_no_list(const char *s1);
 void	free_lexer(void *s);
+void	init_cmd_fct(t_main *main);
 
 #endif
