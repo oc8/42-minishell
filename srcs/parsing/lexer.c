@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:40:24 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/10 19:14:04 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/11 17:16:57 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void	malloc_element(int index_line, int w_count, t_main *main)
 
 	lexer = malloc(sizeof(t_lexer));
 	if (!lexer)
-		fail("Lexer malloc", main);
+		quit_prog("Lexer malloc", main);
 	lexer->value = malloc(w_count + 1);
 	if (lexer->value == NULL)
-		fail("Lexer malloc", main);
+		quit_prog("Lexer malloc", main);
 	i = index_line - w_count;
 	j = 0;
 	while (i < index_line)

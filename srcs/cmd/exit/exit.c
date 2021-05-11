@@ -6,7 +6,7 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 16:56:46 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/10 17:33:40 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/11 17:18:39 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,5 @@
 
 void	cmd_exit(t_main *main)
 {
-	ft_lstclear(&main->free, free);
-	exit(1);
+	quit_prog(0, main);
 }

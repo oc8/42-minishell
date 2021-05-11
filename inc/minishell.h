@@ -10,6 +10,8 @@
 
 # include "libft.h"
 
+# define PWD_MAX_SIZE 256
+
 // typedef enum	e_error
 // {
 
@@ -35,6 +37,7 @@ typedef struct	s_main
 	t_list			*lexer;
 	t_list			*histo;
 	t_list			*free;
+
 }				t_main;
 
 /*
@@ -51,11 +54,12 @@ void	cmd_exec(t_main *main);
 int		cmd_echo(char **arg);
 void	cmd_exit(t_main *main);
 void	cmd_pwd(t_main *main);
+void	cmd_cd(t_main *main, char **arg);
 
 /*
 **	-->	UTILS <--
 */
-void	fail(char *error_str, t_main *main);
+void	quit_prog(char *error_str, t_main *main);
 int		ft_strncmp_minishell(const char *s1, const char *s2, size_t n);
 char	*ft_strdup_no_list(const char *s1);
 void	free_lexer(void *s);

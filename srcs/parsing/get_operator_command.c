@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_operator_command.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 16:43:55 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/07 15:10:24 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/11 17:16:57 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	get_operator_command(t_main *main)
 	if (ret == -1)
 	{
 		free(main->line);
-		fail("Error read operator command\n", main);
+		quit_prog("Error read operator command\n", main);
 	}
 	new_line = ft_strdup(&main->free, main->line);
 	new_elem = ft_calloc_lst(&main->free, 1, sizeof(t_list));

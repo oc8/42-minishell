@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:11:28 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/10 19:17:59 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/11 17:16:57 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int argc, char *argv[])
 	(void)argv;
 	setbuf(stdout, NULL);	
 	if (argc != 1)
-		fail("minishell as to be launch without args\n", &main);
+		quit_prog("minishell as to be launch without args\n", &main);
 	ft_bzero(&main, sizeof(t_main));
 	while (ft_strncmp_minishell(main.line, "exit", 5))
 	{
