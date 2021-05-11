@@ -17,6 +17,14 @@
 
 // }				t_e_error;
 
+typedef enum	e_caracter_lex
+{
+	WORD_NOT_FINISHED,
+	SPACE,
+	WORD_FINISHED,
+	LINE_FINISHED
+}				t_caracter_lex;
+
 typedef enum	e_type_lex
 {
 	COMMAND,
@@ -46,6 +54,15 @@ typedef struct	s_function
 	t_fct_cmd		fct;
 	int				cmd;
 }				t_function;
+
+typedef struct	s_utils_lexer
+{
+	int		i;
+	int		w_count;
+	int		sing_q;
+	int		double_q;
+	int		echap;
+}				t_utils_lexer;
 
 typedef struct	s_lexer
 {

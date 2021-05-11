@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_operator_command.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 16:43:55 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/11 17:16:57 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/11 19:13:35 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
