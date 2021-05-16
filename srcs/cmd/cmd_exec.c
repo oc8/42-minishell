@@ -42,4 +42,5 @@ void	test_cmd_exec(t_main *main)
 		tabl[0] = &main->line[2];
 		cmd_exec(CD_CMD, tabl, main);
 	}
+	cmd_others(0, main);
 }

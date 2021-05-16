@@ -46,7 +46,7 @@ void	print_lexer(t_main *main)
 	}
 }
 
-int	main(int argc, char *argv[])
+int	main(int argc, char *argv[], char *env[])
 {
 	t_main	main;
 

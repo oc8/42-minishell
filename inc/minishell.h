@@ -89,6 +89,7 @@ void	lexer(t_main *main);
 /*
 **	-->	CMD <--
 */
+void	cmd_others(char **arg, t_main *main);
 void	cmd_exec(int cmd, char **arg, t_main *main);
 void	cmd_echo(char **arg, t_main *main);
 void	cmd_pwd(char **arg, t_main *main);
