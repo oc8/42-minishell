@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:11:28 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/17 13:42:28 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 19:34:02 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ void	print_lexer(t_main *main)
 	while (iter != NULL)
 	{
 		tmp = iter->content;
-		printf("| Value = %s|\n", tmp->value);
+		printf("Value = |%s|\n", tmp->value);
 		if (tmp->type == 0)
-			printf("| Type = COMMAND|\n");
+			printf("Type = COMMAND\n");
 		else if (tmp->type == 1)
-			printf("| Type = OPERATOR|\n");
+			printf("Type = OPERATOR\n");
 		else if (tmp->type == 2)
-			printf("| Type = ARGUMENT|\n");
+			printf("Type = ARGUMENT\n");
 		printf("\n");
 		iter = iter->next;
 	}
@@ -59,15 +59,19 @@ int	main(int argc, char *argv[], char *env[])
 	init_cmd_fct(&main);
 	while (ft_strncmp_minishell(main.line, "exit", 5))
 	{
-		if (main.line != NULL)
-			free(main.line);
+		// if (main.line != NULL)
+		// 	free(main.line);
 		get_operator_command(&main);
-		pars_line(&main);
-		// print_line(&main);
-		print_lexer(&main);
-		test_cmd_exec(&main);
-		if(main.lexer != NULL)
-			ft_lstclear(&main.lexer, free_lexer);
+		while (main.line != NULL)
+		{
+			pars_line(&main);
+			// print_line(&main);
+			if (main.lexer != NULL)
+				print_lexer(&main);
+			// test_cmd_exec(&main);
+			if (main.lexer != NULL)
+				ft_lstclear(&main.lexer, free_lexer);
+		}
 	}
 	print_histo(&main);
 	free(main.line);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execve.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/17 17:13:49 by tdayde            #+#    #+#             */
+/*   Updated: 2021/05/17 18:22:08 by tdayde           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	cmd_others(char **arg, t_main *main)
@@ -14,5 +26,5 @@ void	cmd_others(char **arg, t_main *main)
 		printf("%d\n", execve(cmd, arg, main->env));
 	else
 		wait(&status);
-	printf("pid = %d\n", getpid());
+	// printf("pid = %d\n", getpid());
 }

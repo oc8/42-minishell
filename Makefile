@@ -24,6 +24,7 @@ OBJS			= $(LST_SRCS:%.c=$(OBJS_DIR)/%.o) $(OBJS_SHARED)
 CC				= gcc
 CFLAGS			= -Wall -Werror -Wextra
 # CFLAGS			= -Wall -Werror -Wextra -fsanitize=address -g3
+CFLAGS			= -fsanitize=address -g3
 INCLUDE			= -Iinc -I${LIBFT}/inc
 RM				= rm -rf
 MKDIR			= mkdir -p

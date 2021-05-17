@@ -22,6 +22,7 @@ typedef enum	e_caracter_lex
 	WORD_NOT_FINISHED,
 	SPACE,
 	WORD_FINISHED,
+	NEW_COMMAND,
 	LINE_FINISHED
 }				t_caracter_lex;
 
@@ -45,6 +46,7 @@ typedef struct	s_function
 
 typedef struct	s_utils_lexer
 {
+	char	*word;
 	int		i;
 	int		w_count;
 	int		sing_q;
