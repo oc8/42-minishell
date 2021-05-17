@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   ft_strdup_secure.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 16:56:46 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/17 16:11:16 by odroz-ba         ###   ########lyon.fr   */
+/*   Created: 2021/05/17 14:20:50 by odroz-ba          #+#    #+#             */
+/*   Updated: 2021/05/17 16:13:58 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	cmd_exit(char **arg, t_main *main)
+char	*strdup_secure(t_list **malloc, const char *s1, \
+			void (*quit)(char *, t_main *), t_main *main)
 {
-	(void)arg;
-	printf("exit\n");
-	quit_prog(0, main);
+	char	*s1copy;
+	int		i;
+
+	s1copy = calloc_secure(malloc, ft_strlen(s1) + 1 * sizeof(*s1copy), \
+		quit, main);
+	if (!s1copy)
+		quit("malloc in strdup_secure()", main);
+	i = -1;
+	while (s1[++i])
+		s1copy[i] = s1[i];
+	s1copy[i] = '\0';
+	return (s1copy);
 }

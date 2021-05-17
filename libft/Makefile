@@ -6,7 +6,7 @@
 #    By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 17:35:36 by odroz-ba          #+#    #+#              #
-#    Updated: 2021/05/05 19:05:03 by odroz-ba         ###   ########lyon.fr    #
+#    Updated: 2021/05/17 14:47:34 by odroz-ba         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ conversion/ft_toupper.o \
 gnl/get_next_line.o \
 memory/ft_bzero.o \
 memory/ft_calloc_lst.o \
+memory/ft_calloc_secure.o \
 memory/ft_calloc.o \
 memory/ft_memccpy.o \
 memory/ft_memchr.o \
@@ -63,6 +64,7 @@ print/ft_putstr_fd.o \
 strings/ft_split.o \
 strings/ft_strchr.o \
 strings/ft_strdup.o \
+strings/ft_strdup_secure.o \
 strings/ft_strjoin.o \
 strings/ft_strlcat.o \
 strings/ft_strlcpy.o \

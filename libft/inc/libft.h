@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 13:33:17 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/06 17:41:40 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 16:14:14 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
+
+typedef struct s_main t_main;
 
 typedef struct s_list
 {
@@ -77,6 +79,8 @@ int				get_next_line(int fd, char **line);
 **	memory
 */
 void			ft_bzero(void *s, size_t n);
+void			*calloc_secure(t_list **malloc_lst, size_t size, \
+					void (*quit)(char *, t_main *), t_main *main);
 void			*ft_calloc_lst(t_list **malloc_lst, size_t nbr, size_t size);
 void			*ft_calloc(size_t nbr, size_t size);
 void			*ft_memccpy(void *dst, const void *src, int c, size_t n);
@@ -101,6 +105,8 @@ void			ft_putstr_fd(char *s, int fd);
 char			**ft_split(char const *s, char c);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strdup(t_list **malloc, const char *s1);
+char			*strdup_secure(t_list **malloc, const char *s1, \
+					void (*quit)(char *, t_main *), t_main *main);
 char			*ft_strjoin(char const *s1, char const *s2);
 size_t			ft_strlcat(char *dest, const char *src, size_t size);
 size_t			ft_strlcpy(char *dest, const char *src, size_t size);

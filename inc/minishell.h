@@ -33,18 +33,6 @@ typedef enum	e_type_lex
 	FILE_NAME
 }				t_type_lex;
 
-typedef enum	e_type_cmd
-{
-	ECHO_CMD,
-	PWD_CMD,
-	CD_CMD,
-	ENV_CMD,
-	EXPORT_CMD,
-	UNSET_CMD,
-	EXIT_CMD
-
-}				t_type_cmd;
-
 struct s_main;
 
 typedef void	(*t_fct_cmd)(char **, struct s_main *);
@@ -52,7 +40,7 @@ typedef void	(*t_fct_cmd)(char **, struct s_main *);
 typedef struct	s_function
 {
 	t_fct_cmd		fct;
-	int				cmd;
+	char			*name;
 }				t_function;
 
 typedef struct	s_utils_lexer
@@ -73,6 +61,7 @@ typedef struct	s_lexer
 typedef struct	s_main
 {
 	char			*line;
+	char			**env;
 	t_list			*lexer;
 	t_list			*histo;
 	t_list			*free;
@@ -90,7 +79,7 @@ void	lexer(t_main *main);
 **	-->	CMD <--
 */
 void	cmd_others(char **arg, t_main *main);
-void	cmd_exec(int cmd, char **arg, t_main *main);
+void	cmd_exec(char **arg, t_main *main);
 void	cmd_echo(char **arg, t_main *main);
 void	cmd_pwd(char **arg, t_main *main);
 void	cmd_env(char **arg, t_main *main);

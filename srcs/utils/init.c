@@ -6,7 +6,7 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 18:37:02 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/11 18:41:37 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 15:00:26 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	init_cmd_fct(t_main *main)
 	main->cmd_fct[4].fct = &cmd_export;
 	main->cmd_fct[5].fct = &cmd_unset;
 	main->cmd_fct[6].fct = &cmd_exit;
-	main->cmd_fct[0].cmd = ECHO_CMD;
-	main->cmd_fct[1].cmd = PWD_CMD;
-	main->cmd_fct[2].cmd = CD_CMD;
-	main->cmd_fct[3].cmd = ENV_CMD;
-	main->cmd_fct[4].cmd = EXPORT_CMD;
-	main->cmd_fct[5].cmd = UNSET_CMD;
-	main->cmd_fct[6].cmd = EXIT_CMD;
+	main->cmd_fct[0].name = strdup_secure(&main->free, "echo", quit_prog, main);
+	main->cmd_fct[1].name = strdup_secure(&main->free, "pwd", quit_prog, main);
+	main->cmd_fct[2].name = strdup_secure(&main->free, "cd", quit_prog, main);
+	main->cmd_fct[3].name = strdup_secure(&main->free, "env", quit_prog, main);
+	main->cmd_fct[4].name = strdup_secure(&main->free, "export", quit_prog, main);
+	main->cmd_fct[5].name = strdup_secure(&main->free, "unset", quit_prog, main);
+	main->cmd_fct[6].name = strdup_secure(&main->free, "exit", quit_prog, main);
 }
