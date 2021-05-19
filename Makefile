@@ -12,6 +12,8 @@ LST_SRCS		=	main.c \
 					parsing/get_operator_command.c \
 					parsing/pars_line.c \
 					parsing/lexer.c \
+					parsing/manage_var_env.c \
+					parsing/reconize_type.c \
 					utils/quit_prog.c \
 					utils/ft_strncmp_minishell.c \
 					utils/ft_strdup_no_list.c \

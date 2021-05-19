@@ -22,15 +22,15 @@ typedef enum	e_caracter_lex
 	WORD_NOT_FINISHED,
 	SPACE,
 	WORD_FINISHED,
-	NEW_COMMAND,
 	LINE_FINISHED
 }				t_caracter_lex;
 
 typedef enum	e_type_lex
 {
 	COMMAND,
-	OPERATOR,
 	ARGUMENT,
+	NEW_COMMAND,
+	REDIRECTION,
 	FILE_NAME
 }				t_type_lex;
 
@@ -48,7 +48,6 @@ typedef struct	s_utils_lexer
 {
 	char	*word;
 	int		i;
-	int		w_count;
 	int		sing_q;
 	int		double_q;
 	int		echap;
@@ -76,6 +75,9 @@ typedef struct	s_main
 void	get_operator_command(t_main *main);
 void	pars_line(t_main *main);
 void	lexer(t_main *main);
+void	update_word(char c, t_utils_lexer *utils, t_main *main);
+void	check_local_var(t_utils_lexer *utils, t_main *main);
+void	reconize_type(const char *elem, t_lexer *lexer, t_main *main);
 
 /*
 **	-->	CMD <--
