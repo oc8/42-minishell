@@ -6,7 +6,7 @@
 #    By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 17:35:36 by odroz-ba          #+#    #+#              #
-#    Updated: 2021/05/17 14:47:34 by odroz-ba         ###   ########lyon.fr    #
+#    Updated: 2021/05/19 16:45:41 by odroz-ba         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ memory/ft_memcmp.o \
 memory/ft_memcpy.o \
 memory/ft_memmove.o \
 memory/ft_memset.o \
+memory/ft_memadd.o \
 memory/ft_switch.o \
 print/ft_putchar_fd.o \
 print/ft_putendl_fd.o \
@@ -69,6 +70,7 @@ strings/ft_strjoin.o \
 strings/ft_strlcat.o \
 strings/ft_strlcpy.o \
 strings/ft_strlen.o \
+strings/ft_doublestrlen.o \
 strings/ft_strmapi.o \
 strings/ft_strncmp.o \
 strings/ft_strnstr.o \
@@ -77,7 +79,7 @@ strings/ft_strtrim.o \
 strings/ft_substr.o \
 math/sort/ft_sort_ascending.o \
 math/ft_median.o \
-numbers/ft_tab_l_cpy.o
+len/ft_doublelen.o
 LST_SRCS	= ${SRCS:.o=.c}
 INCLUDES	= inc/libft.h
 NAME		= libft.a
@@ -88,7 +90,7 @@ AR			= ar
 ARFLAGS		= rcs
 PATH_SRCS	= srcs
 PATH_OBJS	= objs
-DIRS		= checker chain_list conversion gnl memory print strings numbers math math/sort
+DIRS		= checker chain_list conversion gnl memory print strings math math/sort len
 DIRS_OBJS	= $(addprefix $(PATH_OBJS)/,$(DIRS))
 SRCS		= $(addprefix $(PATH_SRCS)/,$(LST_SRCS))
 OBJS		= $(addprefix $(PATH_OBJS)/,$(LST_OBJS))

@@ -6,6 +6,7 @@
 # include <stdio.h>
 # include <curses.h>
 # include <term.h>
+# include <dirent.h>
 # include <sys/errno.h>
 
 # include "libft.h"
@@ -68,6 +69,8 @@ typedef struct	s_main
 	t_list			*free;
 	t_function		cmd_fct[7];
 }				t_main;
+
+void	loop(t_main *main);
 
 /*
 **	-->	PARSING <--

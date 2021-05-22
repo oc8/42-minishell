@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tab_l_cpy.c                                     :+:      :+:    :+:   */
+/*   ft_memadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/03 14:55:58 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/06 15:18:48 by odroz-ba         ###   ########lyon.fr   */
+/*   Created: 2021/05/18 14:54:54 by odroz-ba          #+#    #+#             */
+/*   Updated: 2021/05/19 17:15:20 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdio.h"
 
-long	*ft_tab_l_cpy(long *tabl, int nbr)
+void	*ft_memadd(void *src, size_t old_size, size_t new_size, size_t space)
 {
-	long	*tab_cpy;
+	char	*new;
+	size_t	i;
 
-	if (!nbr)
-		return (0);
-	tab_cpy = ft_calloc(nbr, sizeof(long));
-	while (--nbr >= 0)
-		tab_cpy[nbr] = tabl[nbr];
-	return (tab_cpy);
+	new = ft_calloc(new_size, space);
+	i = 0;
+	while (i < old_size * space && i < new_size * space)
+	{
+		new[i] = ((char *)src)[i];
+		i++;
+	}
+	free(src);
+	return (new);
 }

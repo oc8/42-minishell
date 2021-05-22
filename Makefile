@@ -1,24 +1,25 @@
 NAME			= minishell
-LST_SRCS		=	main.c \
-					cmd/others/execve.c \
-					cmd/cmd_exec.c \
-					cmd/echo/echo.c \
-					cmd/pwd/pwd.c \
-					cmd/cd/cd.c \
-					cmd/export/export.c \
-					cmd/unset/unset.c \
-					cmd/env/env.c \
-					cmd/exit/exit.c \
-					parsing/get_operator_command.c \
-					parsing/pars_line.c \
-					parsing/lexer.c \
-					parsing/manage_var_env.c \
-					parsing/reconize_type.c \
-					utils/quit_prog.c \
-					utils/ft_strncmp_minishell.c \
-					utils/ft_strdup_no_list.c \
-					utils/free_lexer.c \
-					utils/init.c
+LST_SRCS		= \
+	main.c \
+	cmd/others/execve.c \
+	cmd/cmd_exec.c \
+	cmd/echo/echo.c \
+	cmd/pwd/pwd.c \
+	cmd/cd/cd.c \
+	cmd/export/export.c \
+	cmd/unset/unset.c \
+	cmd/env/env.c \
+	cmd/exit/exit.c \
+	parsing/get_operator_command.c \
+	parsing/pars_line.c \
+	parsing/lexer.c \
+	parsing/manage_var_env.c \
+	parsing/reconize_type.c \
+	utils/quit_prog.c \
+	utils/ft_strncmp_minishell.c \
+	utils/ft_strdup_no_list.c \
+	utils/free_lexer.c \
+	utils/init.c
 SRCS_DIR		= srcs
 OBJS_DIR		= objs
 SRCS			= $(addprefix $(PATH_SRCS)/,$(LST_SRCS))
@@ -56,7 +57,7 @@ clean:
 fclean:			clean
 				${RM} $(OBJS_DIR) $(NAME)
 				make fclean -C $(LIBFT)
-				echo "${RED}XXXXX CLEAN XXXXX${END}"
+				echo "${RED}XNXX CLEAN XNXX${END}" # <-- corriger
 
 re:				fclean all
 

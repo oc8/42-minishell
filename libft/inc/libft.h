@@ -6,7 +6,7 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 13:33:17 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/17 16:14:14 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 16:45:07 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@
 # endif
 
 typedef struct s_main t_main;
+
+typedef enum	e_type
+{
+	TYPE_SIZE_T,
+	TYPE_INT,
+	TYPE_LONG,
+	TYPE_CHAR
+}				t_e_type;
 
 typedef struct s_list
 {
@@ -89,6 +97,7 @@ int				ft_memcmp(const void *s1, const void *s2, size_t n);
 void			*ft_memcpy(void *dest, const void *src, size_t n);
 void			*ft_memmove(void *dst, const void *src, size_t len);
 void			*ft_memset(void *s, int c, size_t n);
+void			*ft_memadd(void *src, size_t old, size_t new, size_t space);
 void			ft_switch(void *v1, void *v2);
 
 /*
@@ -111,6 +120,7 @@ char			*ft_strjoin(char const *s1, char const *s2);
 size_t			ft_strlcat(char *dest, const char *src, size_t size);
 size_t			ft_strlcpy(char *dest, const char *src, size_t size);
 size_t			ft_strlen(const char *s);
+size_t			ft_doublestrlen(char **s);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_strnstr (const char *big, const char *little, size_t len);
@@ -119,14 +129,14 @@ char			*ft_strtrim(char const *s1, char const *set);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 
 /*
-**	numbers
-*/
-long			*ft_tab_l_cpy(long *tabl, int nbr);
-
-/*
 **	math
 */
 void			ft_sort_ascending(long *lst, unsigned int size);
 long			ft_median(long *tabl, unsigned int size);
+
+/*
+**	len
+*/
+size_t			ft_doublelen(const void **s);
 
 #endif
