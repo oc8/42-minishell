@@ -6,7 +6,7 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 13:33:17 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/19 16:45:07 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 19:45:08 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_list			*ft_lstlast(t_list *lst);
 t_list			*ft_lstmap(t_list *l, void *(*f)(void *), void (*del)(void *));
 t_list			*ft_lstnew(void *content);
 int				ft_lstsize(t_list *lst);
+void			ft_lstdel_content(t_list *lst, void *content);
 
 /*
 **	checker

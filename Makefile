@@ -19,7 +19,8 @@ LST_SRCS		= \
 	utils/ft_strncmp_minishell.c \
 	utils/ft_strdup_no_list.c \
 	utils/free_lexer.c \
-	utils/init.c
+	utils/init.c \
+	utils/split_var.c
 SRCS_DIR		= srcs
 OBJS_DIR		= objs
 SRCS			= $(addprefix $(SRCS_DIR)/,$(LST_SRCS))
@@ -61,10 +62,10 @@ clean:
 
 fclean:			clean
 				${RM} $(OBJS_DIR) $(NAME)
-				printf "$(ERASE)${GREEN}--> CLEAN LIBFT <--${END}"
+				printf "$(ERASE)${GREEN}--> LIBFT CLEAN<--${END}"
 				make fclean -C $(LIBFT) > SILENT
 				$(RM) SILENT
-				printf "$(ERASE)${GREEN}--> CLEAN MINISHELL <--${END}"
+				printf "$(ERASE)${GREEN}--> MINISHELL CLEAN <--${END}"
 
 re:				fclean all
 
