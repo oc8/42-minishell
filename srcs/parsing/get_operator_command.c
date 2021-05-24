@@ -6,7 +6,7 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 16:43:55 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/22 13:45:55 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 14:20:48 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	get_operator_command(t_main *main)
 	t_list	*new_elem;
 	char	*new_line;
 
-	printf("\033[32mbash_des_freros$ \033[0m");
+	printf("\033[32m\033[1mbash_des_freros$ \033[0m");
 	ret = get_next_line(0, &main->line);
 	if (ret == -1)
 	{

@@ -22,7 +22,7 @@ LST_SRCS		= \
 	utils/init.c
 SRCS_DIR		= srcs
 OBJS_DIR		= objs
-SRCS			= $(addprefix $(PATH_SRCS)/,$(LST_SRCS))
+SRCS			= $(addprefix $(SRCS_DIR)/,$(LST_SRCS))
 OBJS			= $(LST_SRCS:%.c=$(OBJS_DIR)/%.o) $(OBJS_SHARED)
 CC				= gcc
 CFLAGS			= -Wall -Werror -Wextra
@@ -38,26 +38,32 @@ all:			libft $(NAME)
 $(OBJS_DIR):
 				$(MKDIR) $@
 
-libft: 
-				make -C ${LIBFT}
+libft:
+				printf "$(ERASE)${GREEN}--> LIBFT <--${END}"
+				make -C ${LIBFT} > SILENT
+				$(RM) SILENT
 
 ${NAME}:		${OBJS_DIR} ${OBJS}
 				${CC} ${CFLAGS} ${INCLUDE} ${OBJS} -L ${LIBFT} -lft -o ${NAME}
-				echo "$(BOLD)${GREEN}--> minishell generated <--${END}"
+				echo "$(BOLD)${GREEN}$(ERASE)--> minishell generated <--${END}"
 
 
 $(OBJS_DIR)/%.o:$(SRCS_DIR)/%.c inc/*.h
 				$(MKDIR) $(dir $@)
 				${CC} ${CFLAGS} $(INCLUDE) -c  $< -o $@
+				printf "$(ERASE)--> [$(GREEN)$<$(END)] <--"
 
 clean:
 				${RM} $(OBJS)
-				make clean -C $(LIBFT)
+				make clean -C $(LIBFT) > SILENT
+				$(RM) SILENT
 
 fclean:			clean
 				${RM} $(OBJS_DIR) $(NAME)
-				make fclean -C $(LIBFT)
-				echo "${RED}XNXX CLEAN XNXX${END}" # <-- corriger
+				printf "$(ERASE)${GREEN}--> CLEAN LIBFT <--${END}"
+				make fclean -C $(LIBFT) > SILENT
+				$(RM) SILENT
+				printf "$(ERASE)${GREEN}--> CLEAN MINISHELL <--${END}"
 
 re:				fclean all
 
