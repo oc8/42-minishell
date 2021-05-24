@@ -2,7 +2,7 @@
 
 void	cmd_env(char **arg, t_main *main)
 {
-	int	i;
+	size_t	i;
 
 	(void)arg;
 	i = 0;

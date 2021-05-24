@@ -42,6 +42,7 @@ libft:
 				printf "$(ERASE)${GREEN}--> LIBFT <--${END}"
 				make -C ${LIBFT} > SILENT
 				$(RM) SILENT
+				printf "$(ERASE)"
 
 ${NAME}:		${OBJS_DIR} ${OBJS}
 				${CC} ${CFLAGS} ${INCLUDE} ${OBJS} -L ${LIBFT} -lft -o ${NAME}

@@ -64,6 +64,7 @@ typedef struct	s_main
 {
 	char			*line;
 	char			**env;
+	size_t			nbr_env;
 	t_list			*lexer;
 	t_list			*histo;
 	t_list			*free;

@@ -6,7 +6,7 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:11:28 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/22 13:49:13 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 15:58:58 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,28 @@ void	loop(t_main *main)
 	}
 }
 
+char	**cpy_env(char *env[], t_main *main)
+{
+	char	**rs;
+	size_t	i;
+	size_t	len;
+
+	len = ft_doublelen((const void **)env) + 1;
+	main->nbr_env = len - 1;
+	rs = ft_calloc_lst(&main->free, len, sizeof(char *));
+	i = 0;
+	while (env[i])
+	{
+		len = ft_strlen(env[i]) + 1;
+		rs[i] = ft_calloc_lst(&main->free, len, sizeof(char));
+		ft_strlcpy(rs[i], env[i], len);
+		// printf("%s | %s : %zu\n", env[i], rs[i], len);
+		i++;
+	}
+	rs[i] = 0;
+	return (rs);
+}
+
 int	main(int argc, char *argv[], char *env[])
 {
 	t_main	main;
@@ -84,8 +106,7 @@ int	main(int argc, char *argv[], char *env[])
 	if (argc != 1)
 		quit_prog("minishell as to be launch without args\n", &main);
 	ft_bzero(&main, sizeof(t_main));
-	main.env = env;
-	// print_env(&main);
+	main.env = cpy_env(env, &main);
 	init_cmd_fct(&main);
 	loop(&main);
 	print_histo(&main);
