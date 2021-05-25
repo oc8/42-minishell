@@ -34,10 +34,10 @@ OBJS_DIR		= objs
 SRCS			= $(addprefix $(SRCS_DIR)/,$(LST_SRCS))
 OBJS			= $(LST_SRCS:%.c=$(OBJS_DIR)/%.o)
 CC				= gcc
-# CFLAGS			= -Wall -Werror -Wextra
+CFLAGS			= -Wall -Werror -Wextra
 # CFLAGS			= -g
 # CFLAGS			= -Wall -Werror -Wextra -fsanitize=address -g3
-CFLAGS			= -fsanitize=address -g3
+# CFLAGS			= -fsanitize=address -g3
 INCLUDE			= -Iinc -I${LIBFT}/inc
 RM				= rm -rf
 MKDIR			= mkdir -p

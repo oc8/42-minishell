@@ -107,7 +107,7 @@
 
 void	predefine_var(t_utils_lexer *utils, t_main *m)
 {
-	int	i;
+	// int	i;
 
 	utils->var_env = 1;
 	update_word('$', &utils->word);

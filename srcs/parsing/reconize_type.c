@@ -3,42 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   reconize_type.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 21:42:57 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/27 20:43:20 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/29 16:58:31 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	find_start_cmd_actual(t_main *main)
-{
-	t_list	*index;
-	t_lexer	*tmp;
-	int		start_cmd;
-	int		i;
+// static int	find_start_cmd_actual(t_main *main)
+// {
+// 	t_list	*index;
+// 	t_lexer	*tmp;
+// 	int		start_cmd;
+// 	int		i;
 
-	start_cmd = 0;
-	i = 0;
-	index = main->lexer;
-	while (index!= NULL)
-	{
-		tmp = index->content;
-		if (tmp->type == NEW_COMMAND)
-			start_cmd = i + 1;
-		index = index->next;
-		i++;
-	}
-	return (start_cmd);
-}
+// 	start_cmd = 0;
+// 	i = 0;
+// 	index = main->lexer;
+// 	while (index!= NULL)
+// 	{
+// 		tmp = index->content;
+// 		if (tmp->type == NEW_COMMAND)
+// 			start_cmd = i + 1;
+// 		index = index->next;
+// 		i++;
+// 	}
+// 	return (start_cmd);
+// }
 
 static int	first_command(t_main *main)
 {
 	t_list	*index;
 	t_lexer	*tmp;
-	int		start_cmd;
-	int		i;
+	// int		start_cmd;
+	// int		i;
 
 	// start_cmd = find_start_cmd_actual(main);
 	index = main->lexer;
@@ -59,7 +59,7 @@ static int	redirection_file(int i, t_main *main)
 {
 	t_list	*index;
 	t_lexer	*tmp;
-	int size;
+	// int size;
 
 	if (i == 0)
 		return (FALSE);
@@ -107,6 +107,7 @@ void	define_text_types(t_main *main)
 
 void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m)
 {
+	(void)m;
 	if (utils->var_env == 1)
 	{
 		lex->type = VAR_ENV;

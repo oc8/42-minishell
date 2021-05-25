@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:40:24 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/28 17:43:42 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/29 16:55:12 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	malloc_element(t_type_lex type, t_utils_lexer *utils, t_main *main)
 	lexer->value = ft_strdup_no_list(utils->word);
 	if (lexer->value == NULL)
 		quit_prog("Lexer value malloc", main);
-	if (type == -1)
-		reconize_primitive_type(lexer, utils, main);
-	else
+	// if (type == -1)
+	// 	reconize_primitive_type(lexer, utils, main); // mec un enum ne peut pas etre egale a -1
+	// else
 		lexer->type = type;
 	utils->word = NULL;
 	free(utils->word);
@@ -83,7 +83,7 @@ void	update_word(char c, char **str)
 void	tokenization(char *str, int indice, t_main *main)
 {
 	t_utils_lexer	utils;
-	t_caracter_lex	res;
+	// t_caracter_lex	res;
 
 	ft_bzero(&utils, sizeof(t_utils_lexer));
 	utils.i_lst = indice;

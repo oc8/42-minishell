@@ -28,7 +28,6 @@ void	create_cmd(t_main *main)
 	t_list		*tmp_lst;
 	t_lexer		*tmp_lex;
 
-	printf("test\n");
 	save = main->lexer;
 	while (main->lexer != NULL)
 	{
@@ -50,7 +49,8 @@ void	create_cmd(t_main *main)
 		create_param_cmd(&param, main);
 		ft_lstclear(&main->lexer, free_lexer);
 		// printf("save = %p\n", save);
-		exec_cmd(&param, main);
+		// printf("%s\n", param.cmd[0]);
+		// exec_cmd(&param, main);
 		free_param_cmd(&param);
 		if (save != NULL)
 			main->lexer = save;

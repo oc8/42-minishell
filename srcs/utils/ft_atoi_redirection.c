@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_atoi_redirection.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/23 18:53:12 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/28 14:55:27 by tdayde           ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 int	ft_atoi_redirection(const char *nptr, t_type_lex type)
@@ -17,12 +5,13 @@ int	ft_atoi_redirection(const char *nptr, t_type_lex type)
 	long long	rs;
 	int			i;
 
+	rs = 0;
 	i = 0;
 	if (!ft_isdigit(nptr[i]))
 	{
 		if (type == REDIR_INPUT)
 			rs = 0;
-		else if (type == REDIR_OUTPUT || type == APPEND_REDIR_OUTPUT)
+		else // if (type == REDIR_OUTPUT || type == APPEND_REDIR_OUTPUT)
 			rs = 1;
 		return (rs);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_caracter_lex.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 18:36:30 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/29 15:17:48 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/29 16:55:52 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	backslash(char c, t_utils_lexer *utils, t_main *main)
 {
+	(void)main;
 	if ((utils->double_q == 0 && utils->sing_q == 0 && utils->echap == 0)
 		|| (utils->double_q == 1 && utils->echap == 0))
 		utils->echap = 2;
@@ -24,6 +25,7 @@ static void	backslash(char c, t_utils_lexer *utils, t_main *main)
 
 static void	quotes(char c, t_utils_lexer *utils, t_main *main)
 {
+	(void)main;
 	if (c == '\'')
 	{
 		if (utils->double_q == 1 || utils->echap == 1)

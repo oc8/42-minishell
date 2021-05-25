@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verify_syntax.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 20:17:37 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/27 21:36:32 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/29 16:59:14 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static int	verify_new_command(int i, t_utils_lexer *utils, t_main *main)
 {
 	t_list	*index;
 	t_lexer	*tmp;
-	
+
+	(void)utils;
 	if (i == 0)
 	{
 		printf("bash: syntax error near unexpected token `;'\n");
@@ -42,7 +43,8 @@ static int	verify_redirection(int i, t_utils_lexer *utils, t_main *main)
 {
 	t_list	*index;
 	t_lexer	*tmp;
-	
+
+	(void)utils;
 	if (i == ft_lstsize(main->lexer) - 1)
 	{
 		printf("bash: syntax error near unexpected token `nexline'\n");

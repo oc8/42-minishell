@@ -6,7 +6,7 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 17:54:03 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/29 16:28:53 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/29 18:01:19 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ t_var_info	*contain_var(t_main *main)
 
 void	create_param_cmd(t_param_cmd *param, t_main *main)
 {
-	t_var_info	*var_info;
-	char		*to_treat;
+	// t_var_info	*var_info;
+	// char		*to_treat;
 	
 	// var_info = contain_var(main);
 	// while (var_info != NULL)
