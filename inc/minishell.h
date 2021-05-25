@@ -105,6 +105,7 @@ int		ft_strncmp_minishell(const char *s1, const char *s2, size_t n);
 char	*ft_strdup_no_list(const char *s1);
 void	free_lexer(void *s);
 void	init_cmd_fct(t_main *main);
-char	**split_var(char *var);
+char	**split_var(char *var, t_main *main);
+int		cmd_error(char *cmd, char *error, char *arg);
 
 #endif

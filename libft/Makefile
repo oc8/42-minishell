@@ -6,7 +6,7 @@
 #    By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 17:35:36 by odroz-ba          #+#    #+#              #
-#    Updated: 2021/05/24 20:43:04 by odroz-ba         ###   ########lyon.fr    #
+#    Updated: 2021/05/25 14:03:22 by odroz-ba         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ LST_OBJS	= \
 	memory/ft_memset.o \
 	memory/ft_memadd.o \
 	memory/ft_switch.o \
+	memory/ft_freedoublestr.o \
 	print/ft_putchar_fd.o \
 	print/ft_putendl_fd.o \
 	print/ft_putnbr_fd.o \
