@@ -22,6 +22,7 @@ LST_SRCS		= \
 	utils/free_lexer.c \
 	utils/init.c \
 	utils/split_var.c \
+	utils/print_lexer.c \
 	utils/error.c
 SRCS_DIR		= srcs
 OBJS_DIR		= objs
@@ -29,9 +30,9 @@ SRCS			= $(addprefix $(SRCS_DIR)/,$(LST_SRCS))
 OBJS			= $(LST_SRCS:%.c=$(OBJS_DIR)/%.o) $(OBJS_SHARED)
 CC				= gcc
 # CFLAGS			= -Wall -Werror -Wextra
-CFLAGS			= -g
+# CFLAGS			= -g
 # CFLAGS			= -Wall -Werror -Wextra -fsanitize=address -g3
-# CFLAGS			= -fsanitize=address -g3
+CFLAGS			= -fsanitize=address -g3
 INCLUDE			= -Iinc -I${LIBFT}/inc
 RM				= rm -rf
 MKDIR			= mkdir -p

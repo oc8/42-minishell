@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:40:24 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/25 15:01:21 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 21:11:03 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	check_caracter_lex(char c, t_utils_lexer *utils, t_main *main)
 	}
 }
 
-void	tokenization(t_main *main)
+void	tokenization(char *str, t_main *main)
 {
 	t_utils_lexer	utils;
 	t_caracter_lex	res;
@@ -133,10 +133,10 @@ void	tokenization(t_main *main)
 	res = WORD_NOT_FINISHED;
 	while (res != LINE_FINISHED) // && res != NEW_COMMAND)
 	{
-		res = check_caracter_lex(main->line[utils.i], &utils, main);
+		res = check_caracter_lex(str[utils.i], &utils, main);
 		if (utils.echap > 0 && res != LINE_FINISHED)
 			utils.echap--;
-		// printf("char = %c, res = %d\n", main->line[utils.i], res);
+		// printf("char = %c, res = %d\n", str[utils.i], res);
 		// if (res == WORD_FINISHED || res == LINE_FINISHED)
 		if (res != WORD_NOT_FINISHED)
 		{
@@ -148,8 +148,8 @@ void	tokenization(t_main *main)
 			{
 				// utils.w_count = 1;
 				// malloc_element(utils.i + 1, utils.w_count, main);
-				update_word(main->line[utils.i], &utils, main);
-				if (utils.word[0] == '>' && main->line[utils.i + 1] == '>')
+				update_word(str[utils.i], &utils, main);
+				if (utils.word[0] == '>' && str[utils.i + 1] == '>')
 				{
 					update_word('>', &utils, main);
 					utils.i++;

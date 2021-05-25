@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 21:42:57 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/25 15:01:07 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 20:41:54 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	find_start_cmd_actual(t_main *main)
 	index = main->lexer;
 	while (index!= NULL)
 	{
-		index = index->content;
+		tmp = index->content;
 		if (tmp->type == NEW_COMMAND)
 			start_cmd = i + 1;
 		index = index->next;
@@ -94,10 +94,10 @@ void	reconize_type(t_lexer *lex, t_utils_lexer *utils, t_main *main)
 
 void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m)
 {
-	if (!ft_strncmp(";", lex->value, 2))
-		lex->type = NEW_COMMAND;
+	if (!ft_strncmp(";", lex->value, 2) || !ft_strncmp("|", lex->value, 2))
+		lex->type = SEPARATOR;
 	else if (!ft_strncmp("<", lex->value, 2) || !ft_strncmp(">", lex->value, 2)
-		|| !ft_strncmp(">>", lex->value, 3) || !ft_strncmp("|", lex->value, 2))
+		|| !ft_strncmp(">>", lex->value, 3))
 		lex->type = REDIRECTION;
 	else if (utils->var_env == 1)
 	{

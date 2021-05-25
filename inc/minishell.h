@@ -24,7 +24,7 @@ typedef enum	e_caracter_lex
 typedef enum	e_type_lex
 {
 	REDIRECTION,
-	NEW_COMMAND,
+	SEPARATOR,
 	VAR_ENV,
 	TO_DEFINE,
 	COMMAND,
@@ -33,6 +33,7 @@ typedef enum	e_type_lex
 	REDIRECTION_OUTPUT,
 	APPEND_REDIRECTION_OUTPUT,
 	PIPE,
+	NEW_COMMAND,
 	FILE_NAME,
 }				t_type_lex;
 
@@ -95,10 +96,10 @@ void	loop(t_main *main);
 **	-->	PARSING <--
 */
 void	get_operator_command(t_main *main);
-void	tokenization(t_main *main);
+void	tokenization(char *str, t_main *main);
 void	update_word(char c, t_utils_lexer *utils, t_main *main);
 void	predefine_var(t_utils_lexer *utils, t_main *m);
-void	check_local_var(t_utils_lexer *utils, t_main *main);
+void	check_caracter_var(t_utils_lexer *utils, t_main *main);
 void	verify_syntax(t_utils_lexer *utils, t_main *main);
 void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m);
 void	reconize_type(t_lexer *lex, t_utils_lexer *utils, t_main *m);
@@ -128,5 +129,6 @@ void	free_lexer(void *s);
 void	init_cmd_fct(t_main *main);
 char	**split_var(char *var, t_main *main);
 int		cmd_error(char *cmd, char *error, char *arg);
+void	print_lexer(t_main *main);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 12:35:12 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/25 15:03:41 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 20:55:02 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ static void	add_var(size_t indice, t_utils_lexer *utils, t_main *main)
 		update_word(main->env[indice][j++], utils, main);
 }
 
-void	check_local_var(t_utils_lexer *utils, t_main *main)
+void	check_caracter_var(t_utils_lexer *utils, t_main *main)
 {
 	int		indice_var;
 	char	*var;

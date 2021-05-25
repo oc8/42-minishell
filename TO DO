@@ -1,4 +1,8 @@
+OCEAN:
 - proteger les fonctions "dir"
 - unset
 - free split_var
 - strerrno(errno)
+
+THOMAS:
+- changer tokenisation pour mettre un char * en param, et un start de ou ajouter les elements dan la liste.

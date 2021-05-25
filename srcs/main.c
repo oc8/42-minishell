@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:11:28 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/25 18:42:25 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 21:09:39 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,36 +21,6 @@ void	print_histo(t_main *main)
 	{
 		printf("%s\n", tmp->content);
 		tmp = tmp->next;
-	}
-}
-
-void	print_lexer(t_main *main)
-{
-	t_lexer	*tmp;
-	t_list	*iter;
-	
-	printf("Lexer , size = %d : \n", ft_lstsize(main->lexer));
-	iter = main->lexer;
-	while (iter != NULL)
-	{
-		tmp = iter->content;
-		printf("Value = |%s|\n", tmp->value);
-		if (tmp->type == COMMAND)
-			printf("Type = COMMAND\n");
-		else if (tmp->type == ARGUMENT)
-			printf("Type = ARGUMENT\n");
-		else if (tmp->type == NEW_COMMAND)
-			printf("Type = NEW_COMMAND\n");
-		else if (tmp->type == FILE_NAME)
-			printf("Type = FILE_NAME\n");
-		else if (tmp->type == REDIRECTION)
-			printf("Type = REDIRECTION\n");
-		else if (tmp->type == TO_DEFINE)
-			printf("Type = TO_DEFINE\n");
-		else if (tmp->type == VAR_ENV)
-			printf("Type = VAR_ENV\n");
-		printf("\n");
-		iter = iter->next;
 	}
 }
 
@@ -71,16 +41,20 @@ void	create_cmd(t_main *main)
 	t_lexer		*tmp_lex;
 
 	ft_bzero(&param, sizeof(t_param_cmd));
+	save = main->lexer;
 	while (main->lexer != NULL)
 	{
-		save = main->lexer;
 		tmp_lex = save->content;
-		while (save != NULL && tmp_lex->type != NEW_COMMAND && tmp_lex->type != PIPE)
-			save = save->next;
-		if (tmp_lex->type == NEW_COMMAND || tmp_lex->type == PIPE)
+		while (save != NULL && tmp_lex->type != SEPARATOR)
 		{
-			if (tmp_lex->type == PIPE)
-				param.pipe = 1;
+			save = save->next;
+			if (save != NULL)
+				tmp_lex = save->content;
+		}
+		if (save != NULL)
+		{
+			// if (tmp_lex->type == PIPE)
+			// 	param.pipe = 1;
 			tmp_lst = save;
 			save = save->next;
 			tmp_lst->next = NULL;
@@ -89,8 +63,10 @@ void	create_cmd(t_main *main)
 		// 	save = main->lexer;
 		create_param_cmd(&param, main);
 		ft_lstclear(&main->lexer, free_lexer);
+		// printf("save = %p\n", save);
 		if (save != NULL)
 			main->lexer = save;
+		// printf("main->lexer = %p\n", main->lexer);
 		// cmd_exec(&param, main);
 	}
 }
@@ -102,10 +78,11 @@ void	loop(t_main *main)
 		if (main->line != NULL)
 			free(main->line);
 		get_operator_command(main);
-		tokenization(main);
-		print_lexer(main);
-		// create_cmd(main);
-		if(main->lexer != NULL)
+		tokenization(main->line, main);
+		// print_lexer(main);
+		create_cmd(main);
+		// printf("TEST, main->lexer = %p\n", main->lexer);
+		if (main->lexer != NULL)
 			ft_lstclear(&main->lexer, free_lexer);
 	}
 }
