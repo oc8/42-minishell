@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:11:28 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/25 18:42:25 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 19:36:29 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,10 @@ void	loop(t_main *main)
 		if (main->line != NULL)
 			free(main->line);
 		get_operator_command(main);
-		tokenization(main);
-		print_lexer(main);
+		// tokenization(main);
+		// print_lexer(main);
 		// create_cmd(main);
+		test_cmd_exec(main);
 		if(main->lexer != NULL)
 			ft_lstclear(&main->lexer, free_lexer);
 	}
