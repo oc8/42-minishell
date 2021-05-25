@@ -145,5 +145,6 @@ void	init_cmd_fct(t_main *main);
 char	**split_var(char *var, t_main *main);
 int		cmd_error(char *cmd, char *error, char *arg);
 void	print_lexer(t_main *main);
+int		check_var_name(char *name);
 
 #endif
