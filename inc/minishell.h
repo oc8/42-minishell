@@ -128,5 +128,6 @@ void	free_lexer(void *s);
 void	init_cmd_fct(t_main *main);
 char	**split_var(char *var, t_main *main);
 int		cmd_error(char *cmd, char *error, char *arg);
+int		check_var_name(char *name);
 
 #endif

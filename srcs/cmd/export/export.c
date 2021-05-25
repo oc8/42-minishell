@@ -6,7 +6,7 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 16:56:40 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/25 17:59:49 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 21:08:40 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,20 @@ static void	print_env(t_main *main)
 	}
 }
 
-static int	check_var(char *var)
+int	check_var_name(char *name)
 {
 	size_t	i;
-	size_t	equal;
 
-	equal = 0;
-	while (var[equal] && var[equal] != '=')
-		equal++;
-	if (var[equal] != '=')
-		return (2);
 	i = 0;
-	if (!ft_isalpha(var[i]))
+	if (!ft_isalpha(name[i]))
 		return (1);
-	if (var[equal - 1] == '+' && equal > 1)
-		equal--;
-	while (var[++i] && i < equal)
-		if (!ft_isalnum(var[i]))
+	while (name[++i] && name[i] != '=' && name[i] != '+')
+		if (!ft_isalnum(name[i]))
 			return (1);
-	if (var[equal] == '+')
-		equal++;
+	if (name[i] == '+' && name[i + 1] != '=')
+		return (1);
+	if (!name[i])
+		return (2);
 	return (0);
 }
 
@@ -61,11 +55,12 @@ static int	check_vars(char **arg)
 	i = 0;
 	while (arg[i])
 	{
-		rv = check_var(arg[i]);
+		rv = check_var_name(arg[i]);
 		if (rv == 1)
 			return (cmd_error("export", "not a valid identifier", arg[i]));
 		else if (rv == 2)
 			return (1);
+		i++;
 	}
 	return (0);
 }

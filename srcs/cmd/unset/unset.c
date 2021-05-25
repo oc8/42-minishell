@@ -6,12 +6,25 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 16:56:24 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/25 15:36:42 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 21:08:52 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	check_vars(char **arg)
+{
+	size_t	i;
+
+	i = 0;
+	while (arg[i])
+	{
+		if (check_var_name(arg[i]) != 2)
+			return (cmd_error("export", "not a valid identifier", arg[i]));
+		i++;
+	}
+	return (0);
+}
 
 void	cmd_unset(char **arg, t_main *main)
 {
@@ -20,7 +33,7 @@ void	cmd_unset(char **arg, t_main *main)
 	size_t	*len;
 	size_t	i;
 
-	if (!arg[0])
+	if (!arg[0] || check_vars(arg))
 		return ;
 	len = &main->nbr_env;
 	var = ft_split(arg[0], '=');
