@@ -11,10 +11,11 @@ LST_SRCS		= \
 	cmd/env/env.c \
 	cmd/exit/exit.c \
 	parsing/get_operator_command.c \
-	parsing/pars_line.c \
-	parsing/lexer.c \
+	parsing/tokenization.c \
+	parsing/create_param_cmd.c \
 	parsing/manage_var_env.c \
 	parsing/reconize_type.c \
+	parsing/verify_syntax.c \
 	utils/quit_prog.c \
 	utils/ft_strncmp_minishell.c \
 	utils/ft_strdup_no_list.c \

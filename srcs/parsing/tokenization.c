@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:40:24 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/19 22:03:36 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 15:01:21 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	malloc_element(t_utils_lexer *utils, t_main *main)
 		quit_prog("Lexer value malloc", main);
 	free(utils->word);
 	utils->word = NULL;
-	reconize_type(lexer->value, lexer, main);
+	reconize_primitive_type(lexer, utils, main);
+	// reconize_type(lexer, utils, main);
 	new = ft_lstnew(lexer);
 	ft_lstadd_back(&main->lexer, new);
 }
@@ -95,7 +96,8 @@ int	check_caracter_lex(char c, t_utils_lexer *utils, t_main *main)
 		if (utils->sing_q == 1 || (utils->double_q == 1 && utils->echap == 1))
 			update_word(c, utils, main);
 		else
-			check_local_var(utils, main);
+			// check_local_var(utils, main);
+			predefine_var(utils, main);
 		return (WORD_NOT_FINISHED);
 	}
 	else if (c == '>' || c == '<' || c == '|' || c == ' ' || c == ';')
@@ -121,7 +123,7 @@ int	check_caracter_lex(char c, t_utils_lexer *utils, t_main *main)
 	}
 }
 
-void	lexer(t_main *main)
+void	tokenization(t_main *main)
 {
 	t_utils_lexer	utils;
 	t_caracter_lex	res;
@@ -161,13 +163,11 @@ void	lexer(t_main *main)
 	if (utils.word)
 		// malloc_element(utils.i, utils.w_count, main);
 		malloc_element(&utils, main);
-	if (utils.echap || utils.double_q || utils.sing_q)
-	{
-		printf("Error : Multiline is not accepted\n");
-		if (main->lexer != NULL)
-			ft_lstclear(&main->lexer, free_lexer);
-		// free(main->line);
-		// main->line = NULL;
-		// return;
-	}
+	verify_syntax(&utils, main);
+	// if (utils.echap || utils.double_q || utils.sing_q)
+	// {
+	// 	printf("Error : Multiline is not accepted\n");
+	// 	if (main->lexer != NULL)
+	// 		ft_lstclear(&main->lexer, free_lexer);
+	// }
 }

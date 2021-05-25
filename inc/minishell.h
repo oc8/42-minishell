@@ -13,11 +13,6 @@
 
 # define PWD_MAX_SIZE 256
 
-// typedef enum	e_error
-// {
-
-// }				t_e_error;
-
 typedef enum	e_caracter_lex
 {
 	WORD_NOT_FINISHED,
@@ -28,11 +23,17 @@ typedef enum	e_caracter_lex
 
 typedef enum	e_type_lex
 {
+	REDIRECTION,
+	NEW_COMMAND,
+	VAR_ENV,
+	TO_DEFINE,
 	COMMAND,
 	ARGUMENT,
-	NEW_COMMAND,
-	REDIRECTION,
-	FILE_NAME
+	REDIRECTION_INPUT,
+	REDIRECTION_OUTPUT,
+	APPEND_REDIRECTION_OUTPUT,
+	PIPE,
+	FILE_NAME,
 }				t_type_lex;
 
 struct s_main;
@@ -52,13 +53,30 @@ typedef struct	s_utils_lexer
 	int		sing_q;
 	int		double_q;
 	int		echap;
+	int		var_env;
 }				t_utils_lexer;
 
 typedef struct	s_lexer
 {
-	int		type;
-	char	*value;
+	t_type_lex		type;
+	char			*value;
 }				t_lexer;
+
+typedef struct	s_redir
+{
+	int		fd;
+	char	*file;
+	char	*var_err;
+}				t_redir;
+
+typedef struct	s_param_cmd
+{
+	char	**cmd;
+	t_redir	input_redir;
+	t_redir	*output_redir;
+	t_redir	*append_output_redir;
+	int		pipe;
+}				t_param_cmd;
 
 typedef struct	s_main
 {
@@ -77,11 +95,14 @@ void	loop(t_main *main);
 **	-->	PARSING <--
 */
 void	get_operator_command(t_main *main);
-void	pars_line(t_main *main);
-void	lexer(t_main *main);
+void	tokenization(t_main *main);
 void	update_word(char c, t_utils_lexer *utils, t_main *main);
+void	predefine_var(t_utils_lexer *utils, t_main *m);
 void	check_local_var(t_utils_lexer *utils, t_main *main);
-void	reconize_type(const char *elem, t_lexer *lexer, t_main *main);
+void	verify_syntax(t_utils_lexer *utils, t_main *main);
+void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m);
+void	reconize_type(t_lexer *lex, t_utils_lexer *utils, t_main *m);
+void	create_param_cmd(t_param_cmd *param, t_main *main);
 
 /*
 **	-->	CMD <--

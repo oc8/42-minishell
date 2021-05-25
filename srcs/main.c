@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:11:28 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/24 16:12:58 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 18:42:25 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ void	print_lexer(t_main *main)
 			printf("Type = FILE_NAME\n");
 		else if (tmp->type == REDIRECTION)
 			printf("Type = REDIRECTION\n");
+		else if (tmp->type == TO_DEFINE)
+			printf("Type = TO_DEFINE\n");
+		else if (tmp->type == VAR_ENV)
+			printf("Type = VAR_ENV\n");
 		printf("\n");
 		iter = iter->next;
 	}
@@ -59,6 +63,38 @@ void	print_env(t_main *main)
 		printf("%s\n", main->env[i]);
 }
 
+void	create_cmd(t_main *main)
+{
+	t_param_cmd	param;
+	t_list		*save;
+	t_list		*tmp_lst;
+	t_lexer		*tmp_lex;
+
+	ft_bzero(&param, sizeof(t_param_cmd));
+	while (main->lexer != NULL)
+	{
+		save = main->lexer;
+		tmp_lex = save->content;
+		while (save != NULL && tmp_lex->type != NEW_COMMAND && tmp_lex->type != PIPE)
+			save = save->next;
+		if (tmp_lex->type == NEW_COMMAND || tmp_lex->type == PIPE)
+		{
+			if (tmp_lex->type == PIPE)
+				param.pipe = 1;
+			tmp_lst = save;
+			save = save->next;
+			tmp_lst->next = NULL;
+		}
+		// else if (save == NULL)
+		// 	save = main->lexer;
+		create_param_cmd(&param, main);
+		ft_lstclear(&main->lexer, free_lexer);
+		if (save != NULL)
+			main->lexer = save;
+		// cmd_exec(&param, main);
+	}
+}
+
 void	loop(t_main *main)
 {
 	while (ft_strncmp_minishell(main->line, "exit", 5))
@@ -66,10 +102,9 @@ void	loop(t_main *main)
 		if (main->line != NULL)
 			free(main->line);
 		get_operator_command(main);
-		// pars_line(&main);
-		// print_line(&main);
-		// print_lexer(&main);
-		test_cmd_exec(main);
+		tokenization(main);
+		print_lexer(main);
+		// create_cmd(main);
 		if(main->lexer != NULL)
 			ft_lstclear(&main->lexer, free_lexer);
 	}

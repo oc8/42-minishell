@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_line.c                                        :+:      :+:    :+:   */
+/*   create_param_cmd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/07 11:52:39 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/10 18:55:06 by tdayde           ###   ########lyon.fr   */
+/*   Created: 2021/05/25 17:54:03 by tdayde            #+#    #+#             */
+/*   Updated: 2021/05/25 17:54:52 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pars_line(t_main *main)
+void	create_param_cmd(t_param_cmd *param, t_main *main)
 {
-	lexer(main);
+	
 }

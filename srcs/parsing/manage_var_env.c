@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 12:35:12 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/19 21:44:45 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 15:03:41 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,11 +124,19 @@ void	check_local_var(t_utils_lexer *utils, t_main *main)
 		add_var(indice_var, utils, main);
 	if (var != NULL)
 		free(var);
-	// if (main->line[utils->i] == '\0')
-	// 	return (LINE_FINISHED);
-	// else
-	// {
-		// utils->i--;
-		// return (WORD_NOT_FINISHED);
-	// }
+}
+
+void	predefine_var(t_utils_lexer *utils, t_main *m)
+{
+	int	i;
+
+	utils->var_env = 1;
+	update_word('$', utils, m);
+	utils->i++;
+	while (ft_isalnum(m->line[utils->i]) || m->line[utils->i] == '_')
+	{
+		update_word(m->line[utils->i], utils, m);
+		utils->i++;
+	}
+	utils->i--;
 }
