@@ -21,7 +21,8 @@ LST_SRCS		= \
 	utils/ft_strdup_no_list.c \
 	utils/free_lexer.c \
 	utils/init.c \
-	utils/split_var.c \
+	utils/var.c \
+	utils/env.c \
 	utils/error.c
 SRCS_DIR		= srcs
 OBJS_DIR		= objs

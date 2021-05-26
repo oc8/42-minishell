@@ -6,7 +6,7 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:13:49 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/25 21:11:29 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 20:16:19 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ static char *check_path(char **paths, char *cmd)
 			{
 				closedir(dir);
 				path = ft_strdup_no_list(paths[i]);
-				ft_freedoublestr(paths);
+				// ft_freedoublestr(&paths);
 				return (path);
 			}
 		closedir(dir);
 		i++;
 	}
-	ft_freedoublestr(paths);
+	// ft_freedoublestr(&paths);
 	return (ft_strdup_no_list(""));
 }
 
@@ -58,7 +58,7 @@ static char	*cmd_path(char *cmd, t_main *main)
 		paths = 0;
 	else
 		paths = ft_split(var_path[1], ':');
-	ft_freedoublestr(var_path);
+	// ft_freedoublestr(&var_path);
 	return (check_path(paths, cmd));
 }
 
@@ -76,7 +76,7 @@ void	cmd_others(char **arg, t_main *main)
 	if (!path || !path[0])
 	{
 		free(path);
-		cmd_error(arg[0], "command not found", 0);
+		cmd_error(arg[0], "command not found", 0, 127);
 		return ;
 	}
 	cmd = ft_strjoin(path, "/");
@@ -88,7 +88,9 @@ void	cmd_others(char **arg, t_main *main)
 		quit_prog("error fork", main);
 	else if (pid == 0)
 	{
-		printf("%d\n", execve(cmd, arg, main->env));
+		if (execve(cmd, arg, main->env) < 0)
+		// 	strerrno(errno);
+			;
 		exit(0);
 	}
 	else

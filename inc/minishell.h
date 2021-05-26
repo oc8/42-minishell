@@ -127,7 +127,10 @@ char	*ft_strdup_no_list(const char *s1);
 void	free_lexer(void *s);
 void	init_cmd_fct(t_main *main);
 char	**split_var(char *var, t_main *main);
-int		cmd_error(char *cmd, char *error, char *arg);
+int		cmd_error(char *cmd, char *error, char *arg, int nbr);
 int		check_var_name(char *name);
+int		var_defined(char *var, t_main *main);
+void	new_var(char *add, t_main *main);
+void	add_to_var(char *add, size_t i, t_main *main);
 
 #endif

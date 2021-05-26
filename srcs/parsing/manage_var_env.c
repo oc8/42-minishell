@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_var_env.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 12:35:12 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/25 15:03:41 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 20:40:09 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,23 +79,6 @@ static char	*get_var_name(t_utils_lexer *utils, t_main *m)
 	return (var);
 }
 
-static int	var_defined(char *var, t_utils_lexer *utils, t_main *main)
-{
-	size_t	i;
-	size_t	j;
-
-	i = -1;
-	while (main->env[++i] != NULL)
-	{
-		j = 0;
-		while (var[j] == main->env[i][j])
-			j++;
-		if (var[j] == '\0' && main->env[i][j] == '=')
-			return (i);
-	}
-	return (-1);
-}
-
 static void	add_var(size_t indice, t_utils_lexer *utils, t_main *main)
 {
 	size_t	j;
@@ -118,7 +101,7 @@ void	check_local_var(t_utils_lexer *utils, t_main *main)
 	// printf("var = %s\n", var);
 //			SI $ SEUL ou FINIT PAR \, IMPRIMER SEULEMENT LE $
 	if (var != NULL)
-		indice_var = var_defined(var, utils, main);
+		indice_var = var_defined(var, main);
 	// printf("indice_var = %d, main->env[indice_var] = |%s|\n", indice_var, main->env[indice_var]);
 	if (indice_var != -1)
 		add_var(indice_var, utils, main);
