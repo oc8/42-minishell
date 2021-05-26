@@ -6,45 +6,53 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 17:54:03 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/25 21:11:15 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 16:54:15 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		contain_var(t_main *main)
+t_var_info	*contain_var(t_main *main)
 {
-	t_list	*index;
-	t_lexer	*tmp;
+	t_list		*index;
+	t_lexer		*tmp;
+	t_var_info	*var_info;
 	int i;
 
-	i = 0;
+	i = 1;
 	index = main->lexer;
 	while (index!= NULL)
 	{
 		tmp = index->content;
 		if (tmp->type == VAR_ENV)
-			return (i);
+		{
+			var_info = malloc(sizeof(t_var_info));
+			if (!var_info)
+				quit_prog("var_info malloc creation", main);
+			var_info->i_lst = i;
+			var_info->value = ft_strdup_no_list(tmp->value);
+			return (var_info);
+		}
 		index = index->next;
 		i++;
 	}
-	return (-1);
+	return (NULL);
 }
 
 
 
 void	create_param_cmd(t_param_cmd *param, t_main *main)
 {
-	int	var_index;
-	int	i;
+	t_var_info	*var_info;
 	
 	print_lexer(main);
-	// var_index = contain_var(main);
-	// while (var_index != -1)
+	// var_info = contain_var(main);
+	// while (var_info != NULL)
 	// {
-	// 	while ()
-	// 	add_var(var_index, main);
-
+	// 	tokenization(var_info->value, var_info->i_lst, main);
+	// 	free(var_info->value);
+	// 	free(var_info);
+	// 	var_info = contain_var(main);
 	// }
 
 }

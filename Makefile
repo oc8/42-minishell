@@ -12,6 +12,7 @@ LST_SRCS		= \
 	cmd/exit/exit.c \
 	parsing/get_operator_command.c \
 	parsing/tokenization.c \
+	parsing/check_caracter_lex.c \
 	parsing/create_param_cmd.c \
 	parsing/manage_var_env.c \
 	parsing/reconize_type.c \

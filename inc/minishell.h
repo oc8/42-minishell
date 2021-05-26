@@ -54,6 +54,7 @@ typedef struct	s_utils_lexer
 	int		sing_q;
 	int		double_q;
 	int		echap;
+	int		i_lst;
 	int		var_env;
 }				t_utils_lexer;
 
@@ -62,6 +63,12 @@ typedef struct	s_lexer
 	t_type_lex		type;
 	char			*value;
 }				t_lexer;
+
+typedef struct	s_var_info
+{
+	int		i_lst;
+	char	*value;
+}				t_var_info;
 
 typedef struct	s_redir
 {
@@ -96,10 +103,11 @@ void	loop(t_main *main);
 **	-->	PARSING <--
 */
 void	get_operator_command(t_main *main);
-void	tokenization(char *str, t_main *main);
+void	tokenization(char *str, int indice, t_main *main);
 void	update_word(char c, t_utils_lexer *utils, t_main *main);
 void	predefine_var(t_utils_lexer *utils, t_main *m);
 void	check_caracter_var(t_utils_lexer *utils, t_main *main);
+int		check_caracter_lex(char c, t_utils_lexer *utils, t_main *main);
 void	verify_syntax(t_utils_lexer *utils, t_main *main);
 void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m);
 void	reconize_type(t_lexer *lex, t_utils_lexer *utils, t_main *m);

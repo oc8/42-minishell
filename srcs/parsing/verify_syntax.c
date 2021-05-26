@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 20:17:37 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/24 20:49:39 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 20:43:09 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,17 @@ static int	verify_new_command(int i, t_utils_lexer *utils, t_main *main)
 	t_list	*index;
 	t_lexer	*tmp;
 	
-	if (i == ft_lstsize(main->lexer))
-		return (1);
+	if (i == 0)
+	{
+		printf("bash: syntax error near unexpected token `;'\n");
+		if (main->lexer != NULL)
+			ft_lstclear(&main->lexer, free_lexer);
+		return (-1);
+	}
 	index = main->lexer;
-	// printf("i = %d, size = %d\n", i, ft_lstsize(main->lexer));
 	while (--i > 0)
 		index = index->next;
-	index = index->next;
+	// index = index->next;
 	tmp = index->content;
 	if (tmp->type == NEW_COMMAND)
 	{
@@ -49,7 +53,7 @@ static int	verify_redirection(int i, t_utils_lexer *utils, t_main *main)
 	}
 	// printf("i = %d, size = %d\n", i, ft_lstsize(main->lexer));
 	index = main->lexer;
-	while (--i > 0)
+	while (--i >= 0)
 		index = index->next;
 	index = index->next;
 	tmp = index->content;
@@ -75,16 +79,16 @@ void	verify_syntax(t_utils_lexer *utils, t_main *main)
 		if (main->lexer != NULL)
 			ft_lstclear(&main->lexer, free_lexer);
 	}
-	i = 1;
+	i = 0;
 	index = main->lexer;
 	while (index != NULL)
 	{
 		tmp = index->content;
-		if (tmp->type == REDIRECTION)
-			if (verify_redirection(i, utils, main) == -1)
+		if (tmp->type == REDIRECTION
+			&& verify_redirection(i, utils, main) == -1)
 				return ;
-		if (tmp->type == NEW_COMMAND)
-			if (verify_new_command(i, utils, main) == -1)
+		else if (tmp->type == NEW_COMMAND
+			&& verify_new_command(i, utils, main) == -1)
 				return ;
 		index = index->next;
 		i++;

@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:11:28 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/25 21:09:39 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 18:45:16 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	create_cmd(t_main *main)
 	while (main->lexer != NULL)
 	{
 		tmp_lex = save->content;
-		while (save != NULL && tmp_lex->type != SEPARATOR)
+		while (save != NULL && tmp_lex->type != PIPE
+			&& tmp_lex->type != NEW_COMMAND)
 		{
 			save = save->next;
 			if (save != NULL)
@@ -78,7 +79,7 @@ void	loop(t_main *main)
 		if (main->line != NULL)
 			free(main->line);
 		get_operator_command(main);
-		tokenization(main->line, main);
+		tokenization(main->line, 0, main);
 		// print_lexer(main);
 		create_cmd(main);
 		// printf("TEST, main->lexer = %p\n", main->lexer);
@@ -120,6 +121,7 @@ int	main(int argc, char *argv[], char *env[])
 	ft_bzero(&main, sizeof(t_main));
 	main.env = cpy_env(env, &main);
 	init_cmd_fct(&main);
+	// print_env(&main);
 	loop(&main);
 	print_histo(&main);
 	free(main.line);

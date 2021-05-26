@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 12:35:12 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/25 20:55:02 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 15:08:09 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static char	*get_var_name(t_utils_lexer *utils, t_main *m)
 	return (var);
 }
 
-static int	var_defined(char *var, t_utils_lexer *utils, t_main *main)
+static int	var_defined(char *var, t_main *main)
 {
 	size_t	i;
 	size_t	j;
@@ -118,7 +118,7 @@ void	check_caracter_var(t_utils_lexer *utils, t_main *main)
 	// printf("var = %s\n", var);
 //			SI $ SEUL ou FINIT PAR \, IMPRIMER SEULEMENT LE $
 	if (var != NULL)
-		indice_var = var_defined(var, utils, main);
+		indice_var = var_defined(var, main);
 	// printf("indice_var = %d, main->env[indice_var] = |%s|\n", indice_var, main->env[indice_var]);
 	if (indice_var != -1)
 		add_var(indice_var, utils, main);

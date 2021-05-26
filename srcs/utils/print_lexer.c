@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 19:53:01 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/25 20:33:58 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 17:14:30 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	print_lexer(t_main *main)
 			printf("Type = VAR_ENV\n");
 		else if (tmp->type == SEPARATOR)
 			printf("Type = SEPARATOR\n");
+		else if (tmp->type == PIPE)
+			printf("Type = PIPE\n");
 		printf("\n");
 		iter = iter->next;
 	}

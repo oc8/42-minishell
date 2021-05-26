@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 21:42:57 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/25 20:41:54 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 18:27:37 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ static int	redirection_file(t_main *main)
 		return (FALSE);
 }
 
+// static int	is_not_arg()
+
 void	reconize_type(t_lexer *lex, t_utils_lexer *utils, t_main *main)
 {
 	if (!ft_strncmp(";", lex->value, 2))
@@ -94,8 +96,11 @@ void	reconize_type(t_lexer *lex, t_utils_lexer *utils, t_main *main)
 
 void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m)
 {
-	if (!ft_strncmp(";", lex->value, 2) || !ft_strncmp("|", lex->value, 2))
-		lex->type = SEPARATOR;
+	printf("echap = %d, s_sing_q = %d, double_q = %d, word = %s\n", utils->echap, utils->sing_q, utils->double_q, utils->word);
+	if (!ft_strncmp(";", lex->value, 2))
+		lex->type = NEW_COMMAND;
+	else if (!ft_strncmp("|", lex->value, 2))
+		lex->type = PIPE;
 	else if (!ft_strncmp("<", lex->value, 2) || !ft_strncmp(">", lex->value, 2)
 		|| !ft_strncmp(">>", lex->value, 3))
 		lex->type = REDIRECTION;
