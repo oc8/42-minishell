@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	cmd_error(char *cmd, char *error, char *arg)
+int	cmd_error(char *cmd, char *error, char *arg, int nbr)
 {
 	printf("\033[31mbash_des_freros: ");
 	if (cmd)
@@ -10,5 +10,6 @@ int	cmd_error(char *cmd, char *error, char *arg)
 	if (error)
 		printf("%s: ", error);
 	printf("\n\033[0m");
+	errno = nbr;
 	return (1);
 }

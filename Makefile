@@ -28,6 +28,8 @@ LST_SRCS		= \
 	utils/init.c \
 	utils/split_var.c \
 	utils/print_lexer.c \
+	utils/var.c \
+	utils/env.c \
 	utils/error.c
 SRCS_DIR		= srcs
 OBJS_DIR		= objs

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_var_env.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 12:35:12 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/29 15:17:20 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/29 16:13:49 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,23 +77,6 @@
 // 	utils->i += i - 1;
 // 	// printf("m->line[utils->i] = %c\n", m->line[utils->i]);
 // 	return (var);
-// }
-
-// static int	var_defined(char *var, t_main *main)
-// {
-// 	size_t	i;
-// 	size_t	j;
-
-// 	i = -1;
-// 	while (main->env[++i] != NULL)
-// 	{
-// 		j = 0;
-// 		while (var[j] == main->env[i][j])
-// 			j++;
-// 		if (var[j] == '\0' && main->env[i][j] == '=')
-// 			return (i);
-// 	}
-// 	return (-1);
 // }
 
 // static void	add_var(size_t indice, t_utils_lexer *utils, t_main *main)

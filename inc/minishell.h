@@ -143,8 +143,10 @@ void	free_lexer(void *s);
 void	free_param_cmd(t_param_cmd *param);
 void	init_cmd_fct(t_main *main);
 char	**split_var(char *var, t_main *main);
-int		cmd_error(char *cmd, char *error, char *arg);
-void	print_lexer(t_main *main);
+int		cmd_error(char *cmd, char *error, char *arg, int nbr);
 int		check_var_name(char *name);
+int		var_defined(char *var, t_main *main);
+void	new_var(char *add, t_main *main);
+void	add_to_var(char *add, size_t i, t_main *main);
 
 #endif

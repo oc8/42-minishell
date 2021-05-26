@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/23 13:33:17 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/27 20:27:05 by tdayde           ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef LIBFT_H
 # define LIBFT_H
 
@@ -101,7 +89,7 @@ void			*ft_memmove(void *dst, const void *src, size_t len);
 void			*ft_memset(void *s, int c, size_t n);
 void			*ft_memadd(void *src, size_t old, size_t new, size_t space);
 void			ft_switch(void *v1, void *v2);
-void			ft_freedoublestr(char **src);
+void			ft_freedoublestr(char ***src);
 
 /*
 **	print
