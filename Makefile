@@ -17,10 +17,12 @@ LST_SRCS		= \
 	parsing/manage_var_env.c \
 	parsing/reconize_type.c \
 	parsing/verify_syntax.c \
+	parsing/fill_struct_param_cmd.c \
 	utils/quit_prog.c \
 	utils/ft_strncmp_minishell.c \
 	utils/ft_strdup_no_list.c \
 	utils/free_lexer.c \
+	utils/print_struct_cmd.c \
 	utils/init.c \
 	utils/split_var.c \
 	utils/print_lexer.c \

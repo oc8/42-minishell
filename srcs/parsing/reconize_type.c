@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 21:42:57 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/26 18:27:37 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/27 20:43:20 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ static int	first_command(t_main *main)
 	int		start_cmd;
 	int		i;
 
-	start_cmd = find_start_cmd_actual(main);
+	// start_cmd = find_start_cmd_actual(main);
 	index = main->lexer;
-	i = -1;
-	while (++i < start_cmd)
-		index = index->next;
+	// i = -1;
+	// while (++i < start_cmd)
+	// 	index = index->next;
 	while (index != NULL)
 	{
 		tmp = index->content;
@@ -55,23 +55,24 @@ static int	first_command(t_main *main)
 	return (TRUE);
 }
 
-static int	redirection_file(t_main *main)
+static int	redirection_file(int i, t_main *main)
 {
 	t_list	*index;
 	t_lexer	*tmp;
 	int size;
-	int i;
 
-	size = ft_lstsize(main->lexer);
-	// printf("size = %d\n", size);
-	index = main->lexer;
-	i = -1;
-	while (++i < size - 1)
-		index = index->next;
-	if (index == NULL || index == main->lexer)
+	if (i == 0)
 		return (FALSE);
+
+	// size = ft_lstsize(main->lexer);
+	// printf("size = %d\n", size);
+
+	index = main->lexer;
+	while (--i > 0)
+		index = index->next;
 	tmp = index->content;
-	if (tmp->type == REDIRECTION)
+	if (tmp->type == REDIR_OUTPUT || tmp->type == REDIR_INPUT
+		|| tmp->type == APPEND_REDIR_OUTPUT)
 		return (TRUE);
 	else
 		return (FALSE);
@@ -79,32 +80,34 @@ static int	redirection_file(t_main *main)
 
 // static int	is_not_arg()
 
-void	reconize_type(t_lexer *lex, t_utils_lexer *utils, t_main *main)
+void	define_text_types(t_main *main)
 {
-	if (!ft_strncmp(";", lex->value, 2))
-		lex->type = NEW_COMMAND;
-	else if (!ft_strncmp("<", lex->value, 2) || !ft_strncmp(">", lex->value, 2)
-		|| !ft_strncmp(">>", lex->value, 3) || !ft_strncmp("|", lex->value, 2))
-		lex->type = REDIRECTION;
-	else if (redirection_file(main) == TRUE)
-		lex->type = FILE_NAME;
-	else if (first_command(main) == TRUE)
-		lex->type = COMMAND;
-	else
-		lex->type = ARGUMENT;
+	t_list	*index;
+	t_lexer	*tmp;
+	int		i;
+	
+	i = 0;
+	index = main->lexer;
+	while (index != NULL)
+	{
+		tmp = index->content;
+		if (tmp->type == TO_DEFINE)
+		{
+			if (redirection_file(i, main) == TRUE)
+				tmp->type = FILE_NAME;
+			else if (first_command(main) == TRUE)
+				tmp->type = COMMAND;
+			else
+				tmp->type = ARGUMENT;
+		}
+		index = index->next;
+		i++;
+	}
 }
 
 void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m)
 {
-	printf("echap = %d, s_sing_q = %d, double_q = %d, word = %s\n", utils->echap, utils->sing_q, utils->double_q, utils->word);
-	if (!ft_strncmp(";", lex->value, 2))
-		lex->type = NEW_COMMAND;
-	else if (!ft_strncmp("|", lex->value, 2))
-		lex->type = PIPE;
-	else if (!ft_strncmp("<", lex->value, 2) || !ft_strncmp(">", lex->value, 2)
-		|| !ft_strncmp(">>", lex->value, 3))
-		lex->type = REDIRECTION;
-	else if (utils->var_env == 1)
+	if (utils->var_env == 1)
 	{
 		lex->type = VAR_ENV;
 		utils->var_env = 0;

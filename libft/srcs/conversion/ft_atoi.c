@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 18:53:12 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/04/23 17:23:17 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/27 20:29:00 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_atoi(const char *nptr)
 {
-	long int	rs;
+	long long	rs;
 	int			i;
 	int			neg;
 
@@ -27,7 +27,13 @@ int	ft_atoi(const char *nptr)
 		neg = -1;
 	if (nptr[i] == '-' || nptr[i] == '+')
 		i++;
-	while (nptr[i] >= 48 && nptr[i] <= 57)
-		rs = rs * 10 + (nptr[i++] - 48);
-	return (rs * neg);
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		rs = rs * 10 + (nptr[i++] - '0') * neg;
+		if (rs > INT_MAX)
+			return (INT_MAX);
+		else if (rs < INT_MIN)
+			return (INT_MIN);
+	}
+	return (rs);
 }

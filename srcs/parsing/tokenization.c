@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:40:24 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/27 15:11:20 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/27 19:18:04 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,12 @@ void	malloc_element(t_type_lex type, t_utils_lexer *utils, t_main *main)
 	lexer->value = ft_strdup_no_list(utils->word);
 	if (lexer->value == NULL)
 		quit_prog("Lexer value malloc", main);
-	if (type != -1)
+	if (type == -1)
 		reconize_primitive_type(lexer, utils, main);
 	else
 		lexer->type = type;
 	utils->word = NULL;
 	free(utils->word);
-	// reconize_type(lexer, utils, main);
 	new = ft_lstnew(lexer);
 	ft_lstadd_back(&main->lexer, new);
 }
@@ -93,11 +92,12 @@ void	tokenization(char *str, int indice, t_main *main)
 		quit_prog("strdup of str to analize in tokenisation", main);
 	if (indice != 0)
 		utils.double_q = 1;
-	res = WORD_NOT_FINISHED;
-	while (res != LINE_FINISHED)
+	// res = WORD_NOT_FINISHED;
+	while (str[utils.i])
 	{
-		res = check_caracter_lex(str[utils.i], &utils, main);
-		if (utils.echap > 0 && res != LINE_FINISHED)
+		// res = check_caracter_lex(str[utils.i], &utils, main);
+		check_caracter_lex(str[utils.i], &utils, main);
+		if (utils.echap > 0 && str[utils.i])
 			utils.echap--;
 		// printf("char = %c, res = %d\n", str[utils.i], res);
 		// if (res == WORD_FINISHED || res == LINE_FINISHED)
@@ -116,11 +116,11 @@ void	tokenization(char *str, int indice, t_main *main)
 			// 	malloc_element(&utils, main);
 			// }
 		// }
-		if (res != LINE_FINISHED)
+		if (str[utils.i])
 			utils.i++;
 	}
 	if (utils.word)
-		malloc_element(&utils, main);
+		malloc_element(-1, &utils, main);
 	verify_syntax(&utils, main);
 	free(utils.str);
 }

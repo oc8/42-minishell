@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 17:54:03 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/26 16:54:15 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/27 20:52:45 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,10 @@ t_var_info	*contain_var(t_main *main)
 	return (NULL);
 }
 
-
-
 void	create_param_cmd(t_param_cmd *param, t_main *main)
 {
 	t_var_info	*var_info;
 	
-	print_lexer(main);
 	// var_info = contain_var(main);
 	// while (var_info != NULL)
 	// {
@@ -54,5 +51,8 @@ void	create_param_cmd(t_param_cmd *param, t_main *main)
 	// 	free(var_info);
 	// 	var_info = contain_var(main);
 	// }
-
+	define_text_types(main);
+	print_lexer(main);
+	fill_struct(param, main);
+	print_struct_cmd(param);
 }

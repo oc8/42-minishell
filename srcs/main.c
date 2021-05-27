@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:11:28 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/26 18:45:16 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/27 21:32:26 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void	create_cmd(t_main *main)
 	t_list		*tmp_lst;
 	t_lexer		*tmp_lex;
 
-	ft_bzero(&param, sizeof(t_param_cmd));
 	save = main->lexer;
 	while (main->lexer != NULL)
 	{
+		ft_bzero(&param, sizeof(t_param_cmd));
 		tmp_lex = save->content;
 		while (save != NULL && tmp_lex->type != PIPE
 			&& tmp_lex->type != NEW_COMMAND)
@@ -54,21 +54,16 @@ void	create_cmd(t_main *main)
 		}
 		if (save != NULL)
 		{
-			// if (tmp_lex->type == PIPE)
-			// 	param.pipe = 1;
 			tmp_lst = save;
 			save = save->next;
 			tmp_lst->next = NULL;
 		}
-		// else if (save == NULL)
-		// 	save = main->lexer;
 		create_param_cmd(&param, main);
 		ft_lstclear(&main->lexer, free_lexer);
 		// printf("save = %p\n", save);
+		// cmd_exec(&param, main);
 		if (save != NULL)
 			main->lexer = save;
-		// printf("main->lexer = %p\n", main->lexer);
-		// cmd_exec(&param, main);
 	}
 }
 

@@ -6,10 +6,10 @@ OCEAN:
 
 THOMAS:
 - changer tokenisation pour mettre un char * en param, et un start de ou ajouter les elements dan la liste.
-- voir les synthax error avec tests thallard
-- ajouter les fd dans redirection
+- voir les synthax error avec tests thallard (pipes)
+- ajouter les fd dans redirection --> OK
 - gerer les espaces dans les tokenisation de VAR_ENV
 - faire une liste de structure pour les commandes pipe
 - set erno quand error synthax- voir quand erreur quoi faire (free main->lexer et line?)
-- finir de faire les fd des redirections
 - relink Makefile
+- fin fill_struct
