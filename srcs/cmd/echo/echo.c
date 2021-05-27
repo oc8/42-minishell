@@ -6,7 +6,7 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 18:18:27 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/26 14:54:54 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/27 18:03:05 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,13 @@ void	cmd_echo(char **arg, t_main *main)
 {
 	int	i;
 	int	flag_n;
-	
+
 	(void)main;
+	if (!arg[0])
+	{
+		printf("\n");
+		return ;
+	}
 	flag_n = 0;
 	i = 0;
 	if (arg[0][0] == '-')
