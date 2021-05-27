@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 16:56:40 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/26 21:10:15 by odroz-ba         ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static void	print_env(t_main *main)
@@ -33,43 +21,50 @@ static void	print_env(t_main *main)
 	}
 }
 
-int	check_var_name(char *name)
+static void	add_to_var(char *add, int index, t_main *main)
 {
-	size_t	i;
+	char	*tmp;
 
-	i = 0;
-	if (!ft_isalpha(name[i]) && name[i] != '_')
-		return (1);
-	while (name[++i] && name[i] != '=' && name[i] != '+')
-		if (!ft_isalnum(name[i]) && name[i] != '_')
-			return (1);
-	if (name[i] == '+' && name[i + 1] != '=')
-		return (1);
-	if (!name[i])
-		return (2);
-	return (0);
+	// tmp = ft_calloc(ft_strlen(main->env[index]), sizeof(char));
+	// ft_strlcpy(tmp, main->env[index], ft_strlen(main->env[index]));
+	// free(main->env[index]);
+	tmp = main->env[index];
+	main->env[index] = ft_strjoin(main->env[index], add);
+	free(tmp);
 }
 
 void	cmd_export(char **arg, t_main *main)
 {
 	char	**var;
 	size_t	i;
-	size_t	index;
+	int		index;
+	int		flag_add;
 
 	if (!arg[0])
+	{
 		print_env(main);
+		return ;
+	}
 	i = 0;
 	while (arg[i])
 	{
 		if (check_var_name(arg[i]) == 1)
 			cmd_error("export", "not a valid identifier", arg[i], 1);
 		var = split_var(arg[i], main);
+		flag_add = 0;
+		if (var[0][ft_strlen(var[0]) - 1] == '+')
+		{
+			var[0][ft_strlen(var[0]) - 1] = 0;
+			flag_add = 1;
+		}
 		index = var_defined(var[0], main);
-		// ft_freedoublestr(&var);
-		if (index > -1)
-			add_to_var(arg[i], index, main);
+		if (index > -1 && !flag_add)
+			edit_var(var[1], index, main);
+		else if (index > -1)
+			add_to_var(var[1], index, main);
 		else
 			new_var(arg[i], main);
+		ft_freedoublestr(&var);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:13:49 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/26 20:16:19 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/27 15:42:56 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ static char *check_path(char **paths, char *cmd)
 			{
 				closedir(dir);
 				path = ft_strdup_no_list(paths[i]);
-				// ft_freedoublestr(&paths);
+				ft_freedoublestr(&paths);
 				return (path);
 			}
 		closedir(dir);
 		i++;
 	}
-	// ft_freedoublestr(&paths);
+	ft_freedoublestr(&paths);
 	return (ft_strdup_no_list(""));
 }
 
@@ -58,7 +58,7 @@ static char	*cmd_path(char *cmd, t_main *main)
 		paths = 0;
 	else
 		paths = ft_split(var_path[1], ':');
-	// ft_freedoublestr(&var_path);
+	ft_freedoublestr(&var_path);
 	return (check_path(paths, cmd));
 }
 

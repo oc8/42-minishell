@@ -54,3 +54,20 @@ int	var_defined(char *var, t_main *main)
 	}
 	return (-1);
 }
+
+int	check_var_name(char *name)
+{
+	size_t	i;
+
+	i = 0;
+	if (!ft_isalpha(name[i]) && name[i] != '_')
+		return (1);
+	while (name[++i] && name[i] != '=' && name[i] != '+')
+		if (!ft_isalnum(name[i]) && name[i] != '_')
+			return (1);
+	if (name[i] == '+' && name[i + 1] != '=')
+		return (1);
+	if (!name[i])
+		return (2);
+	return (0);
+}

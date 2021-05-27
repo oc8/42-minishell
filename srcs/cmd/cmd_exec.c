@@ -1,5 +1,27 @@
 #include "minishell.h"
 
+void	save_last_arg(char **cmd, t_main *main)
+{
+	size_t	i;
+	int		index;
+	char	*tmp;
+
+	i = 0;
+	while (cmd[i])
+		i++;
+	if (!i)
+		return ;
+	index = var_defined("_", main);
+	if (index > -1)
+		edit_var(cmd[i - 1], index, main);
+	else
+	{
+		tmp = ft_strjoin("_=", cmd[i - 1]);
+		new_var(tmp, main);
+		free(tmp);
+	}
+}
+
 void	exec_cmd(t_param_cmd *cmd, t_main *main)
 {
 	int	i;
@@ -13,6 +35,7 @@ void	exec_cmd(t_param_cmd *cmd, t_main *main)
 		main->cmd_fct[i].fct(cmd->cmd + 1, main);
 	else
 		cmd_others(cmd->cmd, main);
+	// save_last_arg(cmd, main);
 }
 
 void	cmd_exec(char **cmd, t_main *main)
@@ -28,17 +51,7 @@ void	cmd_exec(char **cmd, t_main *main)
 		main->cmd_fct[i].fct(cmd + 1, main);
 	else
 		cmd_others(cmd, main);
-	
-	// char	**last_arg;
-
-	// i = 0;
-	// while (cmd[i])
-	// 	i++;
-	// last_arg = ft_calloc(2, sizeof(char *));
-	// last_arg[0] = ft_strjoin("_=", cmd[i - 1]);
-	// last_arg[1] = 0;
-	// main->cmd_fct[4].fct(last_arg, main);
-	// ft_freedoublestr(&last_arg);
+	save_last_arg(cmd, main);
 }
 
 void	test_cmd_exec(t_main *main)

@@ -131,6 +131,6 @@ int		cmd_error(char *cmd, char *error, char *arg, int nbr);
 int		check_var_name(char *name);
 int		var_defined(char *var, t_main *main);
 void	new_var(char *add, t_main *main);
-void	add_to_var(char *add, size_t i, t_main *main);
+void	edit_var(char *add, size_t i, t_main *main);
 
 #endif

@@ -27,7 +27,7 @@ LST_SRCS		= \
 SRCS_DIR		= srcs
 OBJS_DIR		= objs
 SRCS			= $(addprefix $(SRCS_DIR)/,$(LST_SRCS))
-OBJS			= $(LST_SRCS:%.c=$(OBJS_DIR)/%.o) $(OBJS_SHARED)
+OBJS			= $(LST_SRCS:%.c=$(OBJS_DIR)/%.o)
 CC				= gcc
 # CFLAGS			= -Wall -Werror -Wextra
 CFLAGS			= -g
@@ -49,7 +49,7 @@ libft:
 				$(RM) SILENT
 				printf "$(ERASE)"
 
-${NAME}:		${OBJS_DIR} ${OBJS}
+${NAME}:		libft ${OBJS_DIR} ${OBJS}
 				${CC} ${CFLAGS} ${INCLUDE} ${OBJS} -L ${LIBFT} -lft -o ${NAME}
 				echo "$(BOLD)${GREEN}$(ERASE)--> minishell generated <--${END}"
 

@@ -6,7 +6,7 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 16:56:24 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/26 21:31:10 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/27 17:27:37 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	cmd_unset(char **arg, t_main *main)
 {
-	char	**var;
+	// char	**var;
 	size_t	*len;
 	size_t	i;
-	size_t	index;
+	int		index;
 
 	if (!arg[0])
 		return ;
@@ -27,9 +27,9 @@ void	cmd_unset(char **arg, t_main *main)
 	{
 		if (check_var_name(arg[i]) != 2)
 			cmd_error("export", "not a valid identifier", arg[i], 1);
-		var = split_var(arg[i], main);
+		// var = split_var(arg[i], main);
 		// printf("%s\n", arg[i]);
-		index = var_defined(var[0], main);
+		index = var_defined(arg[i], main);
 		// ft_freedoublestr(&var);
 		if (index > -1)
 		{
