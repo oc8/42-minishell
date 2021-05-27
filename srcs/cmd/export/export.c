@@ -58,6 +58,11 @@ void	cmd_export(char **arg, t_main *main)
 			flag_add = 1;
 		}
 		index = var_defined(var[0], main);
+		if (!ft_strchr(arg[i], '=') && index > -1)
+		{
+			ft_freedoublestr(&var);
+			return ;
+		}
 		if (index > -1 && !flag_add)
 			edit_var(var[1], index, main);
 		else if (index > -1)

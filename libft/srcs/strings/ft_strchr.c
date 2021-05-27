@@ -6,7 +6,7 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:50:23 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/04/23 17:26:38 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/27 20:21:43 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strchr(const char *s, int c)
 	cc = (char)c;
 	str = (char *)s;
 	i = 0;
-	while (str[i] != cc && str[i])
+	while (str[i] && str[i] != cc)
 		i++;
 	if (cc == '\0')
 		return (&str[i]);
