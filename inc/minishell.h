@@ -49,6 +49,7 @@ typedef struct	s_function
 
 typedef struct	s_utils_lexer
 {
+	char	*str;
 	char	*word;
 	int		i;
 	int		sing_q;

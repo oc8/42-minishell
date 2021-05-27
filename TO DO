@@ -12,3 +12,4 @@ THOMAS:
 - faire une liste de structure pour les commandes pipe
 - set erno quand error synthax- voir quand erreur quoi faire (free main->lexer et line?)
 - finir de faire les fd des redirections
+- relink Makefile
