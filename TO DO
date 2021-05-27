@@ -1,6 +1,5 @@
 OCEAN:
 - proteger les fonctions "dir"
-- unset
 - free split_var
 - strerrno(errno)
 

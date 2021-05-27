@@ -26,10 +26,8 @@ LST_SRCS		= \
 	utils/free_param_cmd.c \
 	utils/print_struct_cmd.c \
 	utils/init.c \
-	utils/split_var.c \
-	utils/print_lexer.c \
-	utils/var.c \
-	utils/env.c \
+	utils/var_utils.c \
+	utils/env_utils.c \
 	utils/error.c
 SRCS_DIR		= srcs
 OBJS_DIR		= objs

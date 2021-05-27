@@ -47,9 +47,9 @@ int	var_defined(char *var, t_main *main)
 	while (main->env[++i] != NULL)
 	{
 		j = 0;
-		while (var[j] == main->env[i][j])
+		while (var[j] && var[j] == main->env[i][j])
 			j++;
-		if (var[j] == '\0' && main->env[i][j] == '=')
+		if (var[j] == '\0' && (main->env[i][j] == '=' || !main->env[i][j]))
 			return (i);
 	}
 	return (-1);
