@@ -2,10 +2,10 @@
 
 void	cmd_unset(char **arg, t_main *main)
 {
-	// char	**var;
+	char	**var;
 	size_t	*len;
 	size_t	i;
-	int		index;
+	size_t	index;
 
 	if (!arg[0])
 		return ;
@@ -15,9 +15,9 @@ void	cmd_unset(char **arg, t_main *main)
 	{
 		if (check_var_name(arg[i]) != 2)
 			cmd_error("export", "not a valid identifier", arg[i], 1);
-		// var = split_var(arg[i], main);
+		var = split_var(arg[i], main);
 		// printf("%s\n", arg[i]);
-		index = var_defined(arg[i], main);
+		index = var_defined(var[0], main);
 		// ft_freedoublestr(&var);
 		if (index > -1)
 		{
