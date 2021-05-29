@@ -66,6 +66,7 @@ void	loop(t_main *main)
 		get_operator_command(main);
 		tokenization(main->line, 0, main);
 		// print_lexer(main);
+		create_cmd(main);
 		// printf("TEST, main->lexer = %p\n", main->lexer);
 		if (main->lexer != NULL)
 			ft_lstclear(&main->lexer, free_lexer);
