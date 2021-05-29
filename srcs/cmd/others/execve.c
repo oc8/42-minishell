@@ -6,7 +6,7 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:13:49 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/27 20:56:44 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/29 18:38:09 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,3 +96,4 @@ void	cmd_others(char **arg, t_main *main)
 		wait(&status);
 	free(cmd);
 }
+
