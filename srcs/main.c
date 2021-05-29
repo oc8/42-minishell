@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:11:28 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/27 21:32:26 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/28 15:10:06 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	create_cmd(t_main *main)
 		ft_lstclear(&main->lexer, free_lexer);
 		// printf("save = %p\n", save);
 		// cmd_exec(&param, main);
+		free_param_cmd(&param);
 		if (save != NULL)
 			main->lexer = save;
 	}

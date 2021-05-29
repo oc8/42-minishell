@@ -21,7 +21,9 @@ LST_SRCS		= \
 	utils/quit_prog.c \
 	utils/ft_strncmp_minishell.c \
 	utils/ft_strdup_no_list.c \
+	utils/ft_atoi_redirection.c \
 	utils/free_lexer.c \
+	utils/free_param_cmd.c \
 	utils/print_struct_cmd.c \
 	utils/init.c \
 	utils/split_var.c \

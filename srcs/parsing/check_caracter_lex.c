@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 18:36:30 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/27 20:43:20 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/29 15:17:48 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	backslash(char c, t_utils_lexer *utils, t_main *main)
 		|| (utils->double_q == 1 && utils->echap == 0))
 		utils->echap = 2;
 	else
-		update_word(c, utils, main);
+		update_word(c, &utils->word);
 	// return (WORD_NOT_FINISHED);
 }
 
@@ -27,7 +27,7 @@ static void	quotes(char c, t_utils_lexer *utils, t_main *main)
 	if (c == '\'')
 	{
 		if (utils->double_q == 1 || utils->echap == 1)
-			update_word(c, utils, main);
+			update_word(c, &utils->word);
 		else if (utils->sing_q == 0 && utils->double_q == 0)
 			utils->sing_q = 1;
 		else if (utils->sing_q == 1)
@@ -36,7 +36,7 @@ static void	quotes(char c, t_utils_lexer *utils, t_main *main)
 	else if (c == '"')
 	{
 		if (utils->sing_q == 1 || utils->echap == 1)
-			update_word(c, utils, main);
+			update_word(c, &utils->word);
 		else if (utils->double_q == 0 && utils->sing_q == 0)
 			utils->double_q = 1;
 		else if (utils->double_q == 1)
@@ -71,8 +71,8 @@ static void	carac_spec(char c, t_utils_lexer *utils, t_main *main)
 	if (utils->sing_q == 1 || (utils->double_q == 1) || utils->echap == 1)
 	{
 		if (utils->double_q == 1 && utils->echap == 1)
-			update_word('\\', utils, main);
-		update_word(c, utils, main);
+			update_word('\\', &utils->word);
+		update_word(c, &utils->word);
 		// printf("echap = %d, s_sing_q = %d, double_q = %d, word = %s\n", utils->echap, utils->sing_q, utils->double_q, utils->word);
 		// return (WORD_NOT_FINISHED);
 	}
@@ -85,10 +85,10 @@ static void	carac_spec(char c, t_utils_lexer *utils, t_main *main)
 	{
 		if (utils->word)
 			malloc_element(-1, utils, main);
-		update_word(utils->str[utils->i], utils, main);
+		update_word(utils->str[utils->i], &utils->word);
 		if (utils->str[utils->i] == '>' && utils->str[utils->i + 1] == '>')
 		{
-			update_word('>', utils, main);
+			update_word('>', &utils->word);
 			utils->i++;
 		}
 		malloc_element(reconize_carac_spec(utils), utils, main);
@@ -102,8 +102,8 @@ static void	is_fd_redir(char c, t_utils_lexer *utils, t_main *main)
 	if (utils->sing_q == 1 || utils->double_q == 1 || utils->echap == 1)
 	{
 		if (utils->double_q == 1 && utils->echap == 1)
-			update_word('\\', utils, main);
-		update_word(c, utils, main);
+			update_word('\\', &utils->word);
+		update_word(c, &utils->word);
 		// printf("echap = %d, s_sing_q = %d, double_q = %d, word = %s\n", utils->echap, utils->sing_q, utils->double_q, utils->word);
 		// return (WORD_NOT_FINISHED);
 	}
@@ -114,21 +114,19 @@ static void	is_fd_redir(char c, t_utils_lexer *utils, t_main *main)
 			i++;
 		if (utils->str[i] == '>' || utils->str[i] == '<')
 		{
-			while (utils->i <= i)
-			{
-				// printf("utils->i = %d, i = %d\n", utils->i, i);
-				update_word(utils->str[utils->i++], utils, main);
-			}
-			if (utils->str[utils->i] == '>')
-			{
-				update_word(utils->str[utils->i], utils, main);
-				utils->i++;
-			}
+			while (utils->i < i)
+			// {
+			// 	printf("utils->i = %d, i = %d\n", utils->i, i);
+				update_word(utils->str[utils->i++], &utils->word);
+			// }
+			update_word(utils->str[utils->i], &utils->word);
+			if (utils->str[utils->i + 1] == '>')
+				update_word(utils->str[utils->i++], &utils->word);
 			malloc_element(reconize_carac_spec(utils), utils, main);
 			// return (WORD_FINISHED);
 		}
 		else
-			update_word(c, utils, main);
+			update_word(c, &utils->word);
 		// return (WORD_NOT_FINISHED);
 	}
 }
@@ -145,15 +143,14 @@ void	check_caracter_lex(char c, t_utils_lexer *utils, t_main *main)
 	else if (c == '$')
 	{
 		if (utils->sing_q == 1 || utils->echap == 1)
-			update_word(c, utils, main);
+			update_word(c, &utils->word);
 		else
 		{
 			// if (utils->i_lst == 0)
 				predefine_var(utils, main);
 			// else
-			// 	check_local_var(utils, main);
+			// 	check_caracter_var(utils, main);
 		}
-		// return (WORD_NOT_FINISHED);
 	}
 	else if (ft_isdigit(c) == TRUE)
 		return (is_fd_redir(c, utils, main));
@@ -162,8 +159,8 @@ void	check_caracter_lex(char c, t_utils_lexer *utils, t_main *main)
 	else
 	{
 		if (utils->double_q == 1 && utils->echap == 1)
-			update_word('\\', utils, main);
-		update_word(c, utils, main);
+			update_word('\\', &utils->word);
+		update_word(c, &utils->word);
 		// printf("c = %c\n", c);
 		// return (WORD_NOT_FINISHED);
 	}

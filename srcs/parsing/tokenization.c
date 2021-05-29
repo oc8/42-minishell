@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:40:24 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/27 19:18:04 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/28 17:43:42 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ void	malloc_element(t_type_lex type, t_utils_lexer *utils, t_main *main)
 	ft_lstadd_back(&main->lexer, new);
 }
 
-void	update_word(char c, t_utils_lexer *utils, t_main *main)
+void	update_word(char c, char **str)
 {
 	char	*new;
 	int		len;
 	int		i;
 
-	if (utils->word != NULL)
+	if (*str != NULL)
 	{
-		new = malloc(ft_strlen(utils->word) + 2);
-		len = ft_strlen(utils->word);
+		new = malloc(ft_strlen(*str) + 2);
+		len = ft_strlen(*str);
 	}
 	else
 	{
@@ -51,13 +51,13 @@ void	update_word(char c, t_utils_lexer *utils, t_main *main)
 	}
 	i = -1;
 	while (++i < len)
-		new[i] = utils->word[i];
+		new[i] = (*str)[i];
 	new[i] = c;
 	i++;
 	new[i] = '\0';
-	if (utils->word != NULL)
-		free(utils->word);
-	utils->word = new;
+	if (*str != NULL)
+		free(*str);
+	*str = new;
 }
 
 // void	add_special_token(char *str, t_utils_lexer *utils, t_main *main)
@@ -90,8 +90,8 @@ void	tokenization(char *str, int indice, t_main *main)
 	utils.str = ft_strdup_no_list(str);
 	if (utils.str == NULL)
 		quit_prog("strdup of str to analize in tokenisation", main);
-	if (indice != 0)
-		utils.double_q = 1;
+	// if (indice != 0)
+	// 	utils.double_q = 1;
 	// res = WORD_NOT_FINISHED;
 	while (str[utils.i])
 	{
