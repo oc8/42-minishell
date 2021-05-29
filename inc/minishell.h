@@ -123,6 +123,7 @@ void	print_struct_cmd(t_param_cmd *param);
 */
 void	cmd_others(char **arg, t_main *main);
 void	cmd_exec(char **arg, t_main *main);
+void	exec_cmd(t_param_cmd *cmd, t_main *main); // temp
 void	cmd_echo(char **arg, t_main *main);
 void	cmd_pwd(char **arg, t_main *main);
 void	cmd_env(char **arg, t_main *main);

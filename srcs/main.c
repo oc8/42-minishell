@@ -6,7 +6,7 @@
 /*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:11:28 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/29 16:08:46 by odroz-ba         ###   ########lyon.fr   */
+/*   Updated: 2021/05/29 16:26:44 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	create_cmd(t_main *main)
 	t_list		*tmp_lst;
 	t_lexer		*tmp_lex;
 
+	printf("test\n");
 	save = main->lexer;
 	while (main->lexer != NULL)
 	{
@@ -61,7 +62,7 @@ void	create_cmd(t_main *main)
 		create_param_cmd(&param, main);
 		ft_lstclear(&main->lexer, free_lexer);
 		// printf("save = %p\n", save);
-		// cmd_exec(&param, main);
+		exec_cmd(&param, main);
 		free_param_cmd(&param);
 		if (save != NULL)
 			main->lexer = save;
@@ -77,7 +78,6 @@ void	loop(t_main *main)
 		get_operator_command(main);
 		tokenization(main->line, 0, main);
 		// print_lexer(main);
-		create_cmd(main);
 		// printf("TEST, main->lexer = %p\n", main->lexer);
 		if (main->lexer != NULL)
 			ft_lstclear(&main->lexer, free_lexer);

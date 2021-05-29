@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_param_cmd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 17:54:03 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/28 17:39:01 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/29 16:28:53 by odroz-ba         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,5 @@ void	create_param_cmd(t_param_cmd *param, t_main *main)
 	define_text_types(main);
 	// print_lexer(main);
 	fill_struct(param, main);
-	print_struct_cmd(param);
+	// print_struct_cmd(param);
 }
