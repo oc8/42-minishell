@@ -35,11 +35,7 @@ void	exec_cmd(t_param_cmd *cmd, t_main *main)
 		main->cmd_fct[i].fct(cmd->cmd + 1, main);
 	else
 		cmd_others(cmd->cmd, main);
-<<<<<<< HEAD
 	save_last_arg(cmd->cmd, main);
-=======
-	// save_last_arg(cmd, main);
->>>>>>> 18c920bfe5a0b297d98d8280df0aa3f022b9eff2
 }
 
 void	cmd_exec(char **cmd, t_main *main)
