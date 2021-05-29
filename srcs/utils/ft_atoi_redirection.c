@@ -1,39 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atoi_redirection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 18:53:12 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/27 20:29:00 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/28 14:55:27 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_atoi(const char *nptr)
+int	ft_atoi_redirection(const char *nptr, t_type_lex type)
 {
 	long long	rs;
 	int			i;
-	int			neg;
 
-	neg = 1;
-	rs = 0;
 	i = 0;
-	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
-		i++;
-	if (nptr[i] == '-')
-		neg = -1;
-	if (nptr[i] == '-' || nptr[i] == '+')
-		i++;
+	if (!ft_isdigit(nptr[i]))
+	{
+		if (type == REDIR_INPUT)
+			rs = 0;
+		else if (type == REDIR_OUTPUT || type == APPEND_REDIR_OUTPUT)
+			rs = 1;
+		return (rs);
+	}
 	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
-		rs = rs * 10 + (nptr[i++] - '0') * neg;
+		rs = rs * 10 + (nptr[i++] - '0');
 		if (rs > INT_MAX)
 			return (INT_MAX);
-		else if (rs < INT_MIN)
-			return (INT_MIN);
 	}
 	return (rs);
 }

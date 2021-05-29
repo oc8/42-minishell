@@ -1,46 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:40:24 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/25 15:01:21 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/28 17:43:42 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	malloc_element(t_utils_lexer *utils, t_main *main)
+void	malloc_element(t_type_lex type, t_utils_lexer *utils, t_main *main)
 {
 	t_lexer	*lexer;
 	t_list	*new;
 
 	lexer = malloc(sizeof(t_lexer));
 	if (!lexer)
-		quit_prog("Lexer creation malloc", main);
+		quit_prog("Lexer malloc creation", main);
 	lexer->value = ft_strdup_no_list(utils->word);
 	if (lexer->value == NULL)
 		quit_prog("Lexer value malloc", main);
-	free(utils->word);
+	if (type == -1)
+		reconize_primitive_type(lexer, utils, main);
+	else
+		lexer->type = type;
 	utils->word = NULL;
-	reconize_primitive_type(lexer, utils, main);
-	// reconize_type(lexer, utils, main);
+	free(utils->word);
 	new = ft_lstnew(lexer);
 	ft_lstadd_back(&main->lexer, new);
 }
 
-void	update_word(char c, t_utils_lexer *utils, t_main *main)
+void	update_word(char c, char **str)
 {
 	char	*new;
 	int		len;
 	int		i;
 
-	if (utils->word != NULL)
+	if (*str != NULL)
 	{
-		new = malloc(ft_strlen(utils->word) + 2);
-		len = ft_strlen(utils->word);
+		new = malloc(ft_strlen(*str) + 2);
+		len = ft_strlen(*str);
 	}
 	else
 	{
@@ -49,125 +51,76 @@ void	update_word(char c, t_utils_lexer *utils, t_main *main)
 	}
 	i = -1;
 	while (++i < len)
-		new[i] = utils->word[i];
+		new[i] = (*str)[i];
 	new[i] = c;
 	i++;
 	new[i] = '\0';
-	if (utils->word != NULL)
-		free(utils->word);
-	utils->word = new;
+	if (*str != NULL)
+		free(*str);
+	*str = new;
 }
 
-int	check_caracter_lex(char c, t_utils_lexer *utils, t_main *main)
-{
-	if (c == '\0')
-		return (LINE_FINISHED);
-	else if (c == '\\')
-	{
-		if ((utils->double_q == 0 && utils->sing_q == 0 && utils->echap == 0)
-			|| (utils->double_q == 1 && utils->echap == 0))
-			utils->echap = 2;
-		else
-			update_word(c, utils, main);
-		return (WORD_NOT_FINISHED);
-	}
-	else if (c == '\'')
-	{
-		if (utils->double_q == 1 || (utils->double_q == 0 && utils->echap == 1))
-			update_word(c, utils, main);
-		else if (utils->sing_q == 0 && utils->double_q == 0)
-			utils->sing_q = 1;
-		else if (utils->sing_q == 1)
-			utils->sing_q = 0;
-		return (WORD_NOT_FINISHED);
-	}
-	else if (c == '"')
-	{
-		if (utils->sing_q == 1 || (utils->double_q == 1 && utils->echap == 1))
-			update_word(c, utils, main);
-		else if (utils->double_q == 0 && utils->sing_q == 0)
-			utils->double_q = 1;
-		else if (utils->double_q == 1)
-			utils->double_q = 0;
-		return (WORD_NOT_FINISHED);
-	}
-	else if (c == '$')
-	{
-		if (utils->sing_q == 1 || (utils->double_q == 1 && utils->echap == 1))
-			update_word(c, utils, main);
-		else
-			// check_local_var(utils, main);
-			predefine_var(utils, main);
-		return (WORD_NOT_FINISHED);
-	}
-	else if (c == '>' || c == '<' || c == '|' || c == ' ' || c == ';')
-	{
-		if (utils->sing_q == 1 || utils->double_q == 1)
-		{
-			if (utils->double_q == 1 && utils->echap == 1)
-				update_word('\\', utils, main);
-			update_word(c, utils, main);
-			return (WORD_NOT_FINISHED);
-		}
-		else if (c == ' ')
-			return (SPACE);
-		else
-			return (WORD_FINISHED);
-	}
-	else
-	{
-		if (utils->double_q == 1 && utils->echap == 1)
-			update_word('\\', utils, main);
-		update_word(c, utils, main);
-		return (WORD_NOT_FINISHED);
-	}
-}
+// void	add_special_token(char *str, t_utils_lexer *utils, t_main *main)
+// {
+// 	int			i;
+// 	long long	fd;
+	
+// 	if (str[utils->i] == '>' || str[utils->i] == '<')
+// 	{
+// 		i = utils->i;
+// 		fd = 0;
+// 		while (--i >= 0 && ft_isdigit(str[i]))
+// 			fd = fd * 10 + str[i] - '0';
+// 		if (i > 0)
+// 		{
+// 			if (str[i] == ';' || str[i] == '|' || str[i] == ' '
+// 				|| str[i] == '\'' || str[i] == '"' || str[i] == ' ')
+// 		}
+			
+// 	}
+// }
 
-void	tokenization(t_main *main)
+void	tokenization(char *str, int indice, t_main *main)
 {
 	t_utils_lexer	utils;
 	t_caracter_lex	res;
 
 	ft_bzero(&utils, sizeof(t_utils_lexer));
-	// main->nb_elem_lex = 0;
-	res = WORD_NOT_FINISHED;
-	while (res != LINE_FINISHED) // && res != NEW_COMMAND)
+	utils.i_lst = indice;
+	utils.str = ft_strdup_no_list(str);
+	if (utils.str == NULL)
+		quit_prog("strdup of str to analize in tokenisation", main);
+	// if (indice != 0)
+	// 	utils.double_q = 1;
+	// res = WORD_NOT_FINISHED;
+	while (str[utils.i])
 	{
-		res = check_caracter_lex(main->line[utils.i], &utils, main);
-		if (utils.echap > 0 && res != LINE_FINISHED)
+		// res = check_caracter_lex(str[utils.i], &utils, main);
+		check_caracter_lex(str[utils.i], &utils, main);
+		if (utils.echap > 0 && str[utils.i])
 			utils.echap--;
-		// printf("char = %c, res = %d\n", main->line[utils.i], res);
+		// printf("char = %c, res = %d\n", str[utils.i], res);
 		// if (res == WORD_FINISHED || res == LINE_FINISHED)
-		if (res != WORD_NOT_FINISHED)
-		{
-			// if (utils.w_count > 0)
-			if (utils.word)
-				// malloc_element(utils.i, utils.w_count, main);
-				malloc_element(&utils, main);
-			if (res == WORD_FINISHED)
-			{
-				// utils.w_count = 1;
-				// malloc_element(utils.i + 1, utils.w_count, main);
-				update_word(main->line[utils.i], &utils, main);
-				if (utils.word[0] == '>' && main->line[utils.i + 1] == '>')
-				{
-					update_word('>', &utils, main);
-					utils.i++;
-				}
-				malloc_element(&utils, main);
-			}
-		}
-		if (res != LINE_FINISHED)
+		// if (res != WORD_NOT_FINISHED)
+		// {
+			// if (utils.word) // A VOIR NOMBRE DU FD DE REDIRECTION POUR MALLOC!!!
+			// 	malloc_element(&utils, main);
+			// if (res == WORD_FINISHED)
+			// {
+			// 	update_word(str[utils.i], &utils, main);
+			// 	if (utils.word[0] == '>' && str[utils.i + 1] == '>')
+			// 	{
+			// 		update_word('>', &utils, main);
+			// 		utils.i++;
+			// 	}
+			// 	malloc_element(&utils, main);
+			// }
+		// }
+		if (str[utils.i])
 			utils.i++;
 	}
 	if (utils.word)
-		// malloc_element(utils.i, utils.w_count, main);
-		malloc_element(&utils, main);
+		malloc_element(-1, &utils, main);
 	verify_syntax(&utils, main);
-	// if (utils.echap || utils.double_q || utils.sing_q)
-	// {
-	// 	printf("Error : Multiline is not accepted\n");
-	// 	if (main->lexer != NULL)
-	// 		ft_lstclear(&main->lexer, free_lexer);
-	// }
+	free(utils.str);
 }

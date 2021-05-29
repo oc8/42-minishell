@@ -22,20 +22,20 @@ void	save_last_arg(char **cmd, t_main *main)
 	}
 }
 
-void	exec_cmd(t_param_cmd *cmd, t_main *main)
+void	exec_cmd(t_param_cmd *param, t_main *main)
 {
 	int	i;
 
-	if (!cmd->cmd[0])
+	if (!param->cmd[0])
 		return ;
 	i = 7;
-	while (--i >= 0 && ft_strncmp(cmd->cmd[0], main->cmd_fct[i].name, 7))
+	while (--i >= 0 && ft_strncmp(param->cmd[0], main->cmd_fct[i].name, 7))
 		;
-	if (!ft_strncmp(cmd->cmd[0], main->cmd_fct[i].name, 7))
-		main->cmd_fct[i].fct(cmd->cmd + 1, main);
+	if (!ft_strncmp(param->cmd[0], main->cmd_fct[i].name, 7))
+		main->cmd_fct[i].fct(param->cmd + 1, main);
 	else
-		cmd_others(cmd->cmd, main);
-	// save_last_arg(cmd, main);
+		cmd_others(param->cmd, main);
+	save_last_arg(param->cmd, main);
 }
 
 void	cmd_exec(char **cmd, t_main *main)

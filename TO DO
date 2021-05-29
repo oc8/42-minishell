@@ -1,3 +1,16 @@
+OCEAN:
 - proteger les fonctions "dir"
 - free split_var
 - strerrno(errno)
+
+THOMAS:
+- ajouter les fd dans redirection --> OK
+- fin fill_struct --> OK
+- free param_cmd --> OK
+- gerer les espaces dans les tokenisation de VAR_ENV
+- changer tokenisation pour mettre un char * en param, et un start de ou ajouter les elements dan la liste.
+- faire une liste de structure pour les commandes pipe
+- faire script $?
+- set erno quand error synthax- voir quand erreur quoi faire (free main->lexer et line?)
+- voir les synthax error avec tests thallard (pipes)
+- relink Makefile

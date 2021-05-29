@@ -1,0 +1,2 @@
+VAR_ENV:
+export B="h"; export A="c$B" ; e$A\o test

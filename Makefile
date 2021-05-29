@@ -12,17 +12,23 @@ LST_SRCS		= \
 	cmd/exit/exit.c \
 	parsing/get_operator_command.c \
 	parsing/tokenization.c \
+	parsing/check_caracter_lex.c \
 	parsing/create_param_cmd.c \
 	parsing/manage_var_env.c \
 	parsing/reconize_type.c \
 	parsing/verify_syntax.c \
+	parsing/fill_struct_param_cmd.c \
 	utils/quit_prog.c \
 	utils/ft_strncmp_minishell.c \
 	utils/ft_strdup_no_list.c \
+	utils/ft_atoi_redirection.c \
 	utils/free_lexer.c \
+	utils/free_param_cmd.c \
+	utils/print_struct_cmd.c \
 	utils/init.c \
 	utils/var_utils.c \
 	utils/env_utils.c \
+	utils/print_lexer.c \
 	utils/error.c
 SRCS_DIR		= srcs
 OBJS_DIR		= objs
