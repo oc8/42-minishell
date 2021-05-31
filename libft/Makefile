@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 17:35:36 by odroz-ba          #+#    #+#              #
-#    Updated: 2021/05/25 14:03:22 by odroz-ba         ###   ########lyon.fr    #
+#    Updated: 2021/05/30 00:24:39 by tdayde           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,7 +87,7 @@ INCLUDES	= inc/libft.h
 NAME		= libft.a
 CC			= clang
 RM			= rm -rf
-CFLAGS		= -Wall -Wextra -Werror -Ofast -I ./inc
+CFLAGS		= -Wall -Wextra -Werror -Ofast -I ./inc -fPIE
 AR			= ar
 ARFLAGS		= rcs
 PATH_SRCS	= srcs

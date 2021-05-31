@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 21:42:57 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/27 20:43:20 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/31 22:17:41 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,9 @@ void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m)
 	{
 		lex->type = VAR_ENV;
 		utils->var_env = 0;
+		printf("valur = %s\n", lex->value);
+		if (utils->double_q == 1)
+			utils->double_q == 0;
 	}
 	else
 		lex->type = TO_DEFINE;

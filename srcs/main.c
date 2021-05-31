@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:11:28 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/28 15:10:06 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/05/31 21:59:32 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_histo(t_main *main)
 	tmp = main->histo;
 	while (tmp != NULL)
 	{
-		printf("%s\n", tmp->content);
+		printf("%s\n", (char*)tmp->content);
 		tmp = tmp->next;
 	}
 }
@@ -76,7 +76,8 @@ void	loop(t_main *main)
 			free(main->line);
 		get_operator_command(main);
 		tokenization(main->line, 0, main);
-		// print_lexer(main);
+		// printf("test\n");
+		print_lexer(main);
 		create_cmd(main);
 		// printf("TEST, main->lexer = %p\n", main->lexer);
 		if (main->lexer != NULL)

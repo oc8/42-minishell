@@ -67,6 +67,7 @@ typedef struct	s_lexer
 
 typedef struct	s_var_info
 {
+	t_list	*previous;
 	int		i_lst;
 	char	*value;
 }				t_var_info;
@@ -113,7 +114,7 @@ void	malloc_element(t_type_lex type, t_utils_lexer *utils, t_main *main);
 void	verify_syntax(t_utils_lexer *utils, t_main *main);
 void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m);
 void	create_param_cmd(t_param_cmd *param, t_main *main);
-void	remplace_var_value(char *str, int indice, t_main *main);
+void	remplace_var_value(char **new, char *str, t_main *main);
 void	define_text_types(t_main *main);
 void	fill_struct(t_param_cmd *param, t_main *main);
 void	print_struct_cmd(t_param_cmd *param);
