@@ -68,6 +68,7 @@ typedef struct	s_lexer
 typedef struct	s_var_info
 {
 	t_list	*previous;
+	// t_list	**previous;
 	int		i_lst;
 	char	*value;
 }				t_var_info;

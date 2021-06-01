@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 12:35:12 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/31 14:42:11 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/06/01 16:48:59 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,13 +142,16 @@ void	predefine_var(t_utils_lexer *utils, t_main *m)
 {
 	int	i;
 
+		// printf("test predifine_var\n");
+	if (utils->str[utils->i + 1] == '"' || utils->str[utils->i + 1] == '\'')
+		return ;
 	utils->var_env = 1;
 	update_word('$', &utils->word);
-	utils->i++;
-	while (utils->str[utils->i] != ' ' && utils->str[utils->i])
-	{
-		update_word(m->line[utils->i], &utils->word);
-		utils->i++;
-	}
-	utils->i--;
+	// utils->i++;
+	// while (utils->str[utils->i] != ' ' && utils->str[utils->i])
+	// {
+	// 	update_word(m->line[utils->i], &utils->word);
+	// 	utils->i++;
+	// }
+	// utils->i--;
 }

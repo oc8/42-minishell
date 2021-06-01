@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 17:54:03 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/31 22:06:56 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/06/01 17:30:13 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,20 @@ t_var_info	*contain_var(t_main *main)
 				next = index->next;
 				free_lexer(index);
 				main->lexer = main->lexer->next;
-
 			}
 			else
 			{
+			printf("contain_var : i = %d, tmp->value = %s\n", i, tmp->value);
 				next = index->next;
 				free_lexer(index);
 				var_info->previous->next = next;
+				// (*var_info->previous)->next = next;
 			}
 			return (var_info);
 			// return (previous)
 		}
 		var_info->previous = index;
+		// var_info->previous = &index;
 		index = index->next;
 		i++;
 	}
@@ -70,7 +72,8 @@ void	create_param_cmd(t_param_cmd *param, t_main *main)
 	{
 		remplace_var_value(&to_treat, var_info->value, main);
 		printf("to_treat = %s\n", to_treat);
-		tokenization(to_treat, var_info->i_lst, main);
+		if (to_treat)
+			tokenization(to_treat, var_info->i_lst, main);
 		free(var_info->value);
 		free(var_info);
 		free(to_treat);
