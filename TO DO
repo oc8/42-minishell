@@ -1,6 +1,5 @@
 OCEAN:
 - proteger les fonctions "dir"
-- free split_var
 - strerrno(errno)
 
 THOMAS:

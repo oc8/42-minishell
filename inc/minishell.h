@@ -82,7 +82,7 @@ typedef struct	s_redir
 typedef struct	s_param_cmd
 {
 	char	**cmd;
-	t_list	*redirection;
+	t_list	*redir;
 	int		pipe;
 	int		n_cmd;
 }				t_param_cmd;
@@ -121,7 +121,7 @@ void	print_struct_cmd(t_param_cmd *param);
 /*
 **	-->	CMD <--
 */
-void	cmd_others(char **arg, t_main *main);
+void	cmd_others(char **arg, t_redir *redir, t_main *main);
 void	cmd_exec(char **arg, t_main *main);
 void	exec_cmd(t_param_cmd *param, t_main *main); // temp
 void	cmd_echo(char **arg, t_main *main);

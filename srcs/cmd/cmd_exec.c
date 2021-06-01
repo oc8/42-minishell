@@ -25,16 +25,23 @@ void	save_last_arg(char **cmd, t_main *main)
 void	exec_cmd(t_param_cmd *param, t_main *main)
 {
 	int	i;
+	t_redir	*redir;
 
 	if (!param->cmd[0])
 		return ;
+	redir = (t_redir *)param->redir[0].content;
+	// if (redir->file)
+	// {
+	int file = open(redir->file, O_CREAT | O_WRONLY, 0777);
+	int file2 = dup2(file, 1);
+// }
 	i = 7;
 	while (--i >= 0 && ft_strncmp(param->cmd[0], main->cmd_fct[i].name, 7))
 		;
 	if (!ft_strncmp(param->cmd[0], main->cmd_fct[i].name, 7))
 		main->cmd_fct[i].fct(param->cmd + 1, main);
 	else
-		cmd_others(param->cmd, main);
+		cmd_others(param->cmd, param->redir, main);
 	save_last_arg(param->cmd, main);
 }
 
