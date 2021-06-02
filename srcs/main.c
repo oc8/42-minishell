@@ -7,7 +7,7 @@ void	print_histo(t_main *main)
 	tmp = main->histo;
 	while (tmp != NULL)
 	{
-		printf("%s\n", tmp->content);
+		printf("%s\n", (char *)tmp->content);
 		tmp = tmp->next;
 	}
 }

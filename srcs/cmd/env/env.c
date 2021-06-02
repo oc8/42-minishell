@@ -12,11 +12,13 @@
 // 	return (0);
 // }
 
-void	cmd_env(char **arg, t_main *main)
+void	cmd_env(t_param_cmd *param, t_main *main)
 {
 	size_t	i;
+	int		file2;
 
-	(void)arg;
+	if (param->redir)
+		file2 = redirection(param->redir, main);
 	i = 0;
 	while (main->env[i] && i < main->nbr_env)
 	{
@@ -24,4 +26,6 @@ void	cmd_env(char **arg, t_main *main)
 			printf("%s\n", main->env[i]);
 		i++;
 	}
+	if (param->redir)
+		close(file2);
 }

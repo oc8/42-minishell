@@ -37,7 +37,7 @@ void	exec_cmd(t_param_cmd *param, t_main *main)
 	while (--i >= 0 && ft_strncmp(param->cmd[0], main->cmd_fct[i].name, 7))
 		;
 	if (!ft_strncmp(param->cmd[0], main->cmd_fct[i].name, 7))
-		main->cmd_fct[i].fct(param->cmd + 1, param, main);
+		main->cmd_fct[i].fct(param, main);
 	else
 		cmd_others(param, main);
 	save_last_arg(param->cmd, main);

@@ -37,16 +37,6 @@ typedef enum	e_type_lex
 	NEW_COMMAND,
 }				t_type_lex;
 
-struct s_main;
-
-typedef void	(*t_fct_cmd)(char **, struct s_main *);
-
-typedef struct	s_function
-{
-	t_fct_cmd		fct;
-	char			*name;
-}				t_function;
-
 typedef struct	s_utils_lexer
 {
 	char	*str;
@@ -86,6 +76,16 @@ typedef struct	s_param_cmd
 	int		pipe;
 	int		n_cmd;
 }				t_param_cmd;
+
+struct s_main;
+
+typedef void	(*t_fct_cmd)(t_param_cmd *, struct s_main *);
+
+typedef struct	s_function
+{
+	t_fct_cmd		fct;
+	char			*name;
+}				t_function;
 
 typedef struct	s_main
 {

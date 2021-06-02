@@ -33,13 +33,20 @@ static void	add_to_var(char *add, int index, t_main *main)
 	free(tmp);
 }
 
-void	cmd_export(char **arg, t_main *main)
+void	cmd_export(t_param_cmd *param, t_main *main)
 {
 	char	**var;
 	size_t	i;
 	int		index;
 	int		flag_add;
+	char	**arg;
+	int		file2;
 
+	arg = param->cmd + 1;
+	if (param->redir)
+		file2 = redirection(param->redir, main);
+	if (param->redir)
+		close(file2);
 	if (!arg[0])
 	{
 		print_env(main);

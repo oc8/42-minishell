@@ -1,13 +1,19 @@
 #include "minishell.h"
 
-void	cmd_echo(char **arg, t_main *main)
+void	cmd_echo(t_param_cmd *param, t_main *main)
 {
 	int	i;
 	int	flag_n;
+	int	file2;
+	char	**arg;
 
-	(void)main;
+	arg = param->cmd + 1;
+	if (param->redir)
+		file2 = redirection(param->redir, main);
 	if (!arg[0])
 	{
+		if (param->redir)
+		close(file2);
 		printf("\n");
 		return ;
 	}
@@ -31,4 +37,6 @@ void	cmd_echo(char **arg, t_main *main)
 	}
 	if (!flag_n)
 		printf("\n");
+	if (param->redir)
+		close(file2);
 }
