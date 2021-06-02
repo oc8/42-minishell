@@ -29,6 +29,7 @@ LST_SRCS		= \
 	utils/var_utils.c \
 	utils/env_utils.c \
 	utils/print_lexer.c \
+	utils/redirection.c \
 	utils/error.c
 SRCS_DIR		= srcs
 OBJS_DIR		= objs

@@ -121,17 +121,17 @@ void	print_struct_cmd(t_param_cmd *param);
 /*
 **	-->	CMD <--
 */
-void	cmd_others(char **arg, t_redir *redir, t_main *main);
-void	cmd_exec(char **arg, t_main *main);
+void	cmd_others(t_param_cmd *param, t_main *main);
+// void	cmd_exec(t_param_cmd *param, t_main *main);
 void	exec_cmd(t_param_cmd *param, t_main *main); // temp
-void	cmd_echo(char **arg, t_main *main);
-void	cmd_pwd(char **arg, t_main *main);
-void	cmd_env(char **arg, t_main *main);
-void	cmd_export(char **arg, t_main *main);
-void	cmd_unset(char **arg, t_main *main);
-void	cmd_cd(char **arg, t_main *main);
-void	cmd_exit(char **arg, t_main *main);
-void	test_cmd_exec(t_main *main); // temp
+void	cmd_echo(t_param_cmd *param, t_main *main);
+void	cmd_pwd(t_param_cmd *param, t_main *main);
+void	cmd_env(t_param_cmd *param, t_main *main);
+void	cmd_export(t_param_cmd *param, t_main *main);
+void	cmd_unset(t_param_cmd *param, t_main *main);
+void	cmd_cd(t_param_cmd *param, t_main *main);
+void	cmd_exit(t_param_cmd *param, t_main *main);
+// void	test_cmd_exec(t_main *main); // temp
 
 /*
 **	-->	UTILS <--
@@ -150,5 +150,6 @@ int		var_defined(char *var, t_main *main);
 void	new_var(char *add, t_main *main);
 void	edit_var(char *add, size_t i, t_main *main);
 void	print_lexer(t_main *main);
+int		redirection(t_list *redir_lst, t_main *main);
 
 #endif

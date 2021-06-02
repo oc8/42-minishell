@@ -1,12 +1,14 @@
 #include "minishell.h"
 
-void	cmd_unset(char **arg, t_main *main)
+void	cmd_unset(t_param_cmd *param, t_main *main)
 {
 	// char	**var;
 	size_t	*len;
 	size_t	i;
 	int		index;
+	char	**arg;
 
+	arg = param->cmd + 1;
 	if (!arg[0])
 		return ;
 	len = &main->nbr_env;

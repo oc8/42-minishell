@@ -49,12 +49,13 @@ static char	*cmd_path(char *cmd, t_main *main)
 	return (check_path(paths, cmd, main));
 }
 
-void	cmd_others(char **arg, t_main *main)
+void	cmd_others(char **arg, t_list *redir_lst, t_main *main)
 {
 	char	*cmd;
 	pid_t	pid;
 	int		status;
 	char	*path;
+	int		file2;
 
 	if (!ft_strncmp(arg[0], "test", 5))
 		return ;
@@ -75,9 +76,12 @@ void	cmd_others(char **arg, t_main *main)
 		quit_prog("error fork", main);
 	else if (pid == 0)
 	{
+		if (redir_lst)
+			file2 = redirection(redir_lst, main);
 		if (execve(cmd, arg, main->env) < 0)
 		// 	strerrno(errno);
 			;
+		close(file2);
 		exit(0);
 	}
 	else
