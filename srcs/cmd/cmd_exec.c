@@ -25,21 +25,27 @@ void	save_last_arg(char **cmd, t_main *main)
 void	exec_cmd(t_param_cmd *param, t_main *main)
 {
 	int	i;
+	pid_t	pid;
+	int		status;
 
 	if (!param->cmd[0])
 		return ;
-	// if (redir->file)
-	// {
-	// int file = open(redir->file, O_CREAT | O_WRONLY, 0777);
-	// int file2 = dup2(file, 1);
-// }
 	i = 7;
-	while (--i >= 0 && ft_strncmp(param->cmd[0], main->cmd_fct[i].name, 7))
-		;
-	if (!ft_strncmp(param->cmd[0], main->cmd_fct[i].name, 7))
-		main->cmd_fct[i].fct(param, main);
+	pid = fork();
+	if (pid == -1)
+		quit_prog("error fork", main);
+	else if (pid == 0)
+	{
+		while (--i >= 0 && ft_strncmp(param->cmd[0], main->cmd_fct[i].name, 7))
+			;
+		if (!ft_strncmp(param->cmd[0], main->cmd_fct[i].name, 7))
+			main->cmd_fct[i].fct(param, main);
+		else
+			cmd_others(param, main);
+		exit(0);
+	}
 	else
-		cmd_others(param, main);
+		wait(&status);
 	save_last_arg(param->cmd, main);
 }
 

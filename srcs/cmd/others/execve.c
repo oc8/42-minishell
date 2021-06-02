@@ -73,11 +73,11 @@ void	cmd_others(t_param_cmd *param, t_main *main)
 	free(path);
 	cmd = ft_strjoin(cmd, arg[0]);
 	// printf("%s\n", cmd);
-	pid = fork();
-	if (pid == -1)
-		quit_prog("error fork", main);
-	else if (pid == 0)
-	{
+	// pid = fork();
+	// if (pid == -1)
+	// 	quit_prog("error fork", main);
+	// else if (pid == 0)
+	// {
 		if (param->redir)
 			file2 = redirection(param->redir, main);
 		if (execve(cmd, arg, main->env) < 0)
@@ -86,9 +86,9 @@ void	cmd_others(t_param_cmd *param, t_main *main)
 		if (param->redir)
 			close(file2);
 		exit(0);
-	}
-	else
-		wait(&status);
+	// }
+	// else
+	// 	wait(&status);
 	free(cmd);
 }
 
