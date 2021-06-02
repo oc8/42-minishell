@@ -40,7 +40,7 @@ static int	bash_script(int *ind, char *str, char **new, t_main *main)
 		update_word('E', new);
 		update_word('R', new);
 		update_word(' ', new);
-		*ind++;
+		(*ind)++;
 		return (TRUE);
 	}
 	return (FALSE);
@@ -104,8 +104,12 @@ static void	add_var(size_t indice, char **new, t_main *main)
 	while (main->env[indice][j] != '=')
 		j++;
 	j++;
+	// printf ("add_var OK\n");
 	while (main->env[indice][j])
+	{
+		// printf("c = %c\n", main->env[indice][j++]);
 		update_word(main->env[indice][j++], new);
+	}
 }
 
 void	remplace_var_value(char **new, char *str, t_main *main)
@@ -131,7 +135,7 @@ void	remplace_var_value(char **new, char *str, t_main *main)
 			// printf("indice_var = %d, main->env[indice_var] = |%s|\n", indice_var, main->env[indice_var]);
 			if (indice_var != -1)
 				add_var(indice_var, new, main);
-			printf("new = %s\n", *new);
+			// printf("new remplace_var = %s\n", *new);
 			if (var != NULL)
 				free(var);
 		}
@@ -145,8 +149,9 @@ void	predefine_var(t_utils_lexer *utils, t_main *m)
 		// printf("test predifine_var\n");
 	if (utils->str[utils->i + 1] == '"' || utils->str[utils->i + 1] == '\'')
 		return ;
-	utils->var_env = 1;
 	update_word('$', &utils->word);
+	if (utils->str[utils->i + 1])
+		utils->var_env = 1;
 	// utils->i++;
 	// while (utils->str[utils->i] != ' ' && utils->str[utils->i])
 	// {

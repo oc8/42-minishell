@@ -111,9 +111,9 @@ void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m)
 	{
 		lex->type = VAR_ENV;
 		utils->var_env = 0;
-		printf("valur = %s\n", lex->value);
+		// printf("valur = %s\n", lex->value);
 		if (utils->double_q == 1)
-			utils->double_q == 0;
+			utils->double_q = 0;
 	}
 	else
 		lex->type = TO_DEFINE;

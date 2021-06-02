@@ -12,34 +12,34 @@
 
 #include "minishell.h"
 
-void	add_to_list(t_list **new, t_utils_lexer *utils, t_main *main)
-{
-	t_list	*index;
-	t_list	*next;
-	t_lexer	*tmp;
-	int		i;
+// void	add_to_list(t_list **new, t_utils_lexer *utils, t_main *main)
+// {
+// 	t_list	*index;
+// 	t_list	*next;
+// 	t_lexer	*tmp;
+// 	int		i;
 	
-	// tmp = (*new)->content;
-	// printf("cmd = %s, utils->i_lst = %d\n", tmp->value, utils->i_lst);
-	if (utils->i_lst == 0)
-		ft_lstadd_back(&main->lexer, *new);
-	else if (utils->i_lst == 1)
-	{
-		ft_lstadd_front(&main->lexer, *new);
-		utils->i_lst++;
-	}
-	else
-	{
-		i = utils->i_lst;
-		index = main->lexer;
-		while (--i > 1)
-			index = index->next;
-		next = index->next;
-		index->next = *new;
-		(*new)->next = next;
-		utils->i_lst++;
-	}
-}
+// 	// tmp = (*new)->content;
+// 	// printf("cmd = %s, utils->i_lst = %d\n", tmp->value, utils->i_lst);
+// 	if (utils->i_lst == 0)
+// 		ft_lstadd_back(&main->lexer, *new);
+// 	else if (utils->i_lst == 1)
+// 	{
+// 		ft_lstadd_front(&main->lexer, *new);
+// 		utils->i_lst++;
+// 	}
+// 	else
+// 	{
+// 		i = utils->i_lst;
+// 		index = main->lexer;
+// 		while (--i > 1)
+// 			index = index->next;
+// 		next = index->next;
+// 		index->next = *new;
+// 		(*new)->next = next;
+// 		utils->i_lst++;
+// 	}
+// }
 
 void	malloc_element(t_type_lex type, t_utils_lexer *utils, t_main *main)
 {
@@ -61,7 +61,9 @@ void	malloc_element(t_type_lex type, t_utils_lexer *utils, t_main *main)
 	utils->word = NULL;
 	free(utils->word);
 	new = ft_lstnew(lexer);
-	add_to_list(&new, utils, main);
+	ft_lstadd_back(&main->lexer, new);
+
+	// add_to_list(&new, utils, main);
 
 	// if (utils->i_lst == 0)
 	// 	ft_lstadd_back(&main->lexer, new);
