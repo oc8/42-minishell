@@ -7,10 +7,14 @@ void	cmd_pwd(t_param_cmd *param, t_main *main)
 
 	if (param->redir)
 		file2 = redirection(param->redir, main);
-	if (param->redir)
-		close(file2);
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
+	{
+		if (param->redir)
+			close(file2);
 		quit_prog("getcwd() on pwd", main);
+	}
 	else
 		printf("%s\n", cwd);
+	if (param->redir)
+		close(file2);
 }

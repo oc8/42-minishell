@@ -8,6 +8,7 @@
 # include <term.h>
 # include <dirent.h>
 # include <limits.h>
+# include <string.h>
 # include <sys/errno.h>
 
 # include "libft.h"

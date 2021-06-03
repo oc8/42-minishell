@@ -109,7 +109,7 @@ int	main(int argc, char *argv[], char *env[])
 	init_cmd_fct(&main);
 	// print_env(&main);
 	loop(&main);
-	print_histo(&main);
+	// print_histo(&main);
 	free(main.line);
 	ft_lstclear(&main.free, free);
 	return (0);

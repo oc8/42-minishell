@@ -58,7 +58,7 @@ void	cmd_others(t_param_cmd *param, t_main *main)
 	int		file2;
 	char	**arg;
 
-	arg = param->cmd + 1;
+	arg = param->cmd;
 	if (!ft_strncmp(arg[0], "test", 5))
 		return ;
 	path = cmd_path(arg[0], main);
@@ -81,11 +81,10 @@ void	cmd_others(t_param_cmd *param, t_main *main)
 		if (param->redir)
 			file2 = redirection(param->redir, main);
 		if (execve(cmd, arg, main->env) < 0)
-		// 	strerrno(errno);
-			;
+			cmd_error(arg[0], strerror(errno), 0, 0);
 		if (param->redir)
 			close(file2);
-		exit(0);
+		// exit(0);
 	// }
 	// else
 	// 	wait(&status);

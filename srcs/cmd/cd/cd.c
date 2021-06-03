@@ -2,7 +2,7 @@
 
 void	cmd_cd(t_param_cmd *param, t_main *main)
 {
-	int	file2;
+	int		file2;
 	char	**arg;
 
 	arg = param->cmd + 1;
@@ -14,5 +14,5 @@ void	cmd_cd(t_param_cmd *param, t_main *main)
 		return ;
 	if (chdir(arg[0]) == -1)
 		// quit_prog("chdir() on cd", main);
-		cmd_error("cd", "No such file or directory", arg[0], 1);
+		cmd_error("cd", strerror(errno), arg[0], 1);
 }

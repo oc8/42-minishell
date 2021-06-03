@@ -2,14 +2,24 @@
 
 int	cmd_error(char *cmd, char *error, char *arg, int nbr)
 {
-	printf("\033[31mbash_des_freros: ");
+	ft_putstr_fd("\033[31mbash_des_freros: ", 2);
 	if (cmd)
-		printf("%s: ", cmd);
+	{
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": ", 2);
+	}
 	if (arg)
-		printf("`%s': ", arg);
+	{
+		ft_putstr_fd(arg, 2);
+		ft_putstr_fd(": ", 2);
+	}
 	if (error)
-		printf("%s: ", error);
-	printf("\n\033[0m");
-	errno = nbr;
+	{
+		ft_putstr_fd(error, 2);
+		ft_putstr_fd(": ", 2);
+	}
+	ft_putstr_fd("\n\033[0m", 2);
+	if (nbr)
+		errno = nbr;
 	return (1);
 }
