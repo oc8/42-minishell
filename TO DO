@@ -13,3 +13,4 @@ THOMAS:
 - set erno quand error synthax- voir quand erreur quoi faire (free main->lexer et line?)
 - voir les synthax error avec tests thallard (pipes)
 - relink Makefile
+- leaks

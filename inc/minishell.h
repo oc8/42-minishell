@@ -110,6 +110,7 @@ typedef struct	s_main
 	t_list			*histo;
 	t_list			*free;
 	t_function		cmd_fct[7];
+	int				file;
 }				t_main;
 
 void	loop(t_main *main);

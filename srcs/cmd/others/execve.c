@@ -53,7 +53,6 @@ void	cmd_others(t_param_cmd *param, t_main *main)
 {
 	char	*cmd;
 	char	*path;
-	int		file2;
 	char	**arg;
 
 	arg = param->cmd;
@@ -70,10 +69,10 @@ void	cmd_others(t_param_cmd *param, t_main *main)
 	free(path);
 	cmd = ft_strjoin(cmd, arg[0]);
 	if (param->redir)
-		file2 = redirection(param->redir, main);
+		main->file = redirection(param->redir, main);
 	if (execve(cmd, arg, main->env) < 0)
 		cmd_error(arg[0], strerror(errno), 0, 0);
 	if (param->redir)
-		close(file2);
+		close(main->file);
 	free(cmd);
 }

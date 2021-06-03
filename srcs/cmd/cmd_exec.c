@@ -33,7 +33,7 @@ void	exec_cmd(t_param_cmd *param, t_main *main)
 	i = 7;
 	while (--i >= 0 && ft_strncmp(param->cmd[0], main->cmd_fct[i].name, 7))
 		;
-	if (param->pipe || (i != I_CD && i != I_EXPORT && i != I_UNSET))
+	if (param->pipe || (i != I_CD && i != I_EXPORT && i != I_UNSET && i != I_EXIT))
 	{
 		pid = fork();
 		if (pid == -1)
@@ -41,7 +41,13 @@ void	exec_cmd(t_param_cmd *param, t_main *main)
 		else if (pid == 0)
 		{
 			if (!ft_strncmp(param->cmd[0], main->cmd_fct[i].name, 7))
+			{
+				if (param->redir)
+					main->file = redirection(param->redir, main);
 				main->cmd_fct[i].fct(param, main);
+				if (param->redir)
+					close(main->file);
+			}
 			else
 				cmd_others(param, main);
 			exit(0);
@@ -50,7 +56,13 @@ void	exec_cmd(t_param_cmd *param, t_main *main)
 			wait(&status);
 	}
 	else
+	{
+		if (param->redir)
+			main->file = redirection(param->redir, main);
 		main->cmd_fct[i].fct(param, main);
+		if (param->redir)
+			close(main->file);
+	}
 	save_last_arg(param->cmd, main);
 }
 

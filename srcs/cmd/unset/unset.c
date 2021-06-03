@@ -5,13 +5,8 @@ void	cmd_unset(t_param_cmd *param, t_main *main)
 	size_t	i;
 	int		index;
 	char	**arg;
-	int		file2;
 
 	arg = param->cmd + 1;
-	if (param->redir)
-		file2 = redirection(param->redir, main);
-	if (param->redir)
-		close(file2);
 	if (!arg[0])
 		return ;
 	i = 0;
