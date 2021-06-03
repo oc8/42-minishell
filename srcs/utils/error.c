@@ -14,10 +14,7 @@ int	cmd_error(char *cmd, char *error, char *arg, int nbr)
 		ft_putstr_fd(": ", 2);
 	}
 	if (error)
-	{
 		ft_putstr_fd(error, 2);
-		ft_putstr_fd(": ", 2);
-	}
 	ft_putstr_fd("\n\033[0m", 2);
 	if (nbr)
 		errno = nbr;

@@ -52,8 +52,6 @@ static char	*cmd_path(char *cmd, t_main *main)
 void	cmd_others(t_param_cmd *param, t_main *main)
 {
 	char	*cmd;
-	pid_t	pid;
-	int		status;
 	char	*path;
 	int		file2;
 	char	**arg;
@@ -62,7 +60,6 @@ void	cmd_others(t_param_cmd *param, t_main *main)
 	if (!ft_strncmp(arg[0], "test", 5))
 		return ;
 	path = cmd_path(arg[0], main);
-	// printf("'%s'\n", path);
 	if (!path || !path[0])
 	{
 		free(path);
@@ -72,22 +69,11 @@ void	cmd_others(t_param_cmd *param, t_main *main)
 	cmd = ft_strjoin(path, "/");
 	free(path);
 	cmd = ft_strjoin(cmd, arg[0]);
-	// printf("%s\n", cmd);
-	// pid = fork();
-	// if (pid == -1)
-	// 	quit_prog("error fork", main);
-	// else if (pid == 0)
-	// {
-		if (param->redir)
-			file2 = redirection(param->redir, main);
-		if (execve(cmd, arg, main->env) < 0)
-			cmd_error(arg[0], strerror(errno), 0, 0);
-		if (param->redir)
-			close(file2);
-		// exit(0);
-	// }
-	// else
-	// 	wait(&status);
+	if (param->redir)
+		file2 = redirection(param->redir, main);
+	if (execve(cmd, arg, main->env) < 0)
+		cmd_error(arg[0], strerror(errno), 0, 0);
+	if (param->redir)
+		close(file2);
 	free(cmd);
 }
-

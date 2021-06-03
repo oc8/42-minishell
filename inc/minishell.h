@@ -38,6 +38,17 @@ typedef enum	e_type_lex
 	NEW_COMMAND,
 }				t_type_lex;
 
+typedef enum	e_index_cmd
+{
+	I_ECHO,
+	I_PWD,
+	I_CD,
+	I_ENV,
+	I_EXPORT,
+	I_UNSET,
+	I_EXIT
+}				t_index_cmd;
+
 typedef struct	s_utils_lexer
 {
 	char	*str;
@@ -154,5 +165,6 @@ void	new_var(char *add, t_main *main);
 void	edit_var(char *add, size_t i, t_main *main);
 void	print_lexer(t_main *main);
 int		redirection(t_list *redir_lst, t_main *main);
+void	del_var(int index, t_main *main);
 
 #endif

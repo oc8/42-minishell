@@ -67,23 +67,6 @@ static char	*get_var_name(int *ind, char *str, char **new, t_main *m)
 	return (var);
 }
 
-static int	var_defined(char *var, t_main *main)
-{
-	size_t	i;
-	size_t	j;
-
-	i = -1;
-	while (main->env[++i] != NULL)
-	{
-		j = 0;
-		while (var[j] == main->env[i][j])
-			j++;
-		if (var[j] == '\0' && main->env[i][j] == '=')
-			return (i);
-	}
-	return (-1);
-}
-
 static void	add_var(size_t indice, char **new, t_main *main)
 {
 	size_t	j;

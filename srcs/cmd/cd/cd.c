@@ -14,5 +14,5 @@ void	cmd_cd(t_param_cmd *param, t_main *main)
 		return ;
 	if (chdir(arg[0]) == -1)
 		// quit_prog("chdir() on cd", main);
-		cmd_error("cd", strerror(errno), arg[0], 1);
+		cmd_error("cd", strerror(errno), arg[0], 1); // strerror ?
 }
