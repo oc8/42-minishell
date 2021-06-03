@@ -1,20 +1,13 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: odroz-ba <odroz-ba@student.42lyon.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 16:56:46 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/17 16:11:16 by odroz-ba         ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-void	cmd_exit(char **arg, t_main *main)
+void	cmd_exit(t_param_cmd *param, t_main *main)
 {
-	(void)arg;
+	int	file2;
+
+	if (param->redir)
+		file2 = redirection(param->redir, main);
+	if (param->redir)
+		close(file2);
 	printf("exit\n");
 	quit_prog(0, main);
 }

@@ -26,18 +26,20 @@ LST_SRCS		= \
 	utils/free_param_cmd.c \
 	utils/print_struct_cmd.c \
 	utils/init.c \
-	utils/split_var.c \
+	utils/var_utils.c \
+	utils/env_utils.c \
 	utils/print_lexer.c \
+	utils/redirection.c \
 	utils/error.c
 SRCS_DIR		= srcs
 OBJS_DIR		= objs
 SRCS			= $(addprefix $(SRCS_DIR)/,$(LST_SRCS))
-OBJS			= $(LST_SRCS:%.c=$(OBJS_DIR)/%.o) $(OBJS_SHARED)
-CC				= gcc
+OBJS			= $(LST_SRCS:%.c=$(OBJS_DIR)/%.o)
+CC				= clang
 # CFLAGS			= -Wall -Werror -Wextra
-# CFLAGS			= -g
+CFLAGS			= -g
 # CFLAGS			= -Wall -Werror -Wextra -fsanitize=address -g3
-CFLAGS			= -fsanitize=address -g3
+# CFLAGS			= -fsanitize=address -g3
 INCLUDE			= -Iinc -I${LIBFT}/inc
 RM				= rm -rf
 MKDIR			= mkdir -p
@@ -54,7 +56,7 @@ libft:
 				$(RM) SILENT
 				printf "$(ERASE)"
 
-${NAME}:		${OBJS_DIR} ${OBJS}
+${NAME}:		libft ${OBJS_DIR} ${OBJS}
 				${CC} ${CFLAGS} ${INCLUDE} ${OBJS} -L ${LIBFT} -lft -o ${NAME}
 				echo "$(BOLD)${GREEN}$(ERASE)--> minishell generated <--${END}"
 

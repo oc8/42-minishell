@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   create_param_cmd.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/25 17:54:03 by tdayde            #+#    #+#             */
-/*   Updated: 2021/06/01 17:30:13 by tdayde           ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 void	update_lst(t_list *previous, t_list *to_del, t_main *main)
@@ -126,5 +114,5 @@ void	create_param_cmd(t_param_cmd *param, t_main *main)
 	define_text_types(main);
 	// print_lexer(main);
 	fill_struct(param, main);
-	print_struct_cmd(param);
+	// print_struct_cmd(param);
 }

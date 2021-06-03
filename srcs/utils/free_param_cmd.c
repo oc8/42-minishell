@@ -33,5 +33,5 @@ void	free_param_cmd(t_param_cmd *param)
 		free(param->cmd);
 		param->cmd = NULL;
 	}
-	ft_lstclear(&param->redirection, free_redirection);
+	ft_lstclear(&param->redir, free_redirection);
 }

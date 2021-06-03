@@ -65,7 +65,7 @@ static void	update_redirs_lst(t_list *index, t_param_cmd *param, t_main *main)
 	if (redir->file == NULL)
 		quit_prog("Fill_struct : redirection part malloc", main);
 	new = ft_lstnew(redir);
-	ft_lstadd_back(&param->redirection, new);
+	ft_lstadd_back(&param->redir, new);
 }
 
 void	fill_struct(t_param_cmd *param, t_main *main)

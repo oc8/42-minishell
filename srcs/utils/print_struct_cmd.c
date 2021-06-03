@@ -58,8 +58,8 @@ void	print_struct_cmd(t_param_cmd *param)
 	printf("\033[33m\033[1m--> STRUCTURE FOR COMMAND <--\n\033[0m");
 	if (param->cmd)
 		print_cmd(param);
-	if (param->redirection)
-		print_redir(param->redirection);
+	if (param->redir)
+		print_redir(param->redir);
 	if (param->pipe == 1)
 		printf("\033[1mPIPE:\n\033[0mYes\n");
 	else if (param->pipe == 0)
