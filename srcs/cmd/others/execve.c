@@ -58,18 +58,23 @@ void	cmd_others(t_param_cmd *param, t_main *main)
 	arg = param->cmd;
 	if (!ft_strncmp(arg[0], "test", 5))
 		return ;
-	path = cmd_path(arg[0], main);
-	if (!path || !path[0])
+	if (arg[0][0] == '/' || (arg[0][0] == '.' && arg[0][1] == '/'))
+		cmd = arg[0];
+	else
 	{
+		path = cmd_path(arg[0], main);
+		if (!path || !path[0])
+		{
+			free(path);
+			cmd_error(arg[0], "command not found", 0, 127);
+			return ;
+		}
+		cmd = ft_strjoin(path, "/");
 		free(path);
-		cmd_error(arg[0], "command not found", 0, 127);
-		return ;
+		cmd = ft_strjoin(cmd, arg[0]);
 	}
-	cmd = ft_strjoin(path, "/");
-	free(path);
-	cmd = ft_strjoin(cmd, arg[0]);
 	if (param->redir)
-		main->file = redirection(param->redir, main);
+		main->file = redirection(param, main);
 	if (execve(cmd, arg, main->env) < 0)
 		cmd_error(arg[0], strerror(errno), 0, 0);
 	if (param->redir)

@@ -111,6 +111,7 @@ typedef struct	s_main
 	t_list			*free;
 	t_function		cmd_fct[7];
 	int				file;
+	int				pipefd[2];
 }				t_main;
 
 void	loop(t_main *main);
@@ -165,7 +166,7 @@ int		var_defined(char *var, t_main *main);
 void	new_var(char *add, t_main *main);
 void	edit_var(char *add, size_t i, t_main *main);
 void	print_lexer(t_main *main);
-int		redirection(t_list *redir_lst, t_main *main);
+int		redirection(t_param_cmd *param, t_main *main);
 void	del_var(int index, t_main *main);
 
 #endif

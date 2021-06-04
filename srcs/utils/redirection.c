@@ -27,19 +27,47 @@ static void	redir_type(int *file2, t_redir *redir, t_main *main)
 	}
 }
 
-int	redirection(t_list *redir_lst, t_main *main)
+static void	redir_chevron(t_list *redir_lst, int *file2, t_main *main)
 {
-	int		file2;
-	int		flag;
+	int	flag;
 
 	flag = 0;
 	while (redir_lst)
 	{
 		if (flag)
-			close(file2);
-		redir_type(&file2, redir_lst->content, main);
-		flag = 1;
+			close(*file2);
+		else
+			flag = 1;
+		redir_type(file2, redir_lst->content, main);
 		redir_lst = redir_lst->next;
+	}
+}
+
+static void	redir_pipe(int *file2, t_main *main)
+{
+	*file2 = dup2(main->pipefd[1], STDOUT_FILENO);
+	close(main->pipefd[0]);
+}
+
+int	redirection(t_param_cmd *param, t_main *main)
+{
+	int			file2;
+	static int	flag = 0;
+
+	if (param->redir)
+		redir_chevron(param->redir, &file2, main);
+	if (param->pipe && !flag)
+	{
+				printf("2\n");
+		redir_pipe(&file2, main);
+		flag = 1;
+	}
+	if (flag)
+	{
+				printf("3\n");
+		file2 = dup2(main->pipefd[0], STDIN_FILENO);
+		close(main->pipefd[1]);
+		flag = 0;
 	}
 	return (file2);
 }
