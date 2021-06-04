@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 21:42:57 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/31 22:17:41 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/06/04 18:06:21 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,18 @@ void	define_text_types(t_main *main)
 
 void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m)
 {
+	int	i;
+	
 	if (utils->var_env == 1)
 	{
+		free(lex->value);
+		lex->value = NULL;
+		i = utils->start_word;
+		// printf("i/utils->start_word = %d\n", utils->start_word);
+		while (i < utils->i)
+			update_word(utils->str[i++], &lex->value);
+		// printf("start word = %d, utils->i = %d, len_word before malloc_lst = %d, word = %s\n", i, utils->i, ft_strlen(lex->value), lex->value);
+		
 		lex->type = VAR_ENV;
 		utils->var_env = 0;
 		// printf("valur = %s\n", lex->value);

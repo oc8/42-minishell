@@ -57,6 +57,7 @@ typedef struct	s_utils_lexer
 	int		echap;
 	int		i_lst;
 	int		var_env;
+	int		start_word;
 }				t_utils_lexer;
 
 typedef struct	s_lexer

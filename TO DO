@@ -8,7 +8,8 @@ THOMAS:
 - ajouter les fd dans redirection --> OK
 - fin fill_struct --> OK
 - free param_cmd --> OK
-- gerer les espaces dans les tokenisation de VAR_ENV
+- gerer message bash: $TOTO: ambiguous redirect si fil avec plusieurs mots : dans verify_syntax, if var_env apres redir, check si espace ou pas. changer var_env de redir a 1 si oui
+- gerer les espaces dans les tokenisation de VAR_ENV 
 - changer tokenisation pour mettre un char * en param, et un start de ou ajouter les elements dan la liste.
 - faire une liste de structure pour les commandes pipe
 - faire script $?

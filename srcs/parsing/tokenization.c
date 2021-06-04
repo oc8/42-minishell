@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:40:24 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/31 22:06:33 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/06/04 17:41:36 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,17 @@ void	malloc_element(t_type_lex type, t_utils_lexer *utils, t_main *main)
 	if (!lexer)
 		quit_prog("Lexer malloc creation", main);
 	lexer->value = ft_strdup_no_list(utils->word);
+	free(utils->word);
+	utils->word = NULL;
 	if (lexer->value == NULL)
 		quit_prog("Lexer value malloc", main);
 	if (type == -1)
 		reconize_primitive_type(lexer, utils, main);
 	else
 		lexer->type = type;
-	utils->word = NULL;
-	free(utils->word);
 	new = ft_lstnew(lexer);
 	ft_lstadd_back(&main->lexer, new);
+	utils->start_word = -1;
 
 	// add_to_list(&new, utils, main);
 
@@ -143,6 +144,8 @@ void	tokenization(char *str, int indice, t_main *main)
 	while (str[utils.i])
 	{
 		// res = check_caracter_lex(str[utils.i], &utils, main);
+		if (utils.start_word == -1)
+			utils.start_word = utils.i;
 		check_caracter_lex(str[utils.i], &utils, main);
 		if (utils.echap > 0 && str[utils.i])
 			utils.echap--;

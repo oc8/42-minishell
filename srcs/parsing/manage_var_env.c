@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 12:35:12 by tdayde            #+#    #+#             */
-/*   Updated: 2021/06/01 16:48:59 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/06/04 20:21:48 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ static char	*get_var_name(int *ind, char *str, char **new, t_main *m)
 		update_word('$', new);
 	// printf("fin get_var_name : var = |%s|\n", var);
 	*ind += i - 1;
+	// printf("fin get_var_name i = %d\n", *ind);
 	// printf("m->line[utils->i] = %c\n", m->line[utils->i]);
 	return (var);
 }
@@ -114,19 +115,18 @@ static void	add_var(size_t indice, char **new, t_main *main)
 
 void	remplace_var_value(char **new, char *str, t_main *main)
 {
-	int		indice_var;
-	char	*var;
-	int		i;
+	int				indice_var;
+	t_utils_lexer	utils;
+	char			*var;
+	int				i;
 
+	ft_bzero(&utils, sizeof(t_utils_lexer));
 	i = -1;
+	// printf("str_with_var = %s, new = %s\n", str, *new);
 	while (str[++i])
 	{
-		if (str[i] != '$')
-		{
-			// printf("str[i] = %c\n", str[i]);
-			update_word(str[i], new);
-		}
-		else
+		// printf("%c", str[i]);
+		if (str[i] == '$' && !utils.sing_q && !utils.echap)
 		{
 			indice_var = -1;
 			var = get_var_name(&i, str, new, main);
@@ -138,20 +138,64 @@ void	remplace_var_value(char **new, char *str, t_main *main)
 			// printf("new remplace_var = %s\n", *new);
 			if (var != NULL)
 				free(var);
+			// printf("fin get_var_name i = %d\n", i);
 		}
+		else
+		{
+			// printf("%c", str[i]);
+			if (str[i] == '\\'
+				&& ((utils.double_q == 0 && utils.sing_q == 0 && utils.echap == 0)
+				|| (utils.double_q == 1 && utils.echap == 0)))
+				utils.echap = 2;
+			else if (str[i] == '\'' && utils.echap == 0)
+			{
+				if (utils.sing_q == 0 && utils.double_q == 0)
+					utils.sing_q = 1;
+				else if (utils.sing_q == 1)
+					utils.sing_q = 0;
+			}
+			else if (str[i] == '"' && utils.echap == 0)
+			{
+				if (utils.double_q == 0 && utils.sing_q == 0)
+					utils.double_q = 1;
+				else if (utils.double_q == 1)
+					utils.double_q = 0;
+			}
+			update_word(str[i], new);
+		}
+		if (utils.echap > 0 && str[i])
+			utils.echap--;
 	}
+		// printf("str_with_var = %s, new = %s\n", str, *new);
 }
 
 void	predefine_var(t_utils_lexer *utils, t_main *m)
 {
-	int	i;
+	// int	i;
 
-		// printf("test predifine_var\n");
+	// if (utils->str[utils->i + 1])
+	// 	utils->var_env = 1;
+	// if (utils->word)
+	// 	i = utils->i - ft_strlen(utils->word);
+	// else 
+	// 	i = utils->i;
+	// while (utils->str[i])
+
+
 	if (utils->str[utils->i + 1] == '"' || utils->str[utils->i + 1] == '\'')
 		return ;
+	// if (utils->str[utils->i + 1] != '?')
+	// 	bash_script;
+	if (!ft_isalpha(utils->str[utils->i + 1]) && utils->str[utils->i + 1] != '_'
+		&& utils->str[utils->i + 1])
+	{
+		utils->i++;
+		return ;
+	}
 	update_word('$', &utils->word);
 	if (utils->str[utils->i + 1])
 		utils->var_env = 1;
+
 	// utils->i++;
 	// while (utils->str[utils->i] != ' ' && utils->str[utils->i])
 	// {

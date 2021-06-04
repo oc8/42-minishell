@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 18:36:30 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/29 15:17:48 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/06/04 11:35:12 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static void	quotes(char c, t_utils_lexer *utils, t_main *main)
 		else if (utils->double_q == 1)
 			utils->double_q = 0;
 	}
-	// return (WORD_NOT_FINISHED);
 }
 
 static t_type_lex	reconize_carac_spec(t_utils_lexer *utils)

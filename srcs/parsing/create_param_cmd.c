@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 17:54:03 by tdayde            #+#    #+#             */
-/*   Updated: 2021/06/01 17:30:13 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/06/04 20:22:03 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	update_lst(t_list *previous, t_list *to_del, t_main *main)
 	save = to_del->next;
 	tmp = to_del->content;
 	str_with_var = ft_strdup_no_list(tmp->value);
+	// printf("tmp->value = %s, str_with_var = %s\n", tmp->value, str_with_var);
 	if (!str_with_var)
 		quit_prog("strdup of update_lst create_param_cmd", main);
 	free_lexer(to_del->content);
@@ -32,6 +33,7 @@ void	update_lst(t_list *previous, t_list *to_del, t_main *main)
 		main->lexer = NULL;
 	else
 		previous->next = NULL;
+	// printf("str_with_value = %s\n", str_with_var);
 	remplace_var_value(&new, str_with_var, main);
 	// printf("str_with_var = %s, new = %s\n", str_with_var, new);
 	if (new)
