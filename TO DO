@@ -1,6 +1,7 @@
 OCEAN:
 - proteger les fonctions "dir"
 - strerrno(errno)
+- var PWD & OLDPWD
 
 THOMAS:
 - ajouter les fd dans redirection --> OK
