@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 19:53:01 by tdayde            #+#    #+#             */
-/*   Updated: 2021/06/05 11:31:08 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 22:42:14 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	print_lexer(t_main *main)
 			printf("Type = ARGUMENT\n");
 		else if (tmp->type == NEW_COMMAND)
 			printf("Type = NEW_COMMAND\n");
-		else if (tmp->type == FILE_NAME)
-			printf("Type = FILE_NAME\n");
+		else if (tmp->type == FILE_N)
+			printf("Type = FILE_N\n");
 		else if (tmp->type == REDIRECTION)
 			printf("Type = REDIRECTION\n");
 		else if (tmp->type == TO_DEFINE)

@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static int	verify_new_command(int i, t_utils_lexer *utils, t_main *main)
+static int	verif_newcmd(int i, t_utils_lexer *utils, t_main *main)
 {
 	t_list	*index;
 	t_lexer	*tmp;
@@ -8,25 +8,23 @@ static int	verify_new_command(int i, t_utils_lexer *utils, t_main *main)
 	if (i == 0)
 	{
 		printf("bash: syntax error near unexpected token `;'\n");
-		if (main->lexer != NULL)
-			ft_lstclear(&main->lexer, free_lexer);
+		ft_lstclear(&main->lexer, free_lexer);
 		return (-1);
 	}
 	index = main->lexer;
 	while (--i > 0)
 		index = index->next;
 	tmp = index->content;
-	if (tmp->type == NEW_COMMAND)
+	if (tmp->type == NEW_COMMAND || tmp->type == PIPE)
 	{
 		printf("bash: syntax error near unexpected token `%s'\n", tmp->value);
-		if (main->lexer != NULL)
-			ft_lstclear(&main->lexer, free_lexer);
+		ft_lstclear(&main->lexer, free_lexer);
 		return (-1);
 	}
 	return (1);
 }
 
-int	verify_redirection_var(t_lexer *to_check, t_list *prec, t_main *main)
+int	verif_redirection_var(t_lexer *to_check, t_list *prec, t_main *main)
 {
 	char	*new;
 	t_lexer	*tmp;
@@ -51,7 +49,7 @@ int	verify_redirection_var(t_lexer *to_check, t_list *prec, t_main *main)
 	return (1);
 }
 
-static int	verify_redirection(int i, t_utils_lexer *utils, t_main *main)
+static int	verif_redir(int i, t_utils_lexer *utils, t_main *main)
 {
 	t_list	*index;
 	t_list	*prec;
@@ -60,8 +58,7 @@ static int	verify_redirection(int i, t_utils_lexer *utils, t_main *main)
 	if (i == ft_lstsize(main->lexer) - 1)
 	{
 		printf("bash: syntax error near unexpected token `nexline'\n");
-		if (main->lexer != NULL)
-			ft_lstclear(&main->lexer, free_lexer);
+		ft_lstclear(&main->lexer, free_lexer);
 		return (-1);
 	}
 	index = main->lexer;
@@ -70,15 +67,46 @@ static int	verify_redirection(int i, t_utils_lexer *utils, t_main *main)
 	prec = index;
 	index = index->next;
 	tmp = index->content;
-	if (tmp->type != TO_DEFINE && tmp->type != FILE_NAME && tmp->type != VAR_ENV)
+	if (tmp->type != TO_DEFINE && tmp->type != FILE_N && tmp->type != VAR_ENV)
 	{
 		printf("bash: syntax error near unexpected token `%s'\n", tmp->value);
-		if (main->lexer != NULL)
-			ft_lstclear(&main->lexer, free_lexer);
+		ft_lstclear(&main->lexer, free_lexer);
 		return (-1);
 	}
-	// if (tmp->type == VAR_ENV && verify_redirection_var(tmp, prec, main) == -1)
-	// 	return (-1);
+	return (1);
+}
+
+static int	verif_pipe(int i, t_utils_lexer *utils, t_main *main)
+{
+	t_list	*index;
+	// t_list	*prec;
+	t_lexer	*tmp;
+	
+	if (i == 0)
+	{
+		printf("bash: syntax error near unexpected token `|'\n");
+		ft_lstclear(&main->lexer, free_lexer);
+		return (-1);
+	}
+	else if (i == ft_lstsize(main->lexer) - 1)
+	{
+		printf("Error : Multiline is not accepted\n");
+		ft_lstclear(&main->lexer, free_lexer);
+		return (-1);
+	}
+	index = main->lexer;
+	while (--i > 0)
+		index = index->next;
+	// prec = index;
+	// index = index->next;
+	tmp = index->content;
+	if (tmp->type != TO_DEFINE && tmp->type != FILE_N && tmp->type != VAR_ENV
+		&& tmp->type != COMMAND && tmp->type != ARGUMENT)
+	{
+		printf("bash: syntax error near unexpected token `|'\n");
+		ft_lstclear(&main->lexer, free_lexer);
+		return (-1);
+	}
 	return (1);
 }
 
@@ -91,8 +119,7 @@ void	verify_syntax(t_utils_lexer *utils, t_main *main)
 	if (utils->echap || utils->double_q || utils->sing_q)
 	{
 		printf("Error : Multiline is not accepted\n");
-		if (main->lexer != NULL)
-			ft_lstclear(&main->lexer, free_lexer);
+		ft_lstclear(&main->lexer, free_lexer);
 	}
 	i = 0;
 	index = main->lexer;
@@ -100,11 +127,11 @@ void	verify_syntax(t_utils_lexer *utils, t_main *main)
 	{
 		tmp = index->content;
 		if ((tmp->type == REDIR_IN || tmp->type == REDIR_OUT
-			|| tmp->type == APP_REDIR_OUT)
-			&& verify_redirection(i, utils, main) == -1)
+			|| tmp->type == APP_REDIR_OUT) && verif_redir(i, utils, main) == -1)
 				return ;
-		else if (tmp->type == NEW_COMMAND
-			&& verify_new_command(i, utils, main) == -1)
+		else if (tmp->type == NEW_COMMAND && verif_newcmd(i, utils, main) == -1)
+				return ;
+		else if (tmp->type == PIPE && verif_pipe(i, utils, main) == -1)
 				return ;
 		index = index->next;
 		i++;

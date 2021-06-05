@@ -33,7 +33,7 @@ typedef enum	e_type_lex
 	REDIR_IN,
 	APP_REDIR_OUT,
 	REDIR_OUT,
-	FILE_NAME,
+	FILE_N,
 	PIPE,
 	NEW_COMMAND,
 }				t_type_lex;
@@ -105,6 +105,7 @@ typedef struct	s_function
 typedef struct	s_main
 {
 	char			*line;
+	int				exit_st;
 	char			**env;
 	size_t			nbr_env;
 	t_list			*lexer;
@@ -127,7 +128,7 @@ void	check_caracter_var(t_utils_lexer *utils, t_main *main);
 void	check_caracter_lex(char c, t_utils_lexer *utils, t_main *main);
 void	malloc_element(t_type_lex type, t_utils_lexer *utils, t_main *main);
 void	verify_syntax(t_utils_lexer *utils, t_main *main);
-int		verify_redirection_var(t_lexer *to_check, t_list *prec, t_main *main);
+int		verif_redirection_var(t_lexer *to_check, t_list *prec, t_main *main);
 void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m);
 void	create_param_cmd(t_param_cmd *param, t_main *main);
 void	remplace_var_value(char **new, char *str, t_main *main);

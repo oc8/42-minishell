@@ -8,18 +8,15 @@ THOMAS:
 - free param_cmd --> OK
 - gerer les espaces dans les tokenisation de VAR_ENV --> OK
 - gerer si il y a des "" '' --> OK
-- changer le main de tokenisation pour mettre une simple liste chainee, pour verif_redir_var
-- gerer message bash: $TOTO: ambiguous redirect si fil avec plusieurs mots : dans verify_syntax, if var_env apres redir, check si espace ou pas. changer var_env de redir a 1 si oui
-- voir les synthax error avec tests thallard (pipes)
-- faire une liste de structure pour les commandes pipe
+- gerer message bash: $TOTO: ambiguous redirect --> OK
+- voir les synthax error avec tests thallard (pipes) --> OK
 - faire script $?
 - set erno quand error synthax- voir quand erreur quoi faire (free main->lexer et line?)
+- faire une liste de structure pour les commandes pipe 
 - relink Makefile
 - leaks
 
 A PARLER ENSEMBLE :
-- split var overflow!!
-- "export" marche pas
 - export change PWD et OLDPWD
 - mesages d'erreur command existe pas, erreurs cmd buildin
 - leaks malloc unset avec cmd unset TOTO

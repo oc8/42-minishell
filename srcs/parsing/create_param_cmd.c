@@ -66,7 +66,7 @@ void	contain_var(t_main *main)
 				tmp2 = previous->content;
 				if ((tmp2->type == REDIR_IN || tmp2->type == REDIR_OUT
 					|| tmp2->type == APP_REDIR_OUT)
-					&& verify_redirection_var(tmp, previous, main) == -1)
+					&& verif_redirection_var(tmp, previous, main) == -1)
 					return ;
 			}
 			// next = index->next;
@@ -125,5 +125,5 @@ void	create_param_cmd(t_param_cmd *param, t_main *main)
 	define_text_types(main);
 	// print_lexer(main);
 	fill_struct(param, main);
-	// print_struct_cmd(param);
+	print_struct_cmd(param);
 }

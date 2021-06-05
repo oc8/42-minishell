@@ -82,7 +82,7 @@ void	define_text_types(t_main *main)
 		if (tmp->type == TO_DEFINE)
 		{
 			if (redirection_file(i, main) == TRUE)
-				tmp->type = FILE_NAME;
+				tmp->type = FILE_N;
 			else if (first_command(main) == TRUE)
 				tmp->type = COMMAND;
 			else
