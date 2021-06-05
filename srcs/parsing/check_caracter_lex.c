@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   check_caracter_lex.c                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/26 18:36:30 by tdayde            #+#    #+#             */
-/*   Updated: 2021/06/04 11:35:12 by tdayde           ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static void	backslash(char c, t_utils_lexer *utils, t_main *main)
@@ -27,7 +15,11 @@ static void	quotes(char c, t_utils_lexer *utils, t_main *main)
 	if (c == '\'')
 	{
 		if (utils->double_q == 1 || utils->echap == 1)
+		{
+			if (utils->double_q == 1 && utils->echap == 1)
+				update_word('\\', &utils->word);
 			update_word(c, &utils->word);
+		}
 		else if (utils->sing_q == 0 && utils->double_q == 0)
 			utils->sing_q = 1;
 		else if (utils->sing_q == 1)
@@ -72,11 +64,11 @@ static void	carac_spec(char c, t_utils_lexer *utils, t_main *main)
 		if (utils->double_q == 1 && utils->echap == 1)
 			update_word('\\', &utils->word);
 		update_word(c, &utils->word);
-		// printf("echap = %d, s_sing_q = %d, double_q = %d, word = %s\n", utils->echap, utils->sing_q, utils->double_q, utils->word);
-		// return (WORD_NOT_FINISHED);
 	}
 	else if (c == ' ')
 	{
+		if (!utils->word && utils->start_word != utils->i)
+			update_word('\0', &utils->word);
 		if (utils->word)
 			malloc_element(-1, utils, main);
 	}

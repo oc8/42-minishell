@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:11:28 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/06/04 11:25:17 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/06/04 23:12:17 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_histo(t_main *main)
 	tmp = main->histo;
 	while (tmp != NULL)
 	{
-		printf("%s\n", (char*)tmp->content);
+		printf("%s\n", (char *)tmp->content);
 		tmp = tmp->next;
 	}
 }
@@ -61,7 +61,7 @@ void	create_cmd(t_main *main)
 		create_param_cmd(&param, main);
 		ft_lstclear(&main->lexer, free_lexer);
 		// printf("save = %p\n", save);
-		// cmd_exec(&param, main);
+		exec_cmd(&param, main);
 		free_param_cmd(&param);
 		if (save != NULL)
 			main->lexer = save;
@@ -75,11 +75,13 @@ void	loop(t_main *main)
 		if (main->line != NULL)
 			free(main->line);
 		get_operator_command(main);
+		// tokenization(main);
+		// create_cmd(main);
+		// test_cmd_exec(main);
 		tokenization(main->line, 0, main);
 		// printf("test\n");
 		print_lexer(main);
 		create_cmd(main);
-		// printf("TEST, main->lexer = %p\n", main->lexer);
 		if (main->lexer != NULL)
 			ft_lstclear(&main->lexer, free_lexer);
 	}
@@ -120,7 +122,7 @@ int	main(int argc, char *argv[], char *env[])
 	init_cmd_fct(&main);
 	// print_env(&main);
 	loop(&main);
-	print_histo(&main);
+	// print_histo(&main);
 	free(main.line);
 	ft_lstclear(&main.free, free);
 	return (0);

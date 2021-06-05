@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   fill_struct_param_cmd.c                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 19:22:35 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/28 15:00:05 by tdayde           ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static void	update_command(t_lexer *lex, t_param_cmd *param, t_main *main)
@@ -49,15 +37,19 @@ static void	update_redirs_lst(t_list *index, t_param_cmd *param, t_main *main)
 	t_redir		*redir;
 	t_list		*new;
 	t_lexer		*lex;
-	t_type_lex	type;
+	int			i;
 	
-	redir = malloc(sizeof(t_redir));
+	redir = ft_calloc(1,sizeof(t_redir));
 	if (!redir)
 		quit_prog("Fill_struct : redirection part malloc", main);
+	// ft_bzero(redir)
 	lex = index->content;
-	type = lex->type;
-	redir->type = type;
+	redir->type = lex->type;
 	redir->fd = ft_atoi_redirection(lex->value, lex->type);
+	i = -1;
+	while (lex->value[++i])
+		if (lex->value[i] == '$')
+			redir->var_err = ft_strdup_no_list(lex->value);
 	index = index->next;
 	lex = index->content;
 	redir->file = ft_strdup_no_list(lex->value);
@@ -65,7 +57,7 @@ static void	update_redirs_lst(t_list *index, t_param_cmd *param, t_main *main)
 	if (redir->file == NULL)
 		quit_prog("Fill_struct : redirection part malloc", main);
 	new = ft_lstnew(redir);
-	ft_lstadd_back(&param->redirection, new);
+	ft_lstadd_back(&param->redir, new);
 }
 
 void	fill_struct(t_param_cmd *param, t_main *main)

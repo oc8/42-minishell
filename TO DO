@@ -1,18 +1,18 @@
 OCEAN:
 - proteger les fonctions "dir"
-- unset
-- free split_var
 - strerrno(errno)
 
 THOMAS:
 - ajouter les fd dans redirection --> OK
 - fin fill_struct --> OK
 - free param_cmd --> OK
+- gerer les espaces dans les tokenisation de VAR_ENV --> OK
+- gerer si il y a des "" '' --> OK
+- changer le main de tokenisation pour mettre une simple liste chainee, pour verif_redir_var
 - gerer message bash: $TOTO: ambiguous redirect si fil avec plusieurs mots : dans verify_syntax, if var_env apres redir, check si espace ou pas. changer var_env de redir a 1 si oui
-- gerer les espaces dans les tokenisation de VAR_ENV 
-- changer tokenisation pour mettre un char * en param, et un start de ou ajouter les elements dan la liste.
+- voir les synthax error avec tests thallard (pipes)
 - faire une liste de structure pour les commandes pipe
 - faire script $?
 - set erno quand error synthax- voir quand erreur quoi faire (free main->lexer et line?)
-- voir les synthax error avec tests thallard (pipes)
 - relink Makefile
+- leaks

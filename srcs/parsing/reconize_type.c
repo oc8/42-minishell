@@ -1,37 +1,25 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   reconize_type.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/19 21:42:57 by tdayde            #+#    #+#             */
-/*   Updated: 2021/06/04 18:06:21 by tdayde           ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-static int	find_start_cmd_actual(t_main *main)
-{
-	t_list	*index;
-	t_lexer	*tmp;
-	int		start_cmd;
-	int		i;
+// static int	find_start_cmd_actual(t_main *main)
+// {
+// 	t_list	*index;
+// 	t_lexer	*tmp;
+// 	int		start_cmd;
+// 	int		i;
 
-	start_cmd = 0;
-	i = 0;
-	index = main->lexer;
-	while (index!= NULL)
-	{
-		tmp = index->content;
-		if (tmp->type == NEW_COMMAND)
-			start_cmd = i + 1;
-		index = index->next;
-		i++;
-	}
-	return (start_cmd);
-}
+// 	start_cmd = 0;
+// 	i = 0;
+// 	index = main->lexer;
+// 	while (index!= NULL)
+// 	{
+// 		tmp = index->content;
+// 		if (tmp->type == NEW_COMMAND)
+// 			start_cmd = i + 1;
+// 		index = index->next;
+// 		i++;
+// 	}
+// 	return (start_cmd);
+// }
 
 static int	first_command(t_main *main)
 {

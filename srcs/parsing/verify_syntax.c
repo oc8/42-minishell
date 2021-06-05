@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   verify_syntax.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/24 20:17:37 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/27 21:36:32 by tdayde           ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static int	verify_new_command(int i, t_utils_lexer *utils, t_main *main)
@@ -38,9 +26,35 @@ static int	verify_new_command(int i, t_utils_lexer *utils, t_main *main)
 	return (1);
 }
 
+int	verify_redirection_var(t_lexer *to_check, t_list *prec, t_main *main)
+{
+	char	*new;
+	t_lexer	*tmp;
+	int		i;
+
+	new = NULL;
+	remplace_var_value(&new, to_check->value, main);
+	printf("to_check->value = |%s|, new = %s\n", to_check->value, new);
+	i = -1;
+	if (new)
+		while (new[++i])
+			if (new[i] == ' ')
+			{
+				tmp = prec->content;
+				free(tmp->value);
+				tmp->value = NULL;
+				tmp->value = ft_strdup_no_list(to_check->value);
+				free(new);
+				return (-1);
+			}
+	free(new);
+	return (1);
+}
+
 static int	verify_redirection(int i, t_utils_lexer *utils, t_main *main)
 {
 	t_list	*index;
+	t_list	*prec;
 	t_lexer	*tmp;
 	
 	if (i == ft_lstsize(main->lexer) - 1)
@@ -53,6 +67,7 @@ static int	verify_redirection(int i, t_utils_lexer *utils, t_main *main)
 	index = main->lexer;
 	while (--i >= 0)
 		index = index->next;
+	prec = index;
 	index = index->next;
 	tmp = index->content;
 	if (tmp->type != TO_DEFINE && tmp->type != FILE_NAME && tmp->type != VAR_ENV)
@@ -62,6 +77,8 @@ static int	verify_redirection(int i, t_utils_lexer *utils, t_main *main)
 			ft_lstclear(&main->lexer, free_lexer);
 		return (-1);
 	}
+	if (tmp->type == VAR_ENV && verify_redirection_var(tmp, prec, main) == -1)
+		return (-1);
 	return (1);
 }
 

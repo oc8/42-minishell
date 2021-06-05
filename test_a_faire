@@ -1,9 +1,11 @@
-VAR_ENV:
 export B="h"; export A="c$B" ; e$A\o test
-echo $echo mo"i$USER\toi" --> A REVOIR, recommencer mot si $var
-echo $USER$
-$user echo
-$user echo $USER
-$user echo $dontexist$USER$dontexist
-echo $USER ; export USER=oui ; echo $USER
-echo $USER'$USER'text 
+echo $USER '' $USER $USER '' $USER '' $USER -n $USER
+echo \| "" \| "" "" \| "" "" "" \| '' '' '' \| '' '' \| '' \|
+cat doesntexist 2>tmp/errors 1>tmp/file 2>tmp/file 2>>tmp/file 2>>tmp/errors ; cat tmp/errors tmp/file
+;; test
+~
+/Users
+.
+/
+export TOTO="test >>ok" ; echo 42 > a > b > coi$TOTO\toi >d >e
+export TOTO="test>>ok" ; echo 42 > a > b > coi$TOTO\toi >d >e

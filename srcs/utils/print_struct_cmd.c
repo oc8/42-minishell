@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 20:52:12 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/28 15:04:53 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 01:51:43 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,22 @@ static void print_redir(t_list *redir)
 	while (index != NULL)
 	{
 		tmp = index->content;
-		printf("fd = %d, file = |%s|, redir = ", tmp->fd, tmp->file);
-		if (tmp->type == REDIR_INPUT)
-			printf("<\n");
-		if (tmp->type == REDIR_OUTPUT)
-			printf(">\n");
-		if (tmp->type == APPEND_REDIR_OUTPUT)
-			printf(">>\n");
+		// printf("test\n");
+		if (tmp->var_err)
+		// {
+			// printf("print_redir,  var_err\n");
+			printf("bash: %s: ambiguous redirect\n", tmp->var_err);
+		// }
+		else
+		{
+			printf("fd = %d, file = |%s|, redir = ", tmp->fd, tmp->file);
+			if (tmp->type == REDIR_INPUT)
+				printf("<\n");
+			if (tmp->type == REDIR_OUTPUT)
+				printf(">\n");
+			if (tmp->type == APPEND_REDIR_OUTPUT)
+				printf(">>\n");
+		}
 		index = index->next;
 	}
 }
@@ -58,8 +67,8 @@ void	print_struct_cmd(t_param_cmd *param)
 	printf("\033[33m\033[1m--> STRUCTURE FOR COMMAND <--\n\033[0m");
 	if (param->cmd)
 		print_cmd(param);
-	if (param->redirection)
-		print_redir(param->redirection);
+	if (param->redir)
+		print_redir(param->redir);
 	if (param->pipe == 1)
 		printf("\033[1mPIPE:\n\033[0mYes\n");
 	else if (param->pipe == 0)

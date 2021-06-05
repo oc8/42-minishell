@@ -8,6 +8,7 @@
 # include <term.h>
 # include <dirent.h>
 # include <limits.h>
+# include <string.h>
 # include <sys/errno.h>
 
 # include "libft.h"
@@ -37,15 +38,16 @@ typedef enum	e_type_lex
 	NEW_COMMAND,
 }				t_type_lex;
 
-struct s_main;
-
-typedef void	(*t_fct_cmd)(char **, struct s_main *);
-
-typedef struct	s_function
+typedef enum	e_index_cmd
 {
-	t_fct_cmd		fct;
-	char			*name;
-}				t_function;
+	I_ECHO,
+	I_PWD,
+	I_CD,
+	I_ENV,
+	I_EXPORT,
+	I_UNSET,
+	I_EXIT
+}				t_index_cmd;
 
 typedef struct	s_utils_lexer
 {
@@ -85,10 +87,20 @@ typedef struct	s_redir
 typedef struct	s_param_cmd
 {
 	char	**cmd;
-	t_list	*redirection;
+	t_list	*redir;
 	int		pipe;
 	int		n_cmd;
 }				t_param_cmd;
+
+struct s_main;
+
+typedef void	(*t_fct_cmd)(t_param_cmd *, struct s_main *);
+
+typedef struct	s_function
+{
+	t_fct_cmd		fct;
+	char			*name;
+}				t_function;
 
 typedef struct	s_main
 {
@@ -99,6 +111,7 @@ typedef struct	s_main
 	t_list			*histo;
 	t_list			*free;
 	t_function		cmd_fct[7];
+	int				file;
 }				t_main;
 
 void	loop(t_main *main);
@@ -124,16 +137,17 @@ void	print_struct_cmd(t_param_cmd *param);
 /*
 **	-->	CMD <--
 */
-void	cmd_others(char **arg, t_main *main);
-void	cmd_exec(char **arg, t_main *main);
-void	cmd_echo(char **arg, t_main *main);
-void	cmd_pwd(char **arg, t_main *main);
-void	cmd_env(char **arg, t_main *main);
-void	cmd_export(char **arg, t_main *main);
-void	cmd_unset(char **arg, t_main *main);
-void	cmd_cd(char **arg, t_main *main);
-void	cmd_exit(char **arg, t_main *main);
-void	test_cmd_exec(t_main *main); // temp
+void	cmd_others(t_param_cmd *param, t_main *main);
+// void	cmd_exec(t_param_cmd *param, t_main *main);
+void	exec_cmd(t_param_cmd *param, t_main *main); // temp
+void	cmd_echo(t_param_cmd *param, t_main *main);
+void	cmd_pwd(t_param_cmd *param, t_main *main);
+void	cmd_env(t_param_cmd *param, t_main *main);
+void	cmd_export(t_param_cmd *param, t_main *main);
+void	cmd_unset(t_param_cmd *param, t_main *main);
+void	cmd_cd(t_param_cmd *param, t_main *main);
+void	cmd_exit(t_param_cmd *param, t_main *main);
+// void	test_cmd_exec(t_main *main); // temp
 
 /*
 **	-->	UTILS <--
@@ -146,7 +160,13 @@ void	free_lexer(void *s);
 void	free_param_cmd(t_param_cmd *param);
 void	init_cmd_fct(t_main *main);
 char	**split_var(char *var, t_main *main);
-int		cmd_error(char *cmd, char *error, char *arg);
+int		cmd_error(char *cmd, char *error, char *arg, int nbr);
+int		check_var_name(char *name);
+int		var_defined(char *var, t_main *main);
+void	new_var(char *add, t_main *main);
+void	edit_var(char *add, size_t i, t_main *main);
 void	print_lexer(t_main *main);
+int		redirection(t_list *redir_lst, t_main *main);
+void	del_var(int index, t_main *main);
 
 #endif

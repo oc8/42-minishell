@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   manage_var_env.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/19 12:35:12 by tdayde            #+#    #+#             */
-/*   Updated: 2021/06/04 20:21:48 by tdayde           ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static int	bash_script(int *ind, char *str, char **new, t_main *main)
@@ -78,23 +66,6 @@ static char	*get_var_name(int *ind, char *str, char **new, t_main *m)
 	// printf("fin get_var_name i = %d\n", *ind);
 	// printf("m->line[utils->i] = %c\n", m->line[utils->i]);
 	return (var);
-}
-
-static int	var_defined(char *var, t_main *main)
-{
-	size_t	i;
-	size_t	j;
-
-	i = -1;
-	while (main->env[++i] != NULL)
-	{
-		j = 0;
-		while (var[j] == main->env[i][j])
-			j++;
-		if (var[j] == '\0' && main->env[i][j] == '=')
-			return (i);
-	}
-	return (-1);
 }
 
 static void	add_var(size_t indice, char **new, t_main *main)

@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 15:10:40 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/28 15:22:14 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 01:26:01 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	free_redirection(void *to_free)
 
 	redir = (t_redir*)to_free;
 	free(redir->file);
+	free(redir->var_err);
 	free(redir);
 }
 
@@ -33,5 +34,5 @@ void	free_param_cmd(t_param_cmd *param)
 		free(param->cmd);
 		param->cmd = NULL;
 	}
-	ft_lstclear(&param->redirection, free_redirection);
+	ft_lstclear(&param->redir, free_redirection);
 }
