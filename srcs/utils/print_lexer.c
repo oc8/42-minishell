@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 19:53:01 by tdayde            #+#    #+#             */
-/*   Updated: 2021/05/27 20:43:20 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 11:31:08 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ void	print_lexer(t_main *main)
 			printf("Type = VAR_ENV\n");
 		else if (tmp->type == PIPE)
 			printf("Type = PIPE\n");
-		else if (tmp->type == REDIR_OUTPUT)
-			printf("Type = REDIR_OUTPUT\n");
-		else if (tmp->type == APPEND_REDIR_OUTPUT)
-			printf("Type = APPEND_REDIR_OUTPUT\n");
-		else if (tmp->type == REDIR_INPUT)
-			printf("Type = REDIR_INPUT\n");
+		else if (tmp->type == REDIR_OUT)
+			printf("Type = REDIR_OUT\n");
+		else if (tmp->type == APP_REDIR_OUT)
+			printf("Type = APP_REDIR_OUT\n");
+		else if (tmp->type == REDIR_IN)
+			printf("Type = REDIR_IN\n");
 		printf("\n");
 		iter = iter->next;
 	}

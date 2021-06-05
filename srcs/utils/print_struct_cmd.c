@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 20:52:12 by tdayde            #+#    #+#             */
-/*   Updated: 2021/06/05 01:51:43 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 11:31:08 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ static void print_redir(t_list *redir)
 		else
 		{
 			printf("fd = %d, file = |%s|, redir = ", tmp->fd, tmp->file);
-			if (tmp->type == REDIR_INPUT)
+			if (tmp->type == REDIR_IN)
 				printf("<\n");
-			if (tmp->type == REDIR_OUTPUT)
+			if (tmp->type == REDIR_OUT)
 				printf(">\n");
-			if (tmp->type == APPEND_REDIR_OUTPUT)
+			if (tmp->type == APP_REDIR_OUT)
 				printf(">>\n");
 		}
 		index = index->next;

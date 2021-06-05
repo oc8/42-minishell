@@ -59,8 +59,8 @@ static int	redirection_file(int i, t_main *main)
 	while (--i > 0)
 		index = index->next;
 	tmp = index->content;
-	if (tmp->type == REDIR_OUTPUT || tmp->type == REDIR_INPUT
-		|| tmp->type == APPEND_REDIR_OUTPUT)
+	if (tmp->type == REDIR_OUT || tmp->type == REDIR_IN
+		|| tmp->type == APP_REDIR_OUT)
 		return (TRUE);
 	else
 		return (FALSE);

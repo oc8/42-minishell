@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 18:53:12 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/05/28 14:55:27 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 11:31:08 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	ft_atoi_redirection(const char *nptr, t_type_lex type)
 	i = 0;
 	if (!ft_isdigit(nptr[i]))
 	{
-		if (type == REDIR_INPUT)
+		if (type == REDIR_IN)
 			rs = 0;
-		else if (type == REDIR_OUTPUT || type == APPEND_REDIR_OUTPUT)
+		else if (type == REDIR_OUT || type == APP_REDIR_OUT)
 			rs = 1;
 		return (rs);
 	}

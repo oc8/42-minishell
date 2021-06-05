@@ -76,12 +76,15 @@ static void	add_var(size_t indice, char **new, t_main *main)
 	while (main->env[indice][j] != '=')
 		j++;
 	j++;
-	// printf ("add_var OK\n");
+	// printf("main->env[indice] = |%s|\n", main->env[indice]);
+	update_word('"', new);
 	while (main->env[indice][j])
 	{
-		// printf("c = %c\n", main->env[indice][j++]);
+		// printf("c = |%c|\n", main->env[indice][j]);
 		update_word(main->env[indice][j++], new);
 	}
+	update_word('"', new);
+
 }
 
 void	remplace_var_value(char **new, char *str, t_main *main)

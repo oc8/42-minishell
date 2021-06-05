@@ -6,7 +6,7 @@
 /*   By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 17:11:28 by odroz-ba          #+#    #+#             */
-/*   Updated: 2021/06/04 23:12:17 by tdayde           ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 12:51:28 by tdayde           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	loop(t_main *main)
 		// test_cmd_exec(main);
 		tokenization(main->line, 0, main);
 		// printf("test\n");
-		print_lexer(main);
+		// print_lexer(main);
 		create_cmd(main);
 		if (main->lexer != NULL)
 			ft_lstclear(&main->lexer, free_lexer);

@@ -7,5 +7,9 @@ cat doesntexist 2>tmp/errors 1>tmp/file 2>tmp/file 2>>tmp/file 2>>tmp/errors ; c
 /Users
 .
 /
-export TOTO="test >>ok" ; echo 42 > a > b > coi$TOTO\toi >d >e
-export TOTO="test>>ok" ; echo 42 > a > b > coi$TOTO\toi >d >e
+export TOTO="test >>ck" ; echo 42 > a > coi$TOTO\toi >d 
+export TOTO="test >>ck" ; env ; echo 42 > a > coi$TOTO\toi >d 
+export TOTO="test>>ck" ; echo 42 > a > coi$TOTO\toi >d 
+export TOTO=test>>ck ; echo 42 > a > coi$TOTO\toi >d 
+export
+export TOTO2="1 2" ; export TOTO="test$TOTO2" ; echo 42 > a > coi$TOTO\toi >d 

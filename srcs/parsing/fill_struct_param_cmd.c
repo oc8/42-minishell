@@ -73,8 +73,8 @@ void	fill_struct(t_param_cmd *param, t_main *main)
 		tmp = index->content;
 		if (tmp->type == COMMAND || tmp->type == ARGUMENT)
 			update_command(tmp, param, main);
-		if (tmp->type == REDIR_INPUT || tmp->type == REDIR_OUTPUT
-			|| tmp->type == APPEND_REDIR_OUTPUT)
+		if (tmp->type == REDIR_IN || tmp->type == REDIR_OUT
+			|| tmp->type == APP_REDIR_OUT)
 			update_redirs_lst(index, param, main);
 		if (tmp->type == PIPE)
 			param->pipe = 1;

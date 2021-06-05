@@ -132,7 +132,7 @@ void	tokenization(char *str, int indice, t_main *main)
 	while (str[utils.i])
 	{
 		// res = check_caracter_lex(str[utils.i], &utils, main);
-		if (utils.start_word == -1)
+		if (utils.start_word == -1 && str[utils.i] != ' ')
 			utils.start_word = utils.i;
 		check_caracter_lex(str[utils.i], &utils, main);
 		if (utils.echap > 0 && str[utils.i])

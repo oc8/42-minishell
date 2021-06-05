@@ -21,7 +21,10 @@ static void	quotes(char c, t_utils_lexer *utils, t_main *main)
 			update_word(c, &utils->word);
 		}
 		else if (utils->sing_q == 0 && utils->double_q == 0)
+		{
 			utils->sing_q = 1;
+			update_word('\0', &utils->word);
+		}
 		else if (utils->sing_q == 1)
 			utils->sing_q = 0;
 	}
@@ -30,7 +33,10 @@ static void	quotes(char c, t_utils_lexer *utils, t_main *main)
 		if (utils->sing_q == 1 || utils->echap == 1)
 			update_word(c, &utils->word);
 		else if (utils->double_q == 0 && utils->sing_q == 0)
+		{
 			utils->double_q = 1;
+			update_word('\0', &utils->word);
+		}
 		else if (utils->double_q == 1)
 			utils->double_q = 0;
 	}
@@ -48,11 +54,11 @@ static t_type_lex	reconize_carac_spec(t_utils_lexer *utils)
 		else if (utils->word[i] == '|')
 			return (PIPE);
 		else if (utils->word[i] == '<')
-			return (REDIR_INPUT);
+			return (REDIR_IN);
 		else if (utils->word[i] == '>' && utils->word[i + 1] == '\0')
-			return (REDIR_OUTPUT);
+			return (REDIR_OUT);
 		else if (utils->word[i] == '>' && utils->word[i + 1] == '>')
-			return (APPEND_REDIR_OUTPUT);
+			return (APP_REDIR_OUT);
 	}
 	return (-1);
 }
@@ -67,8 +73,8 @@ static void	carac_spec(char c, t_utils_lexer *utils, t_main *main)
 	}
 	else if (c == ' ')
 	{
-		if (!utils->word && utils->start_word != utils->i)
-			update_word('\0', &utils->word);
+		// if (!utils->word && utils->start_word != utils->i)
+		// 	update_word('\0', &utils->word);
 		if (utils->word)
 			malloc_element(-1, utils, main);
 	}

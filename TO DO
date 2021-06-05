@@ -16,3 +16,10 @@ THOMAS:
 - set erno quand error synthax- voir quand erreur quoi faire (free main->lexer et line?)
 - relink Makefile
 - leaks
+
+A PARLER ENSEMBLE :
+- split var overflow!!
+- "export" marche pas
+- export change PWD et OLDPWD
+- mesages d'erreur command existe pas, erreurs cmd buildin
+- leaks malloc unset avec cmd unset TOTO

@@ -34,7 +34,7 @@ int	verify_redirection_var(t_lexer *to_check, t_list *prec, t_main *main)
 
 	new = NULL;
 	remplace_var_value(&new, to_check->value, main);
-	printf("to_check->value = |%s|, new = %s\n", to_check->value, new);
+	// printf("to_check->value = |%s|, new = %s\n", to_check->value, new);
 	i = -1;
 	if (new)
 		while (new[++i])
@@ -77,8 +77,8 @@ static int	verify_redirection(int i, t_utils_lexer *utils, t_main *main)
 			ft_lstclear(&main->lexer, free_lexer);
 		return (-1);
 	}
-	if (tmp->type == VAR_ENV && verify_redirection_var(tmp, prec, main) == -1)
-		return (-1);
+	// if (tmp->type == VAR_ENV && verify_redirection_var(tmp, prec, main) == -1)
+	// 	return (-1);
 	return (1);
 }
 
@@ -99,8 +99,8 @@ void	verify_syntax(t_utils_lexer *utils, t_main *main)
 	while (index != NULL)
 	{
 		tmp = index->content;
-		if ((tmp->type == REDIR_INPUT || tmp->type == REDIR_OUTPUT
-			|| tmp->type == APPEND_REDIR_OUTPUT)
+		if ((tmp->type == REDIR_IN || tmp->type == REDIR_OUT
+			|| tmp->type == APP_REDIR_OUT)
 			&& verify_redirection(i, utils, main) == -1)
 				return ;
 		else if (tmp->type == NEW_COMMAND

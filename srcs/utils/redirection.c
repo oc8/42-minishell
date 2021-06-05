@@ -4,21 +4,21 @@ static void	redir_type(int *file2, t_redir *redir, t_main *main)
 {
 	int		file;
 
-	if (redir->type == REDIR_OUTPUT)
+	if (redir->type == REDIR_OUT)
 	{
 		file = open(redir->file, O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU);
 		if (file == -1)
 			quit_prog("open() error", main);
 		*file2 = dup2(file, redir->fd);
 	}
-	else if (redir->type == APPEND_REDIR_OUTPUT)
+	else if (redir->type == APP_REDIR_OUT)
 	{
 		file = open(redir->file, O_CREAT | O_APPEND | O_WRONLY, S_IRWXU);
 		if (file == -1)
 			quit_prog("open() error", main);
 		*file2 = dup2(file, redir->fd);
 	}
-	else if (redir->type == REDIR_INPUT)
+	else if (redir->type == REDIR_IN)
 	{
 		file = open(redir->file, O_CREAT | O_WRONLY, S_IRWXU);
 		if (file == -1)

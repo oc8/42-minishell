@@ -44,6 +44,7 @@ void	contain_var(t_main *main)
 	t_list		*previous;
 	t_list		*next;
 	t_lexer		*tmp;
+	t_lexer		*tmp2;
 	// t_var_info	*var_info;
 	int			i;
 
@@ -60,6 +61,14 @@ void	contain_var(t_main *main)
 		tmp = index->content;
 		if (tmp->type == VAR_ENV)
 		{
+			if (previous)
+			{
+				tmp2 = previous->content;
+				if ((tmp2->type == REDIR_IN || tmp2->type == REDIR_OUT
+					|| tmp2->type == APP_REDIR_OUT)
+					&& verify_redirection_var(tmp, previous, main) == -1)
+					return ;
+			}
 			// next = index->next;
 			update_lst(previous, index, main);
 			// printf("i = %d\n", i);
@@ -116,5 +125,5 @@ void	create_param_cmd(t_param_cmd *param, t_main *main)
 	define_text_types(main);
 	// print_lexer(main);
 	fill_struct(param, main);
-	print_struct_cmd(param);
+	// print_struct_cmd(param);
 }

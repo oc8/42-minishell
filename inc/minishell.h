@@ -30,9 +30,9 @@ typedef enum	e_type_lex
 	TO_DEFINE,
 	COMMAND,
 	ARGUMENT,
-	REDIR_INPUT,
-	APPEND_REDIR_OUTPUT,
-	REDIR_OUTPUT,
+	REDIR_IN,
+	APP_REDIR_OUT,
+	REDIR_OUT,
 	FILE_NAME,
 	PIPE,
 	NEW_COMMAND,
@@ -127,6 +127,7 @@ void	check_caracter_var(t_utils_lexer *utils, t_main *main);
 void	check_caracter_lex(char c, t_utils_lexer *utils, t_main *main);
 void	malloc_element(t_type_lex type, t_utils_lexer *utils, t_main *main);
 void	verify_syntax(t_utils_lexer *utils, t_main *main);
+int		verify_redirection_var(t_lexer *to_check, t_list *prec, t_main *main);
 void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m);
 void	create_param_cmd(t_param_cmd *param, t_main *main);
 void	remplace_var_value(char **new, char *str, t_main *main);
