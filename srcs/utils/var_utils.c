@@ -18,7 +18,7 @@ char	**split_var(char *var, t_main *main)
 		rs[1] = 0;
 		return (rs);
 	}
-	rs[0] = ft_calloc(equal, sizeof(char));
+	rs[0] = ft_calloc(equal + 1, sizeof(char));
 	if (!rs)
 		quit_prog("malloc error", main);
 	i = 0;
@@ -28,12 +28,13 @@ char	**split_var(char *var, t_main *main)
 		i++;
 	}
 	rs[0][i] = 0;
-	rs[1] = ft_calloc(ft_strlen(&var[i + 1]), sizeof(char));
+	rs[1] = ft_calloc(ft_strlen(&var[i + 1]) + 1, sizeof(char));
 	if (!rs)
 		quit_prog("malloc error", main);
 	i = 0;
 	while (var[++equal])
 		rs[1][i++] = var[equal];
+	rs[1][i] = 0;
 	rs[2] = 0;
 	return (rs);
 }
