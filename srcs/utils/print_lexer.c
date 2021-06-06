@@ -19,8 +19,6 @@ void	print_lexer(t_main *main)
 			printf("Type = NEW_COMMAND\n");
 		else if (tmp->type == FILE_N)
 			printf("Type = FILE_N\n");
-		else if (tmp->type == REDIRECTION)
-			printf("Type = REDIRECTION\n");
 		else if (tmp->type == TO_DEFINE)
 			printf("Type = TO_DEFINE\n");
 		else if (tmp->type == VAR_ENV)

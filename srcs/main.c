@@ -21,38 +21,42 @@ void	print_env(t_main *main)
 		printf("%s\n", main->env[i]);
 }
 
-void	create_cmd(t_main *main)
+void	update_main_lexer(t_type_lex type, t_list **save, t_main *main)
 {
-	t_param_cmd	param;
-	t_list		*save;
 	t_list		*tmp_lst;
 	t_lexer		*tmp_lex;
+	
+	tmp_lex = (*save)->content;
+	while ((*save) != NULL && tmp_lex->type != type)
+	{
+		(*save) = (*save)->next;
+		if ((*save) != NULL)
+			tmp_lex = (*save)->content;
+	}
+	if ((*save) != NULL)
+	{
+		tmp_lst = (*save);
+		(*save) = (*save)->next;
+		tmp_lst->next = NULL;
+	}
+}
 
+void	create_cmd(t_main *main)
+{
+	t_list		*param_lst;
+	t_list		*save;
+	// t_list		*tmp_lst;
+	// t_lexer		*tmp_lex;
+
+	param_lst = NULL;
 	save = main->lexer;
 	while (main->lexer != NULL)
 	{
-		ft_bzero(&param, sizeof(t_param_cmd));
-		tmp_lex = save->content;
-		while (save != NULL && tmp_lex->type != PIPE
-			&& tmp_lex->type != NEW_COMMAND)
-		{
-			save = save->next;
-			if (save != NULL)
-				tmp_lex = save->content;
-		}
-		if (save != NULL)
-		{
-			tmp_lst = save;
-			save = save->next;
-			tmp_lst->next = NULL;
-		}
-		create_param_cmd(&param, main);
-		ft_lstclear(&main->lexer, free_lexer);
-		// printf("save = %p\n", save);
-		exec_cmd(&param, main);
-		free_param_cmd(&param);
-		if (save != NULL)
-			main->lexer = save;
+		update_main_lexer(NEW_COMMAND, &save, main);
+		create_param_cmd(&param_lst, main);
+		// exec_cmd(&param, main);				//  --> PARTIE COMMAND OCEAN
+		ft_lstclear(&param_lst, free_param_cmd);
+		main->lexer = save;
 	}
 }
 
@@ -63,11 +67,8 @@ void	loop(t_main *main)
 		if (main->line != NULL)
 			free(main->line);
 		get_operator_command(main);
-		// tokenization(main);
-		// create_cmd(main);
 		// test_cmd_exec(main);
 		tokenization(main->line, 0, main);
-		// printf("test\n");
 		// print_lexer(main);
 		create_cmd(main);
 		if (main->lexer != NULL)

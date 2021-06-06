@@ -10,10 +10,12 @@ static void	free_redirection(void *to_free)
 	free(redir);
 }
 
-void	free_param_cmd(t_param_cmd *param)
+void	free_param_cmd(void *ptr)
 {
+	t_param_cmd	*param;
 	int	i;
 
+	param = (t_param_cmd*)ptr;
 	if (param->cmd)	// METTRE DOUBLESTR FREE !!!!!
 	{
 		i = -1;

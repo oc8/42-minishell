@@ -7,7 +7,6 @@ static void	backslash(char c, t_utils_lexer *utils, t_main *main)
 		utils->echap = 2;
 	else
 		update_word(c, &utils->word);
-	// return (WORD_NOT_FINISHED);
 }
 
 static void	quotes(char c, t_utils_lexer *utils, t_main *main)
@@ -101,8 +100,6 @@ static void	is_fd_redir(char c, t_utils_lexer *utils, t_main *main)
 		if (utils->double_q == 1 && utils->echap == 1)
 			update_word('\\', &utils->word);
 		update_word(c, &utils->word);
-		// printf("echap = %d, s_sing_q = %d, double_q = %d, word = %s\n", utils->echap, utils->sing_q, utils->double_q, utils->word);
-		// return (WORD_NOT_FINISHED);
 	}
 	else
 	{
@@ -112,19 +109,14 @@ static void	is_fd_redir(char c, t_utils_lexer *utils, t_main *main)
 		if (utils->str[i] == '>' || utils->str[i] == '<')
 		{
 			while (utils->i < i)
-			// {
-			// 	printf("utils->i = %d, i = %d\n", utils->i, i);
 				update_word(utils->str[utils->i++], &utils->word);
-			// }
 			update_word(utils->str[utils->i], &utils->word);
 			if (utils->str[utils->i + 1] == '>')
 				update_word(utils->str[utils->i++], &utils->word);
 			malloc_element(reconize_carac_spec(utils), utils, main);
-			// return (WORD_FINISHED);
 		}
 		else
 			update_word(c, &utils->word);
-		// return (WORD_NOT_FINISHED);
 	}
 }
 
@@ -132,7 +124,6 @@ void	check_caracter_lex(char c, t_utils_lexer *utils, t_main *main)
 {
 	if (c == '\0')
 		return ;
-		// return (LINE_FINISHED);
 	else if (c == '\\')
 		return (backslash(c, utils, main));
 	else if (c == '\'' || c == '"')
@@ -158,7 +149,5 @@ void	check_caracter_lex(char c, t_utils_lexer *utils, t_main *main)
 		if (utils->double_q == 1 && utils->echap == 1)
 			update_word('\\', &utils->word);
 		update_word(c, &utils->word);
-		// printf("c = %c\n", c);
-		// return (WORD_NOT_FINISHED);
 	}
 }

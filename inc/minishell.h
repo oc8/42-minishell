@@ -25,7 +25,6 @@ typedef enum	e_caracter_lex
 
 typedef enum	e_type_lex
 {
-	REDIRECTION,
 	VAR_ENV,
 	TO_DEFINE,
 	COMMAND,
@@ -68,13 +67,13 @@ typedef struct	s_lexer
 	char			*value;
 }				t_lexer;
 
-typedef struct	s_var_info
-{
-	t_list	*previous;
-	// t_list	**previous;
-	int		i_lst;
-	char	*value;
-}				t_var_info;
+// typedef struct	s_var_info
+// {
+// 	t_list	*previous;
+// 	// t_list	**previous;
+// 	int		i_lst;
+// 	char	*value;
+// }				t_var_info;
 
 typedef struct	s_redir
 {
@@ -128,13 +127,14 @@ void	check_caracter_var(t_utils_lexer *utils, t_main *main);
 void	check_caracter_lex(char c, t_utils_lexer *utils, t_main *main);
 void	malloc_element(t_type_lex type, t_utils_lexer *utils, t_main *main);
 void	verify_syntax(t_utils_lexer *utils, t_main *main);
+void	update_main_lexer(t_type_lex type, t_list **save, t_main *main);
 int		verif_redirection_var(t_lexer *to_check, t_list *prec, t_main *main);
 void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m);
-void	create_param_cmd(t_param_cmd *param, t_main *main);
+void	create_param_cmd(t_list **param_lst, t_main *main);
 void	remplace_var_value(char **new, char *str, t_main *main);
 void	define_text_types(t_main *main);
 void	fill_struct(t_param_cmd *param, t_main *main);
-void	print_struct_cmd(t_param_cmd *param);
+void	print_struct_cmd(t_list *param);
 
 /*
 **	-->	CMD <--
@@ -159,7 +159,7 @@ int		ft_strncmp_minishell(const char *s1, const char *s2, size_t n);
 char	*ft_strdup_no_list(const char *s1);
 int		ft_atoi_redirection(const char *nptr, t_type_lex type);
 void	free_lexer(void *s);
-void	free_param_cmd(t_param_cmd *param);
+void	free_param_cmd(void *ptr);
 void	init_cmd_fct(t_main *main);
 char	**split_var(char *var, t_main *main);
 int		cmd_error(char *cmd, char *error, char *arg, int nbr);

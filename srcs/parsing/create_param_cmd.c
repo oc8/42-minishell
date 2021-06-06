@@ -103,27 +103,34 @@ void	contain_var(t_main *main)
 	// return (NULL);
 }
 
-void	create_param_cmd(t_param_cmd *param, t_main *main)
-{
-	// t_var_info	*var_info;
-	// char		*to_treat;
-	
-	contain_var(main);
-	// to_treat = NULL;
-	// var_info = contain_var(main);
-	// while (var_info != NULL)
-	// {
-		// remplace_var_value(&to_treat, var_info->value, main);
-	// 	printf("to_treat = %s\n", to_treat);
-	// 	if (to_treat)
-	// 		tokenization(to_treat, var_info->i_lst, main);
-	// 	free(var_info->value);
-	// 	free(var_info);
-	// 	free(to_treat);
-	// 	var_info = contain_var(main);
-	// }
-	define_text_types(main);
-	// print_lexer(main);
-	fill_struct(param, main);
-	print_struct_cmd(param);
+void	create_param_cmd(t_list **param_lst, t_main *main)
+{	
+	t_param_cmd	*param;
+	t_list		*save;
+	t_list		*new;
+
+	save = main->lexer;
+	while (main->lexer != NULL)
+	{
+		update_main_lexer(PIPE, &save, main);
+		contain_var(main);
+		define_text_types(main);
+		// print_lexer(main);
+		param = ft_calloc(1, sizeof(t_param_cmd));
+		if (!param)
+			quit_prog("Malloc param struct in create_param_cmd", main);
+		fill_struct(param, main);
+		new = ft_calloc(1, sizeof(t_list));
+		if (!new)
+			quit_prog("Malloc new_element of lst in create_param_cmd", main);
+		new->content = param;
+		ft_lstadd_back(param_lst, new);
+		ft_lstclear(&main->lexer, free_lexer);
+		main->lexer = save;
+	}
+	// contain_var(main);
+	// define_text_types(main);
+	// // print_lexer(main);
+	// fill_struct(param, main);
+	print_struct_cmd(*param_lst);
 }

@@ -58,6 +58,7 @@ static int	verif_redir(int i, t_utils_lexer *utils, t_main *main)
 	tmp = index->content;
 	if (tmp->type != TO_DEFINE && tmp->type != FILE_N && tmp->type != VAR_ENV)
 		return (error_syntax(tmp->value, main));
+	return (1);
 }
 
 static int	verif_pipe(int i, t_utils_lexer *utils, t_main *main)

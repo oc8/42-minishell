@@ -168,7 +168,6 @@ void	predefine_var(t_utils_lexer *utils, t_main *m)
 		return ;
 	if (utils->str[utils->i + 1] == '?')
 	{
-		printf("test\n");
 		bash_script(utils, m);
 		return ;
 	}
