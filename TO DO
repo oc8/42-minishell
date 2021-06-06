@@ -10,9 +10,10 @@ THOMAS:
 - gerer si il y a des "" '' --> OK
 - gerer message bash: $TOTO: ambiguous redirect --> OK
 - voir les synthax error avec tests thallard (pipes) --> OK
-- faire script $?
-- set erno quand error synthax- voir quand erreur quoi faire (free main->lexer et line?)
+- faire script $? --> OK
+- set exit_statis quand error synthax --> OK
 - faire une liste de structure pour les commandes pipe 
+- mettre a la norme
 - relink Makefile
 - leaks
 
@@ -20,3 +21,4 @@ A PARLER ENSEMBLE :
 - export change PWD et OLDPWD
 - mesages d'erreur command existe pas, erreurs cmd buildin
 - leaks malloc unset avec cmd unset TOTO
+- exit status quand multilign ?

@@ -105,7 +105,7 @@ typedef struct	s_function
 typedef struct	s_main
 {
 	char			*line;
-	int				exit_st;
+	int				exit_status;
 	char			**env;
 	size_t			nbr_env;
 	t_list			*lexer;
@@ -170,5 +170,6 @@ void	edit_var(char *add, size_t i, t_main *main);
 void	print_lexer(t_main *main);
 int		redirection(t_list *redir_lst, t_main *main);
 void	del_var(int index, t_main *main);
+int		error_syntax(char *str, t_main *main);
 
 #endif

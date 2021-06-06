@@ -30,7 +30,8 @@ LST_SRCS		= \
 	utils/env_utils.c \
 	utils/print_lexer.c \
 	utils/redirection.c \
-	utils/error.c
+	utils/error.c \
+	utils/error_syntax.c
 SRCS_DIR		= srcs
 OBJS_DIR		= objs
 SRCS			= $(addprefix $(SRCS_DIR)/,$(LST_SRCS))

@@ -6,21 +6,14 @@ static int	verif_newcmd(int i, t_utils_lexer *utils, t_main *main)
 	t_lexer	*tmp;
 	
 	if (i == 0)
-	{
-		printf("bash: syntax error near unexpected token `;'\n");
-		ft_lstclear(&main->lexer, free_lexer);
-		return (-1);
-	}
+		return (error_syntax(";", main));
 	index = main->lexer;
 	while (--i > 0)
 		index = index->next;
 	tmp = index->content;
-	if (tmp->type == NEW_COMMAND || tmp->type == PIPE)
-	{
-		printf("bash: syntax error near unexpected token `%s'\n", tmp->value);
-		ft_lstclear(&main->lexer, free_lexer);
-		return (-1);
-	}
+	if (tmp->type != TO_DEFINE && tmp->type != FILE_N && tmp->type != VAR_ENV
+		&& tmp->type != COMMAND && tmp->type != ARGUMENT)
+		return (error_syntax(";", main));
 	return (1);
 }
 
@@ -56,11 +49,7 @@ static int	verif_redir(int i, t_utils_lexer *utils, t_main *main)
 	t_lexer	*tmp;
 	
 	if (i == ft_lstsize(main->lexer) - 1)
-	{
-		printf("bash: syntax error near unexpected token `nexline'\n");
-		ft_lstclear(&main->lexer, free_lexer);
-		return (-1);
-	}
+		return (error_syntax("newline", main));
 	index = main->lexer;
 	while (--i >= 0)
 		index = index->next;
@@ -68,12 +57,7 @@ static int	verif_redir(int i, t_utils_lexer *utils, t_main *main)
 	index = index->next;
 	tmp = index->content;
 	if (tmp->type != TO_DEFINE && tmp->type != FILE_N && tmp->type != VAR_ENV)
-	{
-		printf("bash: syntax error near unexpected token `%s'\n", tmp->value);
-		ft_lstclear(&main->lexer, free_lexer);
-		return (-1);
-	}
-	return (1);
+		return (error_syntax(tmp->value, main));
 }
 
 static int	verif_pipe(int i, t_utils_lexer *utils, t_main *main)
@@ -82,18 +66,14 @@ static int	verif_pipe(int i, t_utils_lexer *utils, t_main *main)
 	// t_list	*prec;
 	t_lexer	*tmp;
 	
-	if (i == 0)
-	{
-		printf("bash: syntax error near unexpected token `|'\n");
-		ft_lstclear(&main->lexer, free_lexer);
-		return (-1);
-	}
-	else if (i == ft_lstsize(main->lexer) - 1)
+	if (i == ft_lstsize(main->lexer) - 1)
 	{
 		printf("Error : Multiline is not accepted\n");
 		ft_lstclear(&main->lexer, free_lexer);
 		return (-1);
 	}
+	else if (i == 0)
+		return (error_syntax("|", main));
 	index = main->lexer;
 	while (--i > 0)
 		index = index->next;
@@ -102,11 +82,7 @@ static int	verif_pipe(int i, t_utils_lexer *utils, t_main *main)
 	tmp = index->content;
 	if (tmp->type != TO_DEFINE && tmp->type != FILE_N && tmp->type != VAR_ENV
 		&& tmp->type != COMMAND && tmp->type != ARGUMENT)
-	{
-		printf("bash: syntax error near unexpected token `|'\n");
-		ft_lstclear(&main->lexer, free_lexer);
-		return (-1);
-	}
+		return (error_syntax("|", main));
 	return (1);
 }
 

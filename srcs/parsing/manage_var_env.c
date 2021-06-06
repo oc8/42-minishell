@@ -1,9 +1,17 @@
 #include "minishell.h"
 
-static int	bash_script(int *ind, char *str, char **new, t_main *main)
+static void	bash_script(t_utils_lexer *utils, t_main *main)
 {
-	// int		i;
-	// char	str;
+	char	*exit_status;
+	int		i;
+	
+	exit_status = ft_itoa(main->exit_status);
+	i = -1;
+	while (exit_status[++i])
+		update_word(exit_status[i], &utils->word);
+	free(exit_status);
+	utils->i++;
+
 
 	// printf("m->line[utils->i] = %c\n", main->line[utils->i]);
 	// if (ft_isdigit(main->line[utils->i + 1]) == TRUE)
@@ -15,23 +23,22 @@ static int	bash_script(int *ind, char *str, char **new, t_main *main)
 	// 	// utils->i--;
 	// 	return (TRUE);
 	// }
-	if (str[*ind] == '?')
-	{
-		update_word('$', new);
-		update_word('?', new);
-		update_word(' ', new);
-		update_word('A', new);
-		update_word(' ', new);
-		update_word('C', new);
-		update_word('O', new);
-		update_word('D', new);
-		update_word('E', new);
-		update_word('R', new);
-		update_word(' ', new);
-		(*ind)++;
-		return (TRUE);
-	}
-	return (FALSE);
+	// if (utils->str[utils->i + 1] == '?')
+	// {
+		// update_word('$', &utils->word);
+		// update_word('?', &utils->word);
+		// update_word(' ', &utils->word);
+		// update_word('A', &utils->word);
+		// update_word(' ', &utils->word);
+		// update_word('C', &utils->word);
+		// update_word('O', &utils->word);
+		// update_word('D', &utils->word);
+		// update_word('E', &utils->word);
+		// update_word('R', &utils->word);
+		// utils->i++;
+		// return (TRUE);
+	// }
+	// return (FALSE);
 }
 
 static char	*get_var_name(int *ind, char *str, char **new, t_main *m)
@@ -42,8 +49,8 @@ static char	*get_var_name(int *ind, char *str, char **new, t_main *m)
 
 	i = 1;
 	var = NULL;
-	if (bash_script(ind, str, new, m) == TRUE)
-		return (NULL);
+	// if (bash_script(ind, str, new, m) == TRUE)
+	// 	return (NULL);
 	while (ft_isalnum(str[*ind + i]) || str[*ind + i] == '_')
 	{
 		// printf("m->line[utils->i + i] = %c\n", m->line[utils->i + i]);
@@ -159,8 +166,12 @@ void	predefine_var(t_utils_lexer *utils, t_main *m)
 
 	if (utils->str[utils->i + 1] == '"' || utils->str[utils->i + 1] == '\'')
 		return ;
-	// if (utils->str[utils->i + 1] != '?')
-	// 	bash_script;
+	if (utils->str[utils->i + 1] == '?')
+	{
+		printf("test\n");
+		bash_script(utils, m);
+		return ;
+	}
 	if (!ft_isalpha(utils->str[utils->i + 1]) && utils->str[utils->i + 1] != '_'
 		&& utils->str[utils->i + 1])
 	{
