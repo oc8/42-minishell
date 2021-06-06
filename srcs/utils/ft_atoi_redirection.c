@@ -6,6 +6,7 @@ int	ft_atoi_redirection(const char *nptr, t_type_lex type)
 	int			i;
 
 	i = 0;
+	rs = 0;
 	if (!ft_isdigit(nptr[i]))
 	{
 		if (type == REDIR_IN)
