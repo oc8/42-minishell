@@ -10,6 +10,7 @@
 # include <limits.h>
 # include <string.h>
 # include <sys/errno.h>
+// # include <termios.h>
 
 # include "libft.h"
 
@@ -142,7 +143,8 @@ void	print_struct_cmd(t_list *param);
 */
 void	cmd_others(t_param_cmd *param, t_main *main);
 // void	cmd_exec(t_param_cmd *param, t_main *main);
-void	exec_cmd(t_param_cmd *param, t_main *main); // temp
+void	cmd_exec(t_list *param_lst, t_main *main);
+void	cmd_call(t_param_cmd *param, t_main *main);
 void	cmd_echo(t_param_cmd *param, t_main *main);
 void	cmd_pwd(t_param_cmd *param, t_main *main);
 void	cmd_env(t_param_cmd *param, t_main *main);

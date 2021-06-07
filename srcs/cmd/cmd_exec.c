@@ -22,7 +22,16 @@ static void	save_last_arg(char **cmd, t_main *main)
 	}
 }
 
-void	exec_cmd(t_param_cmd *param, t_main *main)
+void	cmd_exec(t_list *param_lst, t_main *main)
+{
+	while (param_lst)
+	{
+		cmd_call(param_lst->content, main);
+		param_lst = param_lst->next;
+	}
+}
+
+void	cmd_call(t_param_cmd *param, t_main *main)
 {
 	int		i;
 	pid_t	pid;
@@ -46,7 +55,6 @@ void	exec_cmd(t_param_cmd *param, t_main *main)
 		{
 			if (!ft_strncmp(param->cmd[0], main->cmd_fct[i].name, 7))
 			{
-				printf("1\n");
 				if (param->redir || param->pipe)
 					main->file = redirection(param, main);
 				main->cmd_fct[i].fct(param, main);
@@ -72,32 +80,3 @@ void	exec_cmd(t_param_cmd *param, t_main *main)
 	// close(main->pipefd[1]);
 	save_last_arg(param->cmd, main);
 }
-
-// void	cmd_exec(char **cmd, t_main *main)
-// {
-// 	int		i;
-
-// 	if (cmd[0] == '\0')
-// 		return ;
-// 	i = 7;
-// 	while (--i >= 0 && ft_strncmp(cmd[0], main->cmd_fct[i].name, 7))
-// 		;
-// 	if (!ft_strncmp(cmd[0], main->cmd_fct[i].name, 7))
-// 		main->cmd_fct[i].fct(cmd + 1, main);
-// 	else
-// 		cmd_others(cmd, param->redir, main);
-// 	save_last_arg(cmd, main);
-// }
-
-// void	test_cmd_exec(t_main *main)
-// {
-// 	char	**tabl;
-// 	int		i;
-
-// 	tabl = ft_split(main->line, ' ');
-// 	cmd_exec(tabl, main);
-// 	i = -1;
-// 	while (tabl[++i])
-// 		free(tabl[i]);
-// 	free(tabl);
-// }

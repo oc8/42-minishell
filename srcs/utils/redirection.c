@@ -58,13 +58,11 @@ int	redirection(t_param_cmd *param, t_main *main)
 		redir_chevron(param->redir, &file2, main);
 	if (param->pipe && !flag)
 	{
-				printf("2\n");
 		redir_pipe(&file2, main);
 		flag = 1;
 	}
 	if (flag)
 	{
-				printf("3\n");
 		file2 = dup2(main->pipefd[0], STDIN_FILENO);
 		close(main->pipefd[1]);
 		flag = 0;
