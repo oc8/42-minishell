@@ -3,6 +3,8 @@ OCEAN:
 - strerrno(errno)
 - var PWD & OLDPWD
 - export ordre alphabetique
+- ./ --> OK
+- c by c
 
 THOMAS:
 - ajouter les fd dans redirection --> OK
@@ -12,7 +14,7 @@ THOMAS:
 - changer tokenisation pour mettre un char * en param, et un start de ou ajouter les elements dan la liste.
 - faire une liste de structure pour les commandes pipe
 - faire script $?
-- set erno quand error synthax- voir quand erreur quoi faire (free main->lexer et line?)
+- set errno quand error synthax- voir quand erreur quoi faire (free main->lexer et line?)
 - voir les synthax error avec tests thallard (pipes)
 - relink Makefile
 - leaks

@@ -50,6 +50,8 @@ void	create_cmd(t_main *main)
 		ft_lstclear(&main->lexer, free_lexer);
 		// printf("save = %p\n", save);
 		exec_cmd(&param, main);
+		// close(main->pipefd[0]);
+		// close(main->pipefd[1]);
 		free_param_cmd(&param);
 		if (save != NULL)
 			main->lexer = save;

@@ -2,8 +2,9 @@
 
 void	cmd_echo(t_param_cmd *param, t_main *main)
 {
-	int	i;
-	int	flag_n;
+	int		i;
+	int		j;
+	int		flag_n;
 	char	**arg;
 
 	arg = param->cmd + 1;
@@ -13,21 +14,27 @@ void	cmd_echo(t_param_cmd *param, t_main *main)
 		return ;
 	}
 	flag_n = 0;
-	i = 0;
-	if (arg[0][0] == '-')
-		while (arg[0][++i] == 'n')
-			;
-	if (i > 1 && !arg[0][i])
+	j = 0;
+	while (arg[j][0] == '-')
 	{
-		flag_n = 1;
-		i = 1;
-	}
-	else
 		i = 0;
-	while (arg[i])
+		while (arg[j][++i] == 'n')
+			;
+		if (i > 1 && !arg[j][i])
+		{
+			flag_n = 1;
+			j++;;
+		}
+		else
+		{
+			j--;
+			break ;
+		}
+	}
+	while (arg[j])
 	{
-		printf("%s", arg[i++]);
-		if (arg[i])
+		printf("%s", arg[j++]);
+		if (arg[j])
 			printf(" ");
 	}
 	if (!flag_n)
