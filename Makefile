@@ -30,6 +30,7 @@ LST_SRCS		= \
 	utils/env_utils.c \
 	utils/print_lexer.c \
 	utils/redirection.c \
+	utils/term_utils.c \
 	utils/error.c
 SRCS_DIR		= srcs
 OBJS_DIR		= objs
@@ -40,7 +41,7 @@ CC				= clang
 # CFLAGS			= -g
 # CFLAGS			= -Wall -Werror -Wextra -fsanitize=address -g3
 CFLAGS			= -fsanitize=address -g3
-INCLUDE			= -Iinc -I${LIBFT}/inc
+INCLUDE			= -Iinc -I${LIBFT}/inc 
 RM				= rm -rf
 MKDIR			= mkdir -p
 LIBFT			= libft
@@ -57,7 +58,7 @@ libft:
 				printf "$(ERASE)"
 
 ${NAME}:		libft ${OBJS_DIR} ${OBJS}
-				${CC} ${CFLAGS} ${INCLUDE} ${OBJS} -L ${LIBFT} -lft -o ${NAME}
+				${CC} ${CFLAGS} ${INCLUDE} -lncurses ${OBJS} -L ${LIBFT} -lft -o ${NAME}
 				echo "$(BOLD)${GREEN}$(ERASE)--> minishell generated <--${END}"
 
 

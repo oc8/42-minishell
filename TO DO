@@ -5,6 +5,7 @@ OCEAN:
 - export ordre alphabetique
 - ./ --> OK
 - c by c
+- leaks
 
 THOMAS:
 - ajouter les fd dans redirection --> OK

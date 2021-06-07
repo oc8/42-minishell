@@ -104,12 +104,13 @@ int	main(int argc, char *argv[], char *env[])
 	t_main	main;
 
 	(void)argv;
-	setbuf(stdout, NULL);
+	setbuf(stdout, NULL); // ?
 	if (argc != 1)
 		quit_prog("minishell as to be launch without args\n", &main);
 	ft_bzero(&main, sizeof(t_main));
 	main.env = cpy_env(env, &main);
 	init_cmd_fct(&main);
+	init_term(&main);
 	// print_env(&main);
 	loop(&main);
 	// print_histo(&main);

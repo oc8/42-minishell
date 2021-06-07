@@ -15,7 +15,11 @@
 void	quit_prog(char *str, t_main *main)
 {
 	if (str)
-		printf("Error : %s\n", str);
+	{
+		ft_putstr_fd("\033[31mError : ", STDERR_FILENO);
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putstr_fd("\n\033[0m", STDERR_FILENO);
+	}
 	if (main->lexer != NULL)
 		ft_lstclear(&main->lexer, free);
 	// if (main->histo != NULL)

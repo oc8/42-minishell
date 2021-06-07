@@ -168,5 +168,6 @@ void	edit_var(char *add, size_t i, t_main *main);
 void	print_lexer(t_main *main);
 int		redirection(t_param_cmd *param, t_main *main);
 void	del_var(int index, t_main *main);
+void	init_term(t_main *main);
 
 #endif
