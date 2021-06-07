@@ -46,7 +46,7 @@ static void	redir_chevron(t_list *redir_lst, int *file2, t_main *main)
 static void	redir_pipe(int *file2, t_main *main)
 {
 	*file2 = dup2(main->pipefd[1], STDOUT_FILENO);
-	close(main->pipefd[0]);
+	// close(main->pipefd[0]);
 }
 
 int	redirection(t_param_cmd *param, t_main *main)
@@ -64,7 +64,7 @@ int	redirection(t_param_cmd *param, t_main *main)
 	if (flag)
 	{
 		file2 = dup2(main->pipefd[0], STDIN_FILENO);
-		close(main->pipefd[1]);
+		// close(main->pipefd[1]);
 		flag = 0;
 	}
 	return (file2);

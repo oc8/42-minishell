@@ -24,11 +24,26 @@ static void	save_last_arg(char **cmd, t_main *main)
 
 void	cmd_exec(t_list *param_lst, t_main *main)
 {
+	int		pipefd1[2];
+	int		pipefd2[2];
+	int		*file2;
+	int		count;
+
+	count = 0;
 	while (param_lst)
 	{
+		if (count == 0 && param_lst->next)
+		{
+			if (pipe(main->pipefd) == -1)
+				quit_prog("pipe()", main);
+			// *file2 = dup2(STDIN_FILENO, STDOUT_FILENO);
+		}
 		cmd_call(param_lst->content, main);
+		count++;
 		param_lst = param_lst->next;
 	}
+	// close(main->pipefd[0]);
+	// close(main->pipefd[1]);
 }
 
 void	cmd_call(t_param_cmd *param, t_main *main)
@@ -36,7 +51,6 @@ void	cmd_call(t_param_cmd *param, t_main *main)
 	int		i;
 	pid_t	pid;
 	int		status;
-	// int		pipefd[2];
 
 	if (!param->cmd[0])
 		return ;
@@ -45,9 +59,6 @@ void	cmd_call(t_param_cmd *param, t_main *main)
 		;
 	if (param->pipe || (i != I_CD && i != I_EXPORT && i != I_UNSET && i != I_EXIT))
 	{
-		// if (pipe(pipefd) == -1)
-		// 	quit_prog("pipe()", main);
-		// *file2 = dup2(STDIN_FILENO, STDOUT_FILENO);
 		pid = fork();
 		if (pid == -1)
 			quit_prog("error fork", main);
@@ -76,7 +87,5 @@ void	cmd_call(t_param_cmd *param, t_main *main)
 		if (param->redir)
 			close(main->file);
 	}
-	// close(main->pipefd[0]);
-	// close(main->pipefd[1]);
 	save_last_arg(param->cmd, main);
 }
