@@ -132,5 +132,5 @@ void	create_param_cmd(t_list **param_lst, t_main *main)
 	// define_text_types(main);
 	// // print_lexer(main);
 	// fill_struct(param, main);
-	print_struct_cmd(*param_lst);
+	// print_struct_cmd(*param_lst);
 }

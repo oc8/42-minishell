@@ -22,8 +22,6 @@ THOMAS:
 A PARLER ENSEMBLE :
 - gerer les comandes avec des listes de structures et pas une structure seule
 - set le exit_status du main a chaque commande execute
-- export change PWD et OLDPWD
-- export n'affiche pas les variables dans l'ordre alphabetique
 - mesages d'erreur commandes builtin : faire meme messages d'erreur que bash
 - leaks : a voir dans test_a faire>
 - relink Makefile

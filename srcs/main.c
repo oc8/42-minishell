@@ -54,7 +54,7 @@ void	create_cmd(t_main *main)
 	{
 		update_main_lexer(NEW_COMMAND, &save, main);
 		create_param_cmd(&param_lst, main);
-		// exec_cmd(&param, main);				//  --> PARTIE COMMAND OCEAN
+		// exec_cmd(param_lst, main);				//  --> PARTIE COMMAND OCEAN
 		ft_lstclear(&param_lst, free_param_cmd);
 		main->lexer = save;
 	}
