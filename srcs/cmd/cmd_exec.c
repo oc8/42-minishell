@@ -27,6 +27,7 @@ void	exec_cmd(t_param_cmd *param, t_main *main)
 	int		i;
 	pid_t	pid;
 	int		status;
+	// int		pipefd[2];
 
 	if (!param->cmd[0])
 		return ;
@@ -35,6 +36,9 @@ void	exec_cmd(t_param_cmd *param, t_main *main)
 		;
 	if (param->pipe || (i != I_CD && i != I_EXPORT && i != I_UNSET && i != I_EXIT))
 	{
+		// if (pipe(pipefd) == -1)
+		// 	quit_prog("pipe()", main);
+		// *file2 = dup2(STDIN_FILENO, STDOUT_FILENO);
 		pid = fork();
 		if (pid == -1)
 			quit_prog("error fork", main);
@@ -42,10 +46,11 @@ void	exec_cmd(t_param_cmd *param, t_main *main)
 		{
 			if (!ft_strncmp(param->cmd[0], main->cmd_fct[i].name, 7))
 			{
-				if (param->redir)
-					main->file = redirection(param->redir, main);
+				printf("1\n");
+				if (param->redir || param->pipe)
+					main->file = redirection(param, main);
 				main->cmd_fct[i].fct(param, main);
-				if (param->redir)
+				if (param->redir || param->pipe)
 					close(main->file);
 			}
 			else
@@ -58,11 +63,13 @@ void	exec_cmd(t_param_cmd *param, t_main *main)
 	else
 	{
 		if (param->redir)
-			main->file = redirection(param->redir, main);
+			main->file = redirection(param, main);
 		main->cmd_fct[i].fct(param, main);
 		if (param->redir)
 			close(main->file);
 	}
+	// close(main->pipefd[0]);
+	// close(main->pipefd[1]);
 	save_last_arg(param->cmd, main);
 }
 

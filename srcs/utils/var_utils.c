@@ -6,6 +6,8 @@ char	**split_var(char *var, t_main *main)
 	size_t	i;
 	size_t	equal;
 
+	// if (!var)e
+	// 	return (0);
 	rs = ft_calloc(3, sizeof(char *));
 	if (!rs)
 		quit_prog("malloc error", main);

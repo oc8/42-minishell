@@ -3,6 +3,8 @@ OCEAN:
 - strerrno(errno)
 - var PWD & OLDPWD
 - export ordre alphabetique
+- ./ --> OK
+- c by c
 
 THOMAS:
 - ajouter les fd dans redirection --> OK
