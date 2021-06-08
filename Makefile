@@ -1,7 +1,7 @@
 NAME			= minishell
 LST_SRCS		= \
 	main.c \
-	cmd/others/execve.c \
+	cmd/others/others.c \
 	cmd/cmd_exec.c \
 	cmd/echo/echo.c \
 	cmd/pwd/pwd.c \
@@ -38,9 +38,9 @@ SRCS			= $(addprefix $(SRCS_DIR)/,$(LST_SRCS))
 OBJS			= $(LST_SRCS:%.c=$(OBJS_DIR)/%.o)
 CC				= clang
 # CFLAGS			= -Wall -Werror -Wextra
-# CFLAGS			= -g
+CFLAGS			= -g
 # CFLAGS			= -Wall -Werror -Wextra -fsanitize=address -g3
-CFLAGS			= -fsanitize=address -g3
+# CFLAGS			= -fsanitize=address -g3
 INCLUDE			= -Iinc -I${LIBFT}/inc
 RM				= rm -rf
 MKDIR			= mkdir -p

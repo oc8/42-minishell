@@ -73,11 +73,7 @@ void	cmd_others(t_param_cmd *param, t_main *main)
 		free(path);
 		cmd = ft_strjoin(cmd, arg[0]);
 	}
-	if (param->redir)
-		main->file = redirection(param, main);
 	if (execve(cmd, arg, main->env) < 0)
 		cmd_error(arg[0], strerror(errno), 0, 0);
-	if (param->redir)
-		close(main->file);
 	free(cmd);
 }
