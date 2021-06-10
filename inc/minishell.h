@@ -114,6 +114,7 @@ typedef struct	s_main
 	t_function		cmd_fct[7];
 	int				file;
 	int				pipefd[2];
+	char			*home_path;
 }				t_main;
 
 void	loop(t_main *main);
