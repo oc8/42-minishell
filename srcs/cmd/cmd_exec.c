@@ -55,7 +55,7 @@ static void	cmd_fork(t_param_cmd *param, t_function *fct, t_main *main)
 		quit_prog("error fork", main);
 	else if (pid == 0)
 	{
-		dprintf(2, "ENTREE\n");
+		// dprintf(2, "ENTREE\n");
 
 		if (param->redir || param->pipe)
 			main->file = redirection(param, main);
@@ -66,18 +66,19 @@ static void	cmd_fork(t_param_cmd *param, t_function *fct, t_main *main)
 				printf("1\n");
 				main->file = dup2(main->pipefd[1], STDOUT_FILENO);
 				close(main->pipefd[0]);
-				fct->fct(param, main);
+				close(main->pipefd[1]);
+				ft_putstr_fd("test", 1);
+				// fct->fct(param, main);
 			}
 			else
 			{
 				printf("2\n");
 				main->file = dup2(main->pipefd[0], STDIN_FILENO);
+				close(main->pipefd[0]);
 				close(main->pipefd[1]);
 				// printf("ok?\n");
 				cmd_others(param, main);
 				// close(main->file);
-				// close(main->pipefd[0]);
-				// close(main->pipefd[1]);
 				// printf("close\n");
 			}
 			// if (param->redir || param->pipe)
