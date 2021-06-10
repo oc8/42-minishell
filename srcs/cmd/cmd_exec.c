@@ -44,8 +44,6 @@ void	cmd_exec(t_list *param_lst, t_main *main)
 	}
 	while (wait(NULL) != -1 || errno != ECHILD)
 		;
-	// close(main->pipefd[0]);
-	// close(main->pipefd[1]);
 }
 
 static void	cmd_fork(t_param_cmd *param, t_function *fct, t_main *main)
@@ -57,32 +55,53 @@ static void	cmd_fork(t_param_cmd *param, t_function *fct, t_main *main)
 		quit_prog("error fork", main);
 	else if (pid == 0)
 	{
+		dprintf(2, "ENTREE\n");
+
 		if (param->redir || param->pipe)
 			main->file = redirection(param, main);
-		if (!ft_strncmp(param->cmd[0], fct->name, 7))
+		if (main->file != -1)
 		{
-			main->file = dup2(main->pipefd[1], STDOUT_FILENO);
-			fct->fct(param, main);
+			if (!ft_strncmp(param->cmd[0], fct->name, 7))
+			{
+				printf("1\n");
+				main->file = dup2(main->pipefd[1], STDOUT_FILENO);
+				close(main->pipefd[0]);
+				fct->fct(param, main);
+			}
+			else
+			{
+				printf("2\n");
+				main->file = dup2(main->pipefd[0], STDIN_FILENO);
+				close(main->pipefd[1]);
+				// printf("ok?\n");
+				cmd_others(param, main);
+				// close(main->file);
+				// close(main->pipefd[0]);
+				// close(main->pipefd[1]);
+				// printf("close\n");
+			}
+			// if (param->redir || param->pipe)
+				// close(main->file);
 		}
-		else
-		{
-			main->file = dup2(main->pipefd[0], STDIN_FILENO);
-			// printf("ok?\n");
-			// cmd_others(param, main);
-			// close(main->file);
-			// close(main->pipefd[0]);
-			// close(main->pipefd[1]);
-			// printf("close\n");
-		}
-		if (param->redir || param->pipe)
-			close(main->file);
+		dprintf(main->fdOut, "EXIT \n");
 		exit(0);
+	}
+	else if (param->pipe)
+	{
+		printf("3\n");
+		close(main->pipefd[0]);
+		close(main->pipefd[1]);
+		wait(NULL);
 	}
 }
 
 void	cmd_call(t_param_cmd *param, t_main *main)
 {
 	int		i;
+
+//
+	main->fdOut = dup(STDOUT_FILENO);
+//
 
 	if (!param->cmd[0])
 		return ;
@@ -95,9 +114,12 @@ void	cmd_call(t_param_cmd *param, t_main *main)
 	{
 		if (param->redir || param->pipe)
 			main->file = redirection(param, main);
-		main->cmd_fct[i].fct(param, main);
-		if (param->redir || param->pipe)
-			close(main->file);
+		if (main->file != -1)
+		{
+			main->cmd_fct[i].fct(param, main);
+			if (param->redir || param->pipe)
+				close(main->file);
+		}
 	}
 	save_last_arg(param->cmd, main);
 }

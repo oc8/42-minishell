@@ -6,8 +6,6 @@ OCEAN:
 - pipe
 - termcap
 - signaux
-- cd -
-- cd ~
 
 THOMAS:
 - ajouter les fd dans redirection --> OK

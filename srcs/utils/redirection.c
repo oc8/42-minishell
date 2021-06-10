@@ -27,9 +27,10 @@ static void	redir_type(int *file2, t_redir *redir, t_main *main)
 	}
 }
 
-static void	redir_chevron(t_list *redir_lst, int *file2, t_main *main)
+static int	redir_chevron(t_list *redir_lst, int *file2, t_main *main)
 {
-	int	flag;
+	int		flag;
+	t_redir	*redir;
 
 	flag = 0;
 	while (redir_lst)
@@ -38,9 +39,13 @@ static void	redir_chevron(t_list *redir_lst, int *file2, t_main *main)
 			close(*file2);
 		else
 			flag = 1;
-		redir_type(file2, redir_lst->content, main);
+		redir = (t_redir *)redir_lst->content;
+		if (redir->var_err)
+			return (cmd_error(0, "ambiguous redirect", redir->var_err, 1));
+		redir_type(file2, redir, main);
 		redir_lst = redir_lst->next;
 	}
+	return (0);
 }
 
 static void	redir_pipe(int *file2, t_main *main)
@@ -56,7 +61,10 @@ int	redirection(t_param_cmd *param, t_main *main)
 	static int	flag = 0;
 
 	if (param->redir)
-		redir_chevron(param->redir, &file2, main);
+	{
+		if (redir_chevron(param->redir, &file2, main))
+			return (-1);
+	}
 	// if (param->pipe && !flag)
 	// {
 	// 	redir_pipe(&file2, main);

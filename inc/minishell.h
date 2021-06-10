@@ -115,6 +115,9 @@ typedef struct	s_main
 	int				file;
 	int				pipefd[2];
 	char			*home_path;
+
+	/*seb*/
+	int fdOut;
 }				t_main;
 
 void	loop(t_main *main);

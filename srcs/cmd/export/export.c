@@ -4,14 +4,33 @@ static void	print_env(t_main *main)
 {
 	char	**env;
 	char	**var;
+	size_t	*sort;
 	size_t	i;
+	size_t	j;
+	size_t	i_min;
+	int		diff;
+	int		min;
 
 	env = main->env;
 	i = 0;
+	i_min = 0;
+	sort = ft_calloc(main->nbr_env, sizeof(size_t));
 	while (env[i] && i < main->nbr_env)
 	{
-		var = split_var(env[i], main);
-		// sort
+		min = 255;
+		j = 0;
+		while (env[j] && j < main->nbr_env)
+		{
+			diff = ft_strncmp(env[j], env[i_min], -1);
+			if (!sort[j] && diff < min)
+			{
+				i_min = j;
+				min = diff;
+			}
+			j++;
+		}
+		sort[i_min] = 1;
+		var = split_var(env[i_min], main);
 		if (var[1])
 			printf("declare -x %s=\"%s\"\n", var[0], var[1]);
 		else
@@ -19,6 +38,7 @@ static void	print_env(t_main *main)
 		ft_freedoublestr(&var);
 		i++;
 	}
+	free(sort);
 }
 
 static void	add_to_var(char *add, int index, t_main *main)
