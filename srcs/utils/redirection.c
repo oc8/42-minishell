@@ -25,9 +25,11 @@ static void	redir_type(int *file2, t_redir *redir, t_main *main)
 			quit_prog("open() error", main);
 		*file2 = dup2(redir->fd, file);
 	}
+	if (*file2 == -1)
+		quit_prog("dup2() error", main);
 }
 
-static int	redir_chevron(t_list *redir_lst, int *file2, t_main *main)
+static int	redir_chevron(t_list *redir_lst, t_main *main)
 {
 	int		flag;
 	t_redir	*redir;
@@ -36,47 +38,34 @@ static int	redir_chevron(t_list *redir_lst, int *file2, t_main *main)
 	while (redir_lst)
 	{
 		if (flag)
-			close(*file2);
+			close(main->file);
 		else
 			flag = 1;
 		redir = (t_redir *)redir_lst->content;
 		if (redir->var_err)
 			return (cmd_error(0, "ambiguous redirect", redir->var_err, 1));
-		redir_type(file2, redir, main);
+		redir_type(&main->file, redir, main);
 		redir_lst = redir_lst->next;
 	}
 	return (0);
 }
 
-static void	redir_pipe(int *file2, t_main *main)
+void	redirection(t_param_cmd *param, t_main *main)
 {
-	*file2 = dup2(main->pipefd[1], STDOUT_FILENO);
-	// printf("tcoest\n");
-	// close(main->pipefd[0]);
-}
-
-int	redirection(t_param_cmd *param, t_main *main)
-{
-	int			file2;
-	static int	flag = 0;
-
 	if (param->redir)
+		redir_chevron(param->redir, main);
+	if (param->pipe_after)
 	{
-		if (redir_chevron(param->redir, &file2, main))
-			return (-1);
+		if (dup2(main->pipefd[0][1], STDOUT_FILENO) == -1)
+			quit_prog("dup2() error", main);
+		close(main->pipefd[0][0]);
+		close(main->pipefd[0][1]);
 	}
-	// if (param->pipe && !flag)
-	// {
-	// 	redir_pipe(&file2, main);
-	// 	flag = 1;
-	// }
-	// else if (flag)
-	// {
-	// 	// printf("tcoest\n");
-	// 	close(main->pipefd[1]);
-	// 	file2 = dup2(STDIN_FILENO, main->pipefd[0]);
-	// 	// file2 = dup2(main->pipefd[0], STDIN_FILENO);
-	// 	flag = 0;
-	// }
-	return (file2);
+	if (param->pipe_before)
+	{
+		if (dup2(main->pipefd[0][0], STDIN_FILENO) == -1)
+			quit_prog("dup2() error", main);
+		close(main->pipefd[0][0]);
+		close(main->pipefd[0][1]);
+	}
 }

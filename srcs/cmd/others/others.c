@@ -73,8 +73,7 @@ void	cmd_others(t_param_cmd *param, t_main *main)
 		free(path);
 		cmd = ft_strjoin(cmd, arg[0]);
 	}
-	arg[0] = cmd;
-	dprintf(2, "%s\n", arg[2]);
+	// arg[0] = cmd;
 	if (execve(cmd, arg, main->env) < 0)
 		cmd_error(arg[0], strerror(errno), 0, 0);
 	free(cmd); // free

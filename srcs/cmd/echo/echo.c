@@ -33,13 +33,13 @@ void	cmd_echo(t_param_cmd *param, t_main *main)
 	}
 	while (arg[j])
 	{
-		dprintf(2, "%s\n", arg[j++]);
+		// dprintf(2, "%s\n", arg[j++]);
 		ft_putstr_fd(arg[j], 1);
 		// printf("%s", arg[j]);
 		j++;
 		if (arg[j])
 			ft_putstr_fd(" ", 1);
 	}
-	// if (!flag_n)
-	// 	ft_putstr_fd("\n", 1);
+	if (!flag_n)
+		ft_putstr_fd("\n", 1);
 }
