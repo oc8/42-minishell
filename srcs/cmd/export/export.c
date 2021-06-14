@@ -4,7 +4,7 @@ static void	print_env(t_main *main)
 {
 	char	**env;
 	char	**var;
-	size_t	*sort;
+	int		*sort;
 	size_t	i;
 	size_t	j;
 	size_t	i_min;
@@ -14,7 +14,7 @@ static void	print_env(t_main *main)
 	env = main->env;
 	i = 0;
 	i_min = 0;
-	sort = ft_calloc(main->nbr_env, sizeof(size_t));
+	sort = ft_calloc(main->nbr_env, sizeof(int));
 	while (env[i] && i < main->nbr_env)
 	{
 		min = 255;
@@ -26,6 +26,7 @@ static void	print_env(t_main *main)
 			{
 				i_min = j;
 				min = diff;
+				// printf("min = %d\n", diff);
 			}
 			j++;
 		}

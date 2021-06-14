@@ -58,6 +58,8 @@ void	redirection(t_param_cmd *param, t_main *main)
 	{
 		if (dup2(main->pipefd[0][1], STDOUT_FILENO) == -1)
 			quit_prog("dup2() error", main);
+		// dprintf(1, "1 : dup2 in");
+		// dprintf(2, "2 : dup2 in");
 		close(main->pipefd[0][0]);
 		close(main->pipefd[0][1]);
 	}
@@ -65,6 +67,8 @@ void	redirection(t_param_cmd *param, t_main *main)
 	{
 		if (dup2(main->pipefd[0][0], STDIN_FILENO) == -1)
 			quit_prog("dup2() error", main);
+		// dprintf(1, "1 : dup2 out");
+		// dprintf(2, "2 : dup2 out");
 		close(main->pipefd[0][0]);
 		close(main->pipefd[0][1]);
 	}

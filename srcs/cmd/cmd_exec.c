@@ -24,8 +24,6 @@ static void	save_last_arg(char **cmd, t_main *main)
 
 void	cmd_exec(t_list *param_lst, t_main *main)
 {
-	int			pipefd1[2];
-	int			pipefd2[2];
 	int			*file2;
 	int			count;
 	t_param_cmd	*param;
@@ -42,6 +40,7 @@ void	cmd_exec(t_list *param_lst, t_main *main)
 			param->pipe_before = 1;
 		if (count % 2 == 0 && param_lst->next)
 		{
+			printf("pipe[0] creat\n");
 			if (pipe(main->pipefd[0]) == -1)
 				quit_prog("pipe()", main);
 		}
@@ -55,8 +54,6 @@ void	cmd_exec(t_list *param_lst, t_main *main)
 		count++;
 		param_lst = param_lst->next;
 	}
-	close(main->pipefd[0][0]);
-	close(main->pipefd[0][1]);
 	while (wait(NULL) != -1 || errno != ECHILD)
 		;
 }
