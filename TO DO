@@ -6,6 +6,8 @@ OCEAN:
 - pipe
 - termcap
 - signaux
+- enlever _ pour export
+- OLDPWD a NULL pour export des le debut
 
 THOMAS:
 - ajouter les fd dans redirection --> OK

@@ -56,20 +56,18 @@ void	redirection(t_param_cmd *param, t_main *main)
 		redir_chevron(param->redir, main);
 	if (param->pipe_after)
 	{
-		if (dup2(main->pipefd[0][1], STDOUT_FILENO) == -1)
+		if (dup2(main->pipefd[main->count % 2][1], STDOUT_FILENO) == -1)
 			quit_prog("dup2() error", main);
-		// dprintf(1, "1 : dup2 in");
-		// dprintf(2, "2 : dup2 in");
-		close(main->pipefd[0][0]);
-		close(main->pipefd[0][1]);
+		close(main->pipefd[main->count % 2][0]);
+		close(main->pipefd[main->count % 2][1]);
+		// ft_putstr_fd("dup2 in", 1);
 	}
 	if (param->pipe_before)
 	{
-		if (dup2(main->pipefd[0][0], STDIN_FILENO) == -1)
+		if (dup2(main->pipefd[1-main->count % 2][0], STDIN_FILENO) == -1)
 			quit_prog("dup2() error", main);
-		// dprintf(1, "1 : dup2 out");
-		// dprintf(2, "2 : dup2 out");
-		close(main->pipefd[0][0]);
-		close(main->pipefd[0][1]);
+		// ft_putstr_fd("dup2 out", 2);
+		close(main->pipefd[1-main->count % 2][0]);
+		close(main->pipefd[1-main->count % 2][1]);
 	}
 }

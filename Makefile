@@ -3,6 +3,7 @@ LST_SRCS		= \
 	main.c \
 	cmd/others/others.c \
 	cmd/cmd_exec.c \
+	cmd/cmd_call.c \
 	cmd/echo/echo.c \
 	cmd/pwd/pwd.c \
 	cmd/cd/cd.c \
@@ -60,7 +61,6 @@ libft:
 ${NAME}:		libft ${OBJS_DIR} ${OBJS}
 				${CC} ${CFLAGS} ${INCLUDE} ${OBJS} -L ${LIBFT} -lft -o ${NAME}
 				echo "$(BOLD)${GREEN}$(ERASE)--> minishell generated <--${END}"
-
 
 $(OBJS_DIR)/%.o:$(SRCS_DIR)/%.c inc/*.h
 				$(MKDIR) $(dir $@)

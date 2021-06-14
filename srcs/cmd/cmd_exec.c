@@ -25,76 +25,50 @@ static void	save_last_arg(char **cmd, t_main *main)
 void	cmd_exec(t_list *param_lst, t_main *main)
 {
 	int			*file2;
-	int			count;
 	t_param_cmd	*param;
 
-	param->pipe_before = 0;
-	param->pipe_after = 1;
-	count = 0;
+	main->count = 0;
+	main->i_pipe = 0;
 	while (param_lst)
 	{
 		param = (t_param_cmd *)param_lst->content;
+		param->pipe_before = 0;
+		param->pipe_after = 1;
 		if (!param_lst->next)
 			param->pipe_after = 0;
-		if (count > 0)
+		if (main->count > 0)
 			param->pipe_before = 1;
-		if (count % 2 == 0 && param_lst->next)
+
+		if (main->count % 2 == 0 && param->pipe_after)
 		{
-			printf("pipe[0] creat\n");
+			// printf("pipe[0] creat\n");
 			if (pipe(main->pipefd[0]) == -1)
 				quit_prog("pipe()", main);
+			// main->i_pipe = 0;
 		}
-		// if (count % 2 == 0 && param_lst->next)
-		// {
-		// 	close(main->pipefd[0][0]);
-		// 	close(main->pipefd[0][1]);
-		// }
+		else if (main->count % 2 == 1 && param->pipe_after)
+		{
+			if (pipe(main->pipefd[1]) == -1)
+				quit_prog("pipe()", main);
+			// main->i_pipe = 1;
+		}
+		// if (main->count == 2)
+		// 	main->i_pipe = 1;
 		cmd_call(param, main);
 		save_last_arg(param->cmd, main);
-		count++;
+		main->count++;
+		if (main->count % 2 == 0)
+		{
+			close(main->pipefd[0][0]);
+			close(main->pipefd[0][1]);
+		}
+		else if (main->count > 1 && main->count % 2 == 1)
+		{
+			close(main->pipefd[1][0]);
+			close(main->pipefd[1][1]);
+		}
 		param_lst = param_lst->next;
 	}
 	while (wait(NULL) != -1 || errno != ECHILD)
 		;
-}
-
-static void	cmd_fork(t_param_cmd *param, t_function *fct, t_main *main)
-{
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == -1)
-		quit_prog("error fork", main);
-	else if (pid == 0)
-	{
-		redirection(param, main);
-		if (!ft_strncmp(param->cmd[0], fct->name, 7))
-			fct->fct(param, main);
-		else
-			cmd_others(param, main);
-		if (param->redir)
-			close(main->file);
-		exit(0);
-	}
-}
-
-void	cmd_call(t_param_cmd *param, t_main *main)
-{
-	int		i;
-
-	if (!param->cmd[0])
-		return ;
-	i = 7;
-	while (--i >= 0 && ft_strncmp(param->cmd[0], main->cmd_fct[i].name, 7))
-		;
-	if ((i != I_CD && i != I_EXPORT && i != I_UNSET && i != I_EXIT) ||		\
-			param->pipe_before || param->pipe_after)
-		cmd_fork(param, &main->cmd_fct[i], main);
-	else
-	{
-		redirection(param, main);
-		main->cmd_fct[i].fct(param, main);
-		if (param->redir)
-			close(main->file);
-	}
 }
