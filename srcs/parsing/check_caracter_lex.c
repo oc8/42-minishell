@@ -58,11 +58,32 @@ static t_type_lex	reconize_carac_spec(t_utils_lexer *utils)
 			return (REDIR_OUT);
 		else if (utils->word[i] == '>' && utils->word[i + 1] == '>')
 			return (APP_REDIR_OUT);
+		else if (utils->word[i] == '<' && utils->word[i + 1] == '<')
+			return (HERE_DOC);
 	}
 	return (-1);
 }
 
-static void	carac_spec(char c, t_utils_lexer *utils, t_main *main)
+void	redir_special(char c, t_utils_lexer *utils, t_main * main)
+{
+	if (c == '>')
+	{
+		update_word('>', &utils->word);
+		utils->i++;
+	}
+	else if (c == '<')
+	{
+		update_word('<', &utils->word);
+		utils->i++;
+		if (utils->str[utils->i] == '-')
+		{
+			update_word('-', &utils->word);
+			utils->i++;
+		}
+	}
+}
+
+static void	carac_special(char c, t_utils_lexer *utils, t_main *main)
 {
 	if (utils->sing_q == 1 || (utils->double_q == 1) || utils->echap == 1)
 	{
@@ -82,41 +103,43 @@ static void	carac_spec(char c, t_utils_lexer *utils, t_main *main)
 		if (utils->word)
 			malloc_element(-1, utils, main);
 		update_word(utils->str[utils->i], &utils->word);
-		if (utils->str[utils->i] == '>' && utils->str[utils->i + 1] == '>')
-		{
-			update_word('>', &utils->word);
-			utils->i++;
-		}
+		if (utils->str[utils->i] == '>' && utils->str[utils->i + 1] == '>'
+			|| utils->str[utils->i] == '<' && utils->str[utils->i + 1] == '<')
+			redir_special(utils->str[utils->i], utils, main);
+		// {
+		// 	update_word('>', &utils->word);
+		// 	utils->i++;
+		// }
 		malloc_element(reconize_carac_spec(utils), utils, main);
 	}
 }
 
-static void	is_fd_redir(char c, t_utils_lexer *utils, t_main *main)
+static void	is_fd_redir(char c, t_utils_lexer *util, t_main *main)
 {
 	int i;
 	
-	if (utils->sing_q == 1 || utils->double_q == 1 || utils->echap == 1)
+	if (util->sing_q == 1 || util->double_q == 1 || util->echap == 1)
 	{
-		if (utils->double_q == 1 && utils->echap == 1)
-			update_word('\\', &utils->word);
-		update_word(c, &utils->word);
+		if (util->double_q == 1 && util->echap == 1)
+			update_word('\\', &util->word);
+		update_word(c, &util->word);
 	}
 	else
 	{
-		i = utils->i;
-		while (ft_isdigit(utils->str[i]))
+		i = util->i;
+		while (ft_isdigit(util->str[i]))
 			i++;
-		if (utils->str[i] == '>' || utils->str[i] == '<')
+		if (util->str[i] == '>' || util->str[i] == '<')
 		{
-			while (utils->i < i)
-				update_word(utils->str[utils->i++], &utils->word);
-			update_word(utils->str[utils->i], &utils->word);
-			if (utils->str[utils->i + 1] == '>')
-				update_word(utils->str[utils->i++], &utils->word);
-			malloc_element(reconize_carac_spec(utils), utils, main);
+			while (util->i < i)
+				update_word(util->str[util->i++], &util->word);
+			update_word(util->str[util->i], &util->word);
+			if (util->str[util->i + 1] == '>' || util->str[util->i + 1] == '<')
+				redir_special(util->str[util->i], util, main);
+			malloc_element(reconize_carac_spec(util), util, main);
 		}
 		else
-			update_word(c, &utils->word);
+			update_word(c, &util->word);
 	}
 }
 

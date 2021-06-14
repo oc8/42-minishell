@@ -33,6 +33,7 @@ typedef enum	e_type_lex
 	REDIR_IN,
 	APP_REDIR_OUT,
 	REDIR_OUT,
+	HERE_DOC,
 	FILE_N,
 	PIPE,
 	NEW_COMMAND,
