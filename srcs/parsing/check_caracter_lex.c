@@ -52,14 +52,17 @@ static t_type_lex	reconize_carac_spec(t_utils_lexer *utils)
 			return (NEW_COMMAND);
 		else if (utils->word[i] == '|')
 			return (PIPE);
-		else if (utils->word[i] == '<')
+		else if (utils->word[i] == '<' && utils->word[i + 1] == '\0')
 			return (REDIR_IN);
 		else if (utils->word[i] == '>' && utils->word[i + 1] == '\0')
 			return (REDIR_OUT);
 		else if (utils->word[i] == '>' && utils->word[i + 1] == '>')
 			return (APP_REDIR_OUT);
 		else if (utils->word[i] == '<' && utils->word[i + 1] == '<')
+		// {
+			// printf("HERE DOC reconize_carac_spec\n");
 			return (HERE_DOC);
+		// }
 	}
 	return (-1);
 }
@@ -75,6 +78,7 @@ void	redir_special(char c, t_utils_lexer *utils, t_main * main)
 	{
 		update_word('<', &utils->word);
 		utils->i++;
+		// printf("word = %s\n", utils->word);
 		if (utils->str[utils->i] == '-')
 		{
 			update_word('-', &utils->word);
@@ -103,8 +107,8 @@ static void	carac_special(char c, t_utils_lexer *utils, t_main *main)
 		if (utils->word)
 			malloc_element(-1, utils, main);
 		update_word(utils->str[utils->i], &utils->word);
-		if (utils->str[utils->i] == '>' && utils->str[utils->i + 1] == '>'
-			|| utils->str[utils->i] == '<' && utils->str[utils->i + 1] == '<')
+		if ((utils->str[utils->i] == '>' && utils->str[utils->i + 1] == '>')
+			|| (utils->str[utils->i] == '<' && utils->str[utils->i + 1] == '<'))
 			redir_special(utils->str[utils->i], utils, main);
 		// {
 		// 	update_word('>', &utils->word);
@@ -153,7 +157,7 @@ void	check_caracter_lex(char c, t_utils_lexer *utils, t_main *main)
 		return (quotes(c, utils, main));
 	else if (c == '$')
 	{
-		if (utils->sing_q == 1 || utils->echap == 1)
+		if (utils->sing_q == 1 || utils->echap == 1 || is_here_doc(main))
 			update_word(c, &utils->word);
 		else
 		{
@@ -166,7 +170,7 @@ void	check_caracter_lex(char c, t_utils_lexer *utils, t_main *main)
 	else if (ft_isdigit(c) == TRUE)
 		return (is_fd_redir(c, utils, main));
 	else if (c == '>' || c == '<' || c == '|' || c == ' ' || c == ';')
-		return (carac_spec(c, utils, main));
+		return (carac_special(c, utils, main));
 	else
 	{
 		if (utils->double_q == 1 && utils->echap == 1)

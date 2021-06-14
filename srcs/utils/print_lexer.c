@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static	print_lexer_2(t_type_lex type)
+static void	print_lexer_type(t_type_lex type)
 {
 	if (type == COMMAND)
 		printf("Type = COMMAND\n");

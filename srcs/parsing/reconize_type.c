@@ -60,7 +60,7 @@ static int	redirection_file(int i, t_main *main)
 		index = index->next;
 	tmp = index->content;
 	if (tmp->type == REDIR_OUT || tmp->type == REDIR_IN
-		|| tmp->type == APP_REDIR_OUT)
+		|| tmp->type == APP_REDIR_OUT || tmp->type == HERE_DOC)
 		return (TRUE);
 	else
 		return (FALSE);

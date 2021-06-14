@@ -112,7 +112,7 @@ void	create_param_cmd(t_list **param_lst, t_main *main)
 	save = main->lexer;
 	while (main->lexer != NULL)
 	{
-		update_main_lexer(PIPE, &save, main);
+		update_main_lexer(PIPE, &save);
 		contain_var(main);
 		define_text_types(main);
 		// print_lexer(main);

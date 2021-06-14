@@ -21,7 +21,7 @@ void	print_env(t_main *main)
 		printf("%s\n", main->env[i]);
 }
 
-void	update_main_lexer(t_type_lex type, t_list **save, t_main *main)
+void	update_main_lexer(t_type_lex type, t_list **save)
 {
 	t_list		*tmp_lst;
 	t_lexer		*tmp_lex;
@@ -52,7 +52,7 @@ void	create_cmd(t_main *main)
 	save = main->lexer;
 	while (main->lexer != NULL)
 	{
-		update_main_lexer(NEW_COMMAND, &save, main);
+		update_main_lexer(NEW_COMMAND, &save);
 		create_param_cmd(&param_lst, main);
 		cmd_exec(param_lst, main);
 		ft_lstclear(&param_lst, free_param_cmd);

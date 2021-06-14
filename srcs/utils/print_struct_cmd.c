@@ -42,6 +42,8 @@ static void print_redir(t_list *redir)
 				printf(">\n");
 			if (tmp->type == APP_REDIR_OUT)
 				printf(">>\n");
+			if (tmp->type == HERE_DOC)
+				printf("<<\n");
 		}
 		index = index->next;
 	}

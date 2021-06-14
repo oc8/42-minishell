@@ -47,7 +47,10 @@ void	malloc_element(t_type_lex type, t_utils_lexer *utils, t_main *main)
 	if (type == -1)
 		reconize_primitive_type(lexer, utils, main);
 	else
+	// {
 		lexer->type = type;
+	// 	printf("spec_type = %d\n", lexer->type);
+	// }
 	new = ft_lstnew(lexer);
 	ft_lstadd_back(&main->lexer, new);
 	utils->start_word = -1;
