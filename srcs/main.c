@@ -117,7 +117,6 @@ char	*save_path_home(char **env, t_main *main)
 	ft_strlcpy(path_home, var[1], size);
 	ft_freedoublestr(&var);
 	return (path_home);
-
 }
 
 int	main(int argc, char *argv[], char *env[])
