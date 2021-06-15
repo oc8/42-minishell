@@ -74,6 +74,7 @@ void	loop(t_main *main)
 		if (main->lexer != NULL)
 			ft_lstclear(&main->lexer, free_lexer);
 	}
+	
 }
 
 char	**cpy_env(char *env[], t_main *main)

@@ -1,13 +1,9 @@
 OCEAN:
 - proteger les fonctions "dir"
 - strerrno(errno)
-- var PWD & OLDPWD
-- export ordre alphabetique
-- pipe
-- termcap
-- signaux
 - enlever _ pour export
 - OLDPWD a NULL pour export des le debut
+- <<
 
 THOMAS:
 - ajouter les fd dans redirection --> OK
@@ -25,8 +21,7 @@ THOMAS:
 - enlever setbuf et faire des tests
 
 A PARLER ENSEMBLE :
-- gerer les comandes avec des listes de structures et pas une structure seule
 - set le exit_status du main a chaque commande execute
-- mesages d'erreur commandes builtin : faire meme messages d'erreur que bash
-- leaks : a voir dans test_a faire>
-- relink Makefile
+- relink Makefile 
+- signaux
+- historique
