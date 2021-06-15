@@ -1,13 +1,9 @@
 OCEAN:
 - proteger les fonctions "dir"
 - strerrno(errno)
-- var PWD & OLDPWD
-- export ordre alphabetique
-- pipe
-- termcap
-- signaux
-- cd -
-- cd ~
+- enlever _ pour export
+- OLDPWD a NULL pour export des le debut
+- <<
 
 THOMAS:
 - ajouter les fd dans redirection --> OK
@@ -28,6 +24,6 @@ A PARLER ENSEMBLE :
 - gerer les comandes avec des listes de structures et pas une structure seule --> OK
 - redirections : si var_error != NUL, alors message erreur redirection ambigue avec le nom de la variable dans var_error (exemple commande : export TOTO="un test" ; echo 42 > $TOTO)
 - set le exit_status du main a chaque commande execute
-- mesages d'erreur commandes builtin : faire meme messages d'erreur que bash
-- leaks : a voir dans test_a faire>
-- relink Makefile
+- relink Makefile 
+- signaux
+- historique

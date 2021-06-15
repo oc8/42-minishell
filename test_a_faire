@@ -15,3 +15,4 @@ export
 env
 export TOTO2="1 2" ; export TOTO="test$TOTO2" ; echo 42 > a > coi$TOTO\toi >d
 export TOTO3="un test" ; export TOTO2="1$TOTO3\3" ; export TOTO="4 5$TOTO2\6" ; echo 7$TOTO\8
+echo a >> a ; ls | cat -e ; cat Makefile | grep CYAN | grep CYAN | cat -e | grep CYAN
