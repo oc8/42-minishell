@@ -74,6 +74,7 @@ void	loop(t_main *main)
 		if (main->lexer != NULL)
 			ft_lstclear(&main->lexer, free_lexer);
 	}
+	
 }
 
 char	**cpy_env(char *env[], t_main *main)
@@ -98,16 +99,39 @@ char	**cpy_env(char *env[], t_main *main)
 	return (rs);
 }
 
+char	*save_path_home(char **env, t_main *main)
+{
+	int		i;
+	char	*path_home;
+	int		size;
+	char	**var;
+
+	i = var_defined("HOME", main);
+	if (i == -1)
+		return (0);
+	var = split_var(env[i], main);
+	size = ft_strlen(var[1]) + 1;
+	path_home = ft_calloc_lst(&main->free, size, sizeof(char));
+	if (!path_home)
+		quit_prog("malloc()", main);
+	ft_strlcpy(path_home, var[1], size);
+	ft_freedoublestr(&var);
+	return (path_home);
+
+}
+
 int	main(int argc, char *argv[], char *env[])
 {
 	t_main	main;
 
+	// execve("/bin/bash", 0, env);
 	(void)argv;
 	setbuf(stdout, NULL);
 	if (argc != 1)
 		quit_prog("minishell as to be launch without args\n", &main);
 	ft_bzero(&main, sizeof(t_main));
 	main.env = cpy_env(env, &main);
+	main.home_path = save_path_home(main.env, &main);
 	init_cmd_fct(&main);
 	// print_env(&main);
 	loop(&main);

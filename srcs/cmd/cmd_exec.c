@@ -24,80 +24,36 @@ static void	save_last_arg(char **cmd, t_main *main)
 
 void	cmd_exec(t_list *param_lst, t_main *main)
 {
-	int		pipefd1[2];
-	int		pipefd2[2];
-	int		*file2;
-	int		count;
+	int			*file2;
+	t_param_cmd	*param;
+	int			*count;
 
-	count = 0;
+	main->count = 0;
 	while (param_lst)
 	{
-		if (count == 0 && param_lst->next)
+		param = (t_param_cmd *)param_lst->content;
+		param->pipe_before = 0;
+		param->pipe_after = 1;
+		if (!param_lst->next)
+			param->pipe_after = 0;
+		if (main->count > 0)
+			param->pipe_before = 1;
+		if (param->pipe_after)
 		{
-			if (pipe(main->pipefd) == -1)
+			// printf("pipe[0] creat\n");
+			if (pipe(main->pipefd[main->count % 2]) == -1)
 				quit_prog("pipe()", main);
-			// *file2 = dup2(main->pipefd[1], STDOUT_FILENO);
 		}
-		cmd_call(param_lst->content, main);
-		count++;
+		cmd_call(param, main);
+		save_last_arg(param->cmd, main);
+		main->count += 1;
+		if (main->count > 1)
+		{
+			close(main->pipefd[main->count % 2][0]);
+			close(main->pipefd[main->count % 2][1]);
+		}
 		param_lst = param_lst->next;
 	}
 	while (wait(NULL) != -1 || errno != ECHILD)
 		;
-	// close(main->pipefd[0]);
-	// close(main->pipefd[1]);
-}
-
-static void	cmd_fork(t_param_cmd *param, t_function *fct, t_main *main)
-{
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == -1)
-		quit_prog("error fork", main);
-	else if (pid == 0)
-	{
-		if (param->redir || param->pipe)
-			main->file = redirection(param, main);
-		if (!ft_strncmp(param->cmd[0], fct->name, 7))
-		{
-			main->file = dup2(main->pipefd[1], STDOUT_FILENO);
-			fct->fct(param, main);
-		}
-		else
-		{
-			main->file = dup2(main->pipefd[0], STDIN_FILENO);
-			// printf("ok?\n");
-			// cmd_others(param, main);
-			// close(main->file);
-			// close(main->pipefd[0]);
-			// close(main->pipefd[1]);
-			// printf("close\n");
-		}
-		if (param->redir || param->pipe)
-			close(main->file);
-		exit(0);
-	}
-}
-
-void	cmd_call(t_param_cmd *param, t_main *main)
-{
-	int		i;
-
-	if (!param->cmd[0])
-		return ;
-	i = 7;
-	while (--i >= 0 && ft_strncmp(param->cmd[0], main->cmd_fct[i].name, 7))
-		;
-	if (param->pipe || (i != I_CD && i != I_EXPORT && i != I_UNSET && i != I_EXIT))
-		cmd_fork(param, &main->cmd_fct[i], main);
-	else
-	{
-		if (param->redir || param->pipe)
-			main->file = redirection(param, main);
-		main->cmd_fct[i].fct(param, main);
-		if (param->redir || param->pipe)
-			close(main->file);
-	}
-	save_last_arg(param->cmd, main);
 }

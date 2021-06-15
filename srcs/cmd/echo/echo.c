@@ -10,7 +10,7 @@ void	cmd_echo(t_param_cmd *param, t_main *main)
 	arg = param->cmd + 1;
 	if (!arg[0])
 	{
-		printf("\n");
+		ft_putstr_fd("\n", 1);
 		return ;
 	}
 	flag_n = 0;
@@ -33,10 +33,13 @@ void	cmd_echo(t_param_cmd *param, t_main *main)
 	}
 	while (arg[j])
 	{
-		printf("%s", arg[j++]);
+		// dprintf(2, "%s\n", arg[j++]);
+		ft_putstr_fd(arg[j], 1);
+		// printf("%s", arg[j]);
+		j++;
 		if (arg[j])
-			printf(" ");
+			ft_putstr_fd(" ", 1);
 	}
 	if (!flag_n)
-		printf("\n");
+		ft_putstr_fd("\n", 1);
 }

@@ -56,7 +56,7 @@ void	cmd_others(t_param_cmd *param, t_main *main)
 	char	**arg;
 
 	arg = param->cmd;
-	if (!ft_strncmp(arg[0], "test", 5))
+	if (!ft_strncmp(arg[0], "test", 4))
 		return ;
 	if (arg[0][0] == '/' || (arg[0][0] == '.' && arg[0][1] == '/'))
 		cmd = arg[0];
@@ -73,7 +73,8 @@ void	cmd_others(t_param_cmd *param, t_main *main)
 		free(path);
 		cmd = ft_strjoin(cmd, arg[0]);
 	}
+	// arg[0] = cmd;
 	if (execve(cmd, arg, main->env) < 0)
 		cmd_error(arg[0], strerror(errno), 0, 0);
-	free(cmd);
+	free(cmd); // free
 }
