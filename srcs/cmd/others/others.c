@@ -66,15 +66,15 @@ void	cmd_others(t_param_cmd *param, t_main *main)
 		if (!path || !path[0])
 		{
 			free(path);
-			cmd_error(arg[0], "command not found", 0, 127);
+			main->exit_status = cmd_error(arg[0], "command not found", 0, 127);
 			return ;
 		}
 		cmd = ft_strjoin(path, "/");
 		free(path);
 		cmd = ft_strjoin(cmd, arg[0]);
 	}
-	// arg[0] = cmd;
+	arg[0] = cmd;
 	if (execve(cmd, arg, main->env) < 0)
-		cmd_error(arg[0], strerror(errno), 0, 0);
+		main->exit_status = cmd_error(arg[0], strerror(errno), 0, 127);
 	free(cmd); // free
 }

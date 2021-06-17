@@ -9,6 +9,7 @@
 # include <dirent.h>
 # include <limits.h>
 # include <string.h>
+# include <signal.h>
 # include <sys/errno.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -163,6 +164,7 @@ void	cmd_exit(t_param_cmd *param, t_main *main);
 /*
 **	-->	UTILS <--
 */
+void	print_prompt();
 void	quit_prog(char *error_str, t_main *main);
 int		ft_strncmp_minishell(const char *s1, const char *s2, size_t n);
 char	*ft_strdup_no_list(const char *s1);

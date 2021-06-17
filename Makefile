@@ -48,6 +48,7 @@ RM				= rm -rf
 MKDIR			= mkdir -p
 LIBFT			= libft
 LIB_RL			= -lreadline
+LIBFT_AR		= libft/libft.a
 
 all:			libft $(NAME)
 
@@ -60,7 +61,7 @@ libft:
 				$(RM) SILENT
 				printf "$(ERASE)"
 
-${NAME}:		libft ${OBJS_DIR} ${OBJS}
+${NAME}:		$(LIBFT_AR) ${OBJS_DIR} ${OBJS}
 				${CC} ${CFLAGS} ${INCLUDE} ${OBJS} -L ${LIBFT} $(LIB_RL) -lft -o ${NAME}
 				echo "$(BOLD)${GREEN}$(ERASE)--> minishell generated <--${END}"
 

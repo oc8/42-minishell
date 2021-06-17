@@ -21,6 +21,8 @@ THOMAS:
 
 A PARLER ENSEMBLE :
 - set le exit_status du main a chaque commande execute
-- relink Makefile 
+- relink Makefile
 - signaux
 - historique
+- norme
+

@@ -127,6 +127,22 @@ char	*save_path_home(char **env, t_main *main)
 	return (path_home);
 }
 
+void	sig_action(int sig)
+{
+	// ft_putchar_fd('\r', 1);
+	// ft_putchar_fd('\r', 1);
+	if (sig == SIGINT)
+	{
+		printf("\n");
+		print_prompt();
+	}
+	else if (sig == SIGKILL)
+	{
+		printf("exit\n");
+		exit(0);
+	}
+}
+
 int	main(int argc, char *argv[], char *env[])
 {
 	t_main	main;
@@ -140,6 +156,9 @@ int	main(int argc, char *argv[], char *env[])
 	main.env = cpy_env(env, &main);
 	main.home_path = save_path_home(main.env, &main);
 	init_cmd_fct(&main);
+	signal(SIGINT, &sig_action);
+	signal(SIGQUIT, &sig_action);
+	signal(SIGKILL, &sig_action);
 	// print_env(&main);
 	loop(&main);
 	// print_histo(&main);

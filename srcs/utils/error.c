@@ -16,7 +16,5 @@ int	cmd_error(char *cmd, char *error, char *arg, int nbr)
 	if (error)
 		ft_putstr_fd(error, STDERR_FILENO);
 	ft_putstr_fd("\n\033[0m", STDERR_FILENO);
-	if (nbr)
-		errno = nbr;
-	return (1);
+	return (nbr);
 }
