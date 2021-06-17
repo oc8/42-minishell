@@ -62,12 +62,20 @@ void	create_cmd(t_main *main)
 
 void	loop(t_main *main)
 {
-	while (ft_strncmp_minishell(main->line, "exit", 5))
+	while (42)
 	{
 		if (main->line != NULL)
+		{
 			free(main->line);
-		get_operator_command(main);
-		// test_cmd_exec(main);
+			main->line = NULL;
+		}
+		// get_operator_command(main);
+		// printf("avant readline\n");
+		// main->line= readline("\033[32m\033[1mbash_des_freros$ \033[0m");
+		main->line= readline("bash_des_freros$ ");
+		// printf("fin readline\n");
+		if (main->line && *main->line)
+			add_history (main->line);
 		tokenization(main->line, 0, main);
 		// print_lexer(main);
 		create_cmd(main);

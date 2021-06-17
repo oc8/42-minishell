@@ -43,10 +43,11 @@ CC				= clang
 # CFLAGS			= -g
 # CFLAGS			= -Wall -Werror -Wextra -fsanitize=address -g3
 CFLAGS			= -fsanitize=address -g3
-INCLUDE			= -Iinc -I${LIBFT}/inc
+INCLUDE			= -Iinc -I${LIBFT}/inc 
 RM				= rm -rf
 MKDIR			= mkdir -p
 LIBFT			= libft
+LIB_RL			= -lreadline
 
 all:			libft $(NAME)
 
@@ -60,7 +61,7 @@ libft:
 				printf "$(ERASE)"
 
 ${NAME}:		libft ${OBJS_DIR} ${OBJS}
-				${CC} ${CFLAGS} ${INCLUDE} ${OBJS} -L ${LIBFT} -lft -o ${NAME}
+				${CC} ${CFLAGS} ${INCLUDE} ${OBJS} -L ${LIBFT} $(LIB_RL) -lft -o ${NAME}
 				echo "$(BOLD)${GREEN}$(ERASE)--> minishell generated <--${END}"
 
 $(OBJS_DIR)/%.o:$(SRCS_DIR)/%.c inc/*.h
