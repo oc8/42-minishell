@@ -11,8 +11,9 @@
 # include <string.h>
 # include <signal.h>
 # include <sys/errno.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <fcntl.h>
 // # include <termios.h>
 
 # include "libft.h"
@@ -118,6 +119,7 @@ typedef struct	s_main
 	t_list			*free;
 	t_function		cmd_fct[7];
 	int				file;
+	int				save_fd[2];
 	int				pipefd[2][2];
 	int				count;
 	char			*home_path;

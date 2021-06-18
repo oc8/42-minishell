@@ -133,8 +133,8 @@ void	sig_action(int sig)
 	// ft_putchar_fd('\r', 1);
 	if (sig == SIGINT)
 	{
-		printf("\n");
-		print_prompt();
+		rl_on_new_line();
+		rl_redisplay();
 	}
 	else if (sig == SIGKILL)
 	{
@@ -156,6 +156,8 @@ int	main(int argc, char *argv[], char *env[])
 	main.env = cpy_env(env, &main);
 	main.home_path = save_path_home(main.env, &main);
 	init_cmd_fct(&main);
+	main.save_fd[0] = dup(0);
+	main.save_fd[1] = dup(1);
 	signal(SIGINT, &sig_action);
 	signal(SIGQUIT, &sig_action);
 	signal(SIGKILL, &sig_action);

@@ -6,24 +6,28 @@ static void	redir_type(int *file2, t_redir *redir, t_main *main)
 
 	if (redir->type == REDIR_OUT)
 	{
-		file = open(redir->file, O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU);
+		file = open(redir->file, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 		if (file == -1)
 			quit_prog("open() error", main);
 		*file2 = dup2(file, redir->fd);
+		close(file);
+		// printf("'%s'\n", strerror(errno));
 	}
 	else if (redir->type == APP_REDIR_OUT)
 	{
-		file = open(redir->file, O_CREAT | O_APPEND | O_WRONLY, S_IRWXU);
+		file = open(redir->file, O_CREAT | O_APPEND | O_WRONLY, 0644);
 		if (file == -1)
 			quit_prog("open() error", main);
 		*file2 = dup2(file, redir->fd);
+		close(file);
 	}
 	else if (redir->type == REDIR_IN)
 	{
-		file = open(redir->file, O_CREAT | O_WRONLY, S_IRWXU);
+		file = open(redir->file, O_CREAT | O_WRONLY, 0644);
 		if (file == -1)
 			quit_prog("open() error", main);
 		*file2 = dup2(redir->fd, file);
+		close(file);
 	}
 	else if (redir->type == REDIR_IN)
 	{
@@ -35,16 +39,10 @@ static void	redir_type(int *file2, t_redir *redir, t_main *main)
 
 static int	redir_chevron(t_list *redir_lst, t_main *main)
 {
-	int		flag;
 	t_redir	*redir;
 
-	flag = 0;
 	while (redir_lst)
 	{
-		if (flag)
-			close(main->file);
-		else
-			flag = 1;
 		redir = (t_redir *)redir_lst->content;
 		if (redir->var_err)
 			return (cmd_error(0, "ambiguous redirect", redir->var_err, 1));

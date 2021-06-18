@@ -6,6 +6,8 @@ static void	save_last_arg(char **cmd, t_main *main)
 	int		index;
 	char	*tmp;
 
+	if (!cmd)
+		return ;
 	i = 0;
 	while (cmd[i])
 		i++;
