@@ -33,6 +33,7 @@ void	cmd_call(t_param_cmd *param, t_main *main)
 
 	if (!param->cmd[0])
 		return ;
+	// printf("--> %s\n", param->cmd[0]);
 	i = 7;
 	while (--i >= 0 && ft_strncmp(param->cmd[0], main->cmd_fct[i].name, 7))
 		;

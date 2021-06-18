@@ -25,9 +25,18 @@ static void	redir_type(int *file2, t_redir *redir, t_main *main)
 			quit_prog("open() error", main);
 		*file2 = dup2(redir->fd, file);
 	}
-	else if (redir->type == REDIR_IN)
+	else if (redir->type == HERE_DOC)
 	{
-		;
+		char *str;
+		char *save;
+		while (1)
+		{
+			str = readline("> ");
+			save = ft_strjoin(str, )
+			if (ft_strncmp(str, "test", -1))
+				break ;
+			
+		}
 	}
 	if (*file2 == -1)
 		quit_prog("dup2() error", main);
