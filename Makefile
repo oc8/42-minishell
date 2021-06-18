@@ -46,11 +46,11 @@ CC				= clang
 # CFLAGS			= -g
 # CFLAGS			= -Wall -Werror -Wextra -fsanitize=address -g3
 CFLAGS			= -fsanitize=address -g3
-INCLUDE			= -Iinc -I${LIBFT}/inc 
+INCLUDE			= -Iinc -I${LIBFT}/inc -I/Users/$(USER)/.brew/opt/readline/include
 RM				= rm -rf
 MKDIR			= mkdir -p
 LIBFT			= libft
-LIB_RL			= -lreadline
+LIB_RL			= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
 
 all:			libft $(NAME)
 

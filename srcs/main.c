@@ -48,13 +48,32 @@ void	loop(t_main *main)
 		}
 		main->line = readline("bash_des_freros$ ");
 		if (main->line && *main->line)
-			add_history (main->line);
+			add_history(main->line);
 		tokenization(main->line, 0, main);
 		create_cmd(main);
 		if (main->lexer != NULL)
 			ft_lstclear(&main->lexer, free_lexer);
 	}
 }
+
+void	sigaction(int signum)
+{
+	if (signum == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+}
+
+// t_js	*getter_job(void)
+// {
+// 	static t_js job = (t_js) {.first_job = 0, .shell_pgid = 0,
+// 	{ .c_iflag = 0, .c_oflag = 0, .c_cflag = 0, .c_lflag = 0 },
+// 	.shell_terminal = 0, .shell_is_interactive = 0};
+// 	return (&job);
+// }
 
 int	main(int argc, char *argv[], char *env[])
 {
@@ -65,6 +84,7 @@ int	main(int argc, char *argv[], char *env[])
 	if (argc != 1)
 		quit_prog("minishell as to be launch without args\n", &main);
 	ft_bzero(&main, sizeof(t_main));
+	signal(SIGINT, &sigaction);
 	main.env = cpy_env(env, &main);
 	main.home_path = save_path_home(main.env, &main);
 	init_cmd_fct(&main);

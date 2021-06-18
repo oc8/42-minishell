@@ -21,7 +21,7 @@
 typedef enum e_caracter_lex
 {
 	WORD_NOT_FINISHED,
-	SPACE,
+	SPACE_C,
 	WORD_FINISHED,
 	LINE_FINISHED
 }				t_caracter_lex;
