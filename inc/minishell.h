@@ -10,15 +10,15 @@
 # include <limits.h>
 # include <string.h>
 # include <sys/errno.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 // # include <termios.h>
 
 # include "libft.h"
 
 # define PWD_MAX_SIZE 256
 
-typedef enum	e_caracter_lex
+typedef enum e_caracter_lex
 {
 	WORD_NOT_FINISHED,
 	SPACE,
@@ -26,7 +26,7 @@ typedef enum	e_caracter_lex
 	LINE_FINISHED
 }				t_caracter_lex;
 
-typedef enum	e_type_lex
+typedef enum e_type_lex
 {
 	VAR_ENV,
 	TO_DEFINE,
@@ -41,7 +41,7 @@ typedef enum	e_type_lex
 	NEW_COMMAND,
 }				t_type_lex;
 
-typedef enum	e_index_cmd
+typedef enum e_index_cmd
 {
 	I_ECHO,
 	I_PWD,
@@ -52,7 +52,7 @@ typedef enum	e_index_cmd
 	I_EXIT
 }				t_index_cmd;
 
-typedef struct	s_utils_lexer
+typedef struct s_utils_lexer
 {
 	char	*str;
 	char	*word;
@@ -65,21 +65,27 @@ typedef struct	s_utils_lexer
 	int		start_word;
 }				t_utils_lexer;
 
-typedef struct	s_lexer
+typedef struct s_lexer
 {
 	t_type_lex		type;
 	char			*value;
 }				t_lexer;
 
-// typedef struct	s_var_info
-// {
-// 	t_list	*previous;
-// 	// t_list	**previous;
-// 	int		i_lst;
-// 	char	*value;
-// }				t_var_info;
+typedef struct s_utils_var
+{
+	t_list		*index;
+	t_list		*previous;
+	t_list		*next;
+	t_lexer		*tmp;
+	t_lexer		*tmp2;
+	char		*str_with_var;
+	char		*new;
+	t_lexer		*tmp3;
+	t_list		*save;
+	t_list		*last;
+}				t_utils_var;
 
-typedef struct	s_redir
+typedef struct s_redir
 {
 	int			fd;
 	char		*file;
@@ -87,7 +93,7 @@ typedef struct	s_redir
 	char		*var_err;
 }				t_redir;
 
-typedef struct	s_param_cmd
+typedef struct s_param_cmd
 {
 	char	**cmd;
 	t_list	*redir;
@@ -96,17 +102,17 @@ typedef struct	s_param_cmd
 	int		n_cmd;
 }				t_param_cmd;
 
-struct s_main;
+struct			s_main;
 
 typedef void	(*t_fct_cmd)(t_param_cmd *, struct s_main *);
 
-typedef struct	s_function
+typedef struct s_function
 {
 	t_fct_cmd		fct;
 	char			*name;
 }				t_function;
 
-typedef struct	s_main
+typedef struct s_main
 {
 	char			*line;
 	int				exit_status;
@@ -133,10 +139,14 @@ void	update_word(char c, char **str);
 void	predefine_var(t_utils_lexer *utils, t_main *m);
 void	check_caracter_var(t_utils_lexer *utils, t_main *main);
 void	check_caracter_lex(char c, t_utils_lexer *utils, t_main *main);
+void	backslash(char c, t_utils_lexer *utils, t_main *main);
+void	single_quotes(char c, t_utils_lexer *utils, t_main *main);
+void	double_quotes(char c, t_utils_lexer *utils, t_main *main);
+void	dollar(char c, t_utils_lexer *utils, t_main *m);
 void	malloc_element(t_type_lex type, t_utils_lexer *utils, t_main *main);
 void	verify_syntax(t_utils_lexer *utils, t_main *main);
 void	update_main_lexer(t_type_lex type, t_list **save);
-int		verif_redirection_var(t_lexer *to_check, t_list *prec, t_main *main);
+int		verif_redir_var(t_lexer *to_check, t_list *prec, t_main *main);
 void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m);
 void	create_param_cmd(t_list **param_lst, t_main *main);
 void	remplace_var_value(char **new, char *str, t_main *main);
@@ -164,6 +174,8 @@ void	cmd_exit(t_param_cmd *param, t_main *main);
 **	-->	UTILS <--
 */
 void	quit_prog(char *error_str, t_main *main);
+char	*save_path_home(char **env, t_main *main);
+char	**cpy_env(char *env[], t_main *main);
 int		ft_strncmp_minishell(const char *s1, const char *s2, size_t n);
 char	*ft_strdup_no_list(const char *s1);
 int		ft_atoi_redirection(const char *nptr, t_type_lex type);

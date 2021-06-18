@@ -1,46 +1,5 @@
 #include "minishell.h"
 
-static void	backslash(char c, t_utils_lexer *utils, t_main *main)
-{
-	if ((utils->double_q == 0 && utils->sing_q == 0 && utils->echap == 0)
-		|| (utils->double_q == 1 && utils->echap == 0))
-		utils->echap = 2;
-	else
-		update_word(c, &utils->word);
-}
-
-static void	quotes(char c, t_utils_lexer *utils, t_main *main)
-{
-	if (c == '\'')
-	{
-		if (utils->double_q == 1 || utils->echap == 1)
-		{
-			if (utils->double_q == 1 && utils->echap == 1)
-				update_word('\\', &utils->word);
-			update_word(c, &utils->word);
-		}
-		else if (utils->sing_q == 0 && utils->double_q == 0)
-		{
-			utils->sing_q = 1;
-			update_word('\0', &utils->word);
-		}
-		else if (utils->sing_q == 1)
-			utils->sing_q = 0;
-	}
-	else if (c == '"')
-	{
-		if (utils->sing_q == 1 || utils->echap == 1)
-			update_word(c, &utils->word);
-		else if (utils->double_q == 0 && utils->sing_q == 0)
-		{
-			utils->double_q = 1;
-			update_word('\0', &utils->word);
-		}
-		else if (utils->double_q == 1)
-			utils->double_q = 0;
-	}
-}
-
 static t_type_lex	reconize_carac_spec(t_utils_lexer *utils)
 {
 	int	i;
@@ -59,15 +18,12 @@ static t_type_lex	reconize_carac_spec(t_utils_lexer *utils)
 		else if (utils->word[i] == '>' && utils->word[i + 1] == '>')
 			return (APP_REDIR_OUT);
 		else if (utils->word[i] == '<' && utils->word[i + 1] == '<')
-		// {
-			// printf("HERE DOC reconize_carac_spec\n");
 			return (HERE_DOC);
-		// }
 	}
 	return (-1);
 }
 
-void	redir_special(char c, t_utils_lexer *utils, t_main * main)
+void	redir_special(char c, t_utils_lexer *utils, t_main *main)
 {
 	if (c == '>')
 	{
@@ -78,7 +34,6 @@ void	redir_special(char c, t_utils_lexer *utils, t_main * main)
 	{
 		update_word('<', &utils->word);
 		utils->i++;
-		// printf("word = %s\n", utils->word);
 		if (utils->str[utils->i] == '-')
 		{
 			update_word('-', &utils->word);
@@ -97,8 +52,6 @@ static void	carac_special(char c, t_utils_lexer *utils, t_main *main)
 	}
 	else if (c == ' ')
 	{
-		// if (!utils->word && utils->start_word != utils->i)
-		// 	update_word('\0', &utils->word);
 		if (utils->word)
 			malloc_element(-1, utils, main);
 	}
@@ -110,18 +63,14 @@ static void	carac_special(char c, t_utils_lexer *utils, t_main *main)
 		if ((utils->str[utils->i] == '>' && utils->str[utils->i + 1] == '>')
 			|| (utils->str[utils->i] == '<' && utils->str[utils->i + 1] == '<'))
 			redir_special(utils->str[utils->i], utils, main);
-		// {
-		// 	update_word('>', &utils->word);
-		// 	utils->i++;
-		// }
 		malloc_element(reconize_carac_spec(utils), utils, main);
 	}
 }
 
 static void	is_fd_redir(char c, t_utils_lexer *util, t_main *main)
 {
-	int i;
-	
+	int	i;
+
 	if (util->sing_q == 1 || util->double_q == 1 || util->echap == 1)
 	{
 		if (util->double_q == 1 && util->echap == 1)
@@ -153,20 +102,12 @@ void	check_caracter_lex(char c, t_utils_lexer *utils, t_main *main)
 		return ;
 	else if (c == '\\')
 		return (backslash(c, utils, main));
-	else if (c == '\'' || c == '"')
-		return (quotes(c, utils, main));
+	else if (c == '\'')
+		return (single_quotes(c, utils, main));
+	else if (c == '"')
+		return (double_quotes(c, utils, main));
 	else if (c == '$')
-	{
-		if (utils->sing_q == 1 || utils->echap == 1 || is_here_doc(main))
-			update_word(c, &utils->word);
-		else
-		{
-			// if (utils->i_lst == 0)
-				predefine_var(utils, main);
-			// else
-			// 	check_caracter_var(utils, main);
-		}
-	}
+		return (dollar(c, utils, main));
 	else if (ft_isdigit(c) == TRUE)
 		return (is_fd_redir(c, utils, main));
 	else if (c == '>' || c == '<' || c == '|' || c == ' ' || c == ';')

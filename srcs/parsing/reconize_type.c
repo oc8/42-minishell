@@ -47,14 +47,10 @@ static int	redirection_file(int i, t_main *main)
 {
 	t_list	*index;
 	t_lexer	*tmp;
-	int size;
+	int		size;
 
 	if (i == 0)
 		return (FALSE);
-
-	// size = ft_lstsize(main->lexer);
-	// printf("size = %d\n", size);
-
 	index = main->lexer;
 	while (--i > 0)
 		index = index->next;
@@ -66,14 +62,12 @@ static int	redirection_file(int i, t_main *main)
 		return (FALSE);
 }
 
-// static int	is_not_arg()
-
 void	define_text_types(t_main *main)
 {
 	t_list	*index;
 	t_lexer	*tmp;
 	int		i;
-	
+
 	i = 0;
 	index = main->lexer;
 	while (index != NULL)
@@ -96,20 +90,16 @@ void	define_text_types(t_main *main)
 void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m)
 {
 	int	i;
-	
+
 	if (utils->var_env == 1)
 	{
 		free(lex->value);
 		lex->value = NULL;
 		i = utils->start_word;
-		// printf("i/utils->start_word = %d\n", utils->start_word);
 		while (i < utils->i)
 			update_word(utils->str[i++], &lex->value);
-		// printf("start word = %d, utils->i = %d, len_word before malloc_lst = %d, word = %s\n", i, utils->i, ft_strlen(lex->value), lex->value);
-		
 		lex->type = VAR_ENV;
 		utils->var_env = 0;
-		// printf("valur = %s\n", lex->value);
 		if (utils->double_q == 1)
 			utils->double_q = 0;
 	}

@@ -4,7 +4,7 @@ static int	verif_newcmd(int i, t_utils_lexer *utils, t_main *main)
 {
 	t_list	*index;
 	t_lexer	*tmp;
-	
+
 	if (i == 0)
 		return (error_syntax(";", main));
 	index = main->lexer;
@@ -17,7 +17,7 @@ static int	verif_newcmd(int i, t_utils_lexer *utils, t_main *main)
 	return (1);
 }
 
-int	verif_redirection_var(t_lexer *to_check, t_list *prec, t_main *main)
+int	verif_redir_var(t_lexer *to_check, t_list *prec, t_main *main)
 {
 	char	*new;
 	t_lexer	*tmp;
@@ -25,10 +25,11 @@ int	verif_redirection_var(t_lexer *to_check, t_list *prec, t_main *main)
 
 	new = NULL;
 	remplace_var_value(&new, to_check->value, main);
-	// printf("to_check->value = |%s|, new = %s\n", to_check->value, new);
 	i = -1;
 	if (new)
+	{
 		while (new[++i])
+		{
 			if (new[i] == ' ')
 			{
 				tmp = prec->content;
@@ -38,6 +39,8 @@ int	verif_redirection_var(t_lexer *to_check, t_list *prec, t_main *main)
 				free(new);
 				return (-1);
 			}
+		}
+	}
 	free(new);
 	return (1);
 }
@@ -47,7 +50,7 @@ static int	verif_redir(int i, t_utils_lexer *utils, t_main *main)
 	t_list	*index;
 	t_list	*prec;
 	t_lexer	*tmp;
-	
+
 	if (i == ft_lstsize(main->lexer) - 1)
 		return (error_syntax("newline", main));
 	index = main->lexer;
@@ -64,9 +67,8 @@ static int	verif_redir(int i, t_utils_lexer *utils, t_main *main)
 static int	verif_pipe(int i, t_utils_lexer *utils, t_main *main)
 {
 	t_list	*index;
-	// t_list	*prec;
 	t_lexer	*tmp;
-	
+
 	if (i == ft_lstsize(main->lexer) - 1)
 	{
 		printf("Error : Multiline is not accepted\n");
@@ -78,8 +80,6 @@ static int	verif_pipe(int i, t_utils_lexer *utils, t_main *main)
 	index = main->lexer;
 	while (--i > 0)
 		index = index->next;
-	// prec = index;
-	// index = index->next;
 	tmp = index->content;
 	if (tmp->type != TO_DEFINE && tmp->type != FILE_N && tmp->type != VAR_ENV
 		&& tmp->type != COMMAND && tmp->type != ARGUMENT)
@@ -92,7 +92,7 @@ void	verify_syntax(t_utils_lexer *utils, t_main *main)
 	t_list	*index;
 	t_lexer	*tmp;
 	int		i;
-	
+
 	if (utils->echap || utils->double_q || utils->sing_q)
 	{
 		printf("Error : Multiline is not accepted\n");
@@ -104,12 +104,13 @@ void	verify_syntax(t_utils_lexer *utils, t_main *main)
 	{
 		tmp = index->content;
 		if ((tmp->type == REDIR_IN || tmp->type == REDIR_OUT
-			|| tmp->type == APP_REDIR_OUT) && verif_redir(i, utils, main) == -1)
-				return ;
+				|| tmp->type == APP_REDIR_OUT)
+			&& verif_redir(i, utils, main) == -1)
+			return ;
 		else if (tmp->type == NEW_COMMAND && verif_newcmd(i, utils, main) == -1)
-				return ;
+			return ;
 		else if (tmp->type == PIPE && verif_pipe(i, utils, main) == -1)
-				return ;
+			return ;
 		index = index->next;
 		i++;
 	}

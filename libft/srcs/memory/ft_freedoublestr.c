@@ -4,6 +4,8 @@ void	ft_freedoublestr(char ***src)
 {
 	size_t	i;
 
+	if (*src == NULL)
+		return ;
 	i = 0;
 	while ((*src)[i])
 	{
@@ -11,5 +13,5 @@ void	ft_freedoublestr(char ***src)
 		i++;
 	}
 	free((*src));
-	(*src) = 0;
+	(*src) = NULL;
 }

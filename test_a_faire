@@ -18,3 +18,5 @@ export TOTO3="un test" ; export TOTO2="1$TOTO3\3" ; export TOTO="4 5$TOTO2\6" ; 
 echo 42 ; cat <<EOF -e ; echo fini
 export TOTO="un test"; echo $TOTO ; cat <<$$TO'\\$TO'"\$TO\"" -e ; echo fini
 echo a >> a ; ls | cat -e ; cat Makefile | grep CYAN | grep CYAN | cat -e | grep CYAN
+
+echo $TOTO ; export $TOTO="un test" ; echo $TOTO

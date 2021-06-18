@@ -14,12 +14,15 @@ LST_SRCS		= \
 	parsing/get_operator_command.c \
 	parsing/tokenization.c \
 	parsing/check_caracter_lex.c \
+	parsing/quotes_backslash_dollar.c \
 	parsing/create_param_cmd.c \
 	parsing/manage_var_env.c \
 	parsing/reconize_type.c \
 	parsing/verify_syntax.c \
 	parsing/fill_struct_param_cmd.c \
 	utils/quit_prog.c \
+	utils/save_path_home.c \
+	utils/cpy_env.c \
 	utils/ft_strncmp_minishell.c \
 	utils/ft_strdup_no_list.c \
 	utils/ft_atoi_redirection.c \
