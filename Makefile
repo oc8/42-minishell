@@ -11,6 +11,11 @@ LST_SRCS		= \
 	cmd/unset/unset.c \
 	cmd/env/env.c \
 	cmd/exit/exit.c \
+	redirection/redirection.c \
+	redirection/in.c \
+	redirection/out.c \
+	redirection/here_doc.c \
+	redirection/pipe.c \
 	parsing/get_operator_command.c \
 	parsing/tokenization.c \
 	parsing/check_caracter_lex.c \
@@ -30,7 +35,6 @@ LST_SRCS		= \
 	utils/var_utils.c \
 	utils/env_utils.c \
 	utils/print_lexer.c \
-	utils/redirection.c \
 	utils/here_document.c \
 	utils/error.c \
 	utils/error_syntax.c

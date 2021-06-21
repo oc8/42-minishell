@@ -87,6 +87,8 @@ typedef struct	s_redir
 	char		*file;
 	t_type_lex	type;
 	char		*var_err;
+	// int			pipefd[2];
+	char		*buff;
 }				t_redir;
 
 typedef struct	s_param_cmd
@@ -96,6 +98,7 @@ typedef struct	s_param_cmd
 	int		pipe_before;
 	int		pipe_after;
 	int		n_cmd;
+	void	*here_doc;
 }				t_param_cmd;
 
 struct s_main;
@@ -121,6 +124,7 @@ typedef struct	s_main
 	int				file;
 	int				save_fd[2];
 	int				pipefd[2][2];
+	int				pipefd_here_doc[2];
 	int				count;
 	char			*home_path;
 }				t_main;
@@ -162,6 +166,15 @@ void	cmd_unset(t_param_cmd *param, t_main *main);
 void	cmd_cd(t_param_cmd *param, t_main *main);
 void	cmd_exit(t_param_cmd *param, t_main *main);
 // void	test_cmd_exec(t_main *main); // temp
+
+/*
+**	-->	REDIR <--
+*/
+void	redir_in(t_redir *redir, t_main *main);
+void	redir_out(t_redir *redir, t_main *main);
+void	here_doc(t_redir *redir, t_main *main);
+void	redir_pipe(t_param_cmd *param, t_main *main);
+void	save_here_doc(t_redir *redir, t_main *main);
 
 /*
 **	-->	UTILS <--

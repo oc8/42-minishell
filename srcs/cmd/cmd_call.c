@@ -9,6 +9,12 @@ static void	cmd_fork(t_param_cmd *param, t_function *fct, t_main *main)
 		quit_prog("error fork", main);
 	else if (pid == 0)
 	{
+		if (param->here_doc) // not here
+		{
+			pipe(main->pipefd_here_doc); // verif // after ?
+			here_doc(param->here_doc, main);
+		}
+		redir_pipe(param, main);
 		// redirection(param, main);
 		if (!ft_strncmp(param->cmd[0], fct->name, 7))
 			fct->fct(param, main);
@@ -16,6 +22,8 @@ static void	cmd_fork(t_param_cmd *param, t_function *fct, t_main *main)
 			cmd_others(param, main);
 		// if (param->redir)
 		// 	close(main->file);
+		close(main->pipefd_here_doc[1]);
+		close(main->pipefd_here_doc[0]);
 		quit_prog(0, main);
 	}
 }
@@ -37,7 +45,6 @@ void	cmd_call(t_param_cmd *param, t_main *main)
 	// // close(file2);
 	// dup2(main->save_fd[1], 1);
 	// return ;
-	
 	// close(file);
 	if (!param->cmd || !param->cmd[0])
 	{
@@ -65,4 +72,5 @@ void	cmd_call(t_param_cmd *param, t_main *main)
 	}
 	if (param->redir)
 		dup2(main->save_fd[1], 1);
+	// dup2(main->save_fd[0], 0);
 }

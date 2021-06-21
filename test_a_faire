@@ -29,3 +29,8 @@ exit '   23       '
 > output sans command
 cat | > output << eof << abc | cat ; cat << aaa; 
 
+ls | grep Makefile | cat -e << test
+cat << ,.,//dkf,#f''?df | grep cyan
+ls > test | cat << test | grep 1 | cat << test | grep 1
+cat << test > test | cat << test
+cat << test << test | grep test
