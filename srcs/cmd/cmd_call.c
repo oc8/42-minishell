@@ -4,27 +4,39 @@ static void	cmd_fork(t_param_cmd *param, t_function *fct, t_main *main)
 {
 	pid_t	pid;
 
+	if (param->here_doc_str)
+		pipe(main->pipefd_here_doc); // verif // after ?
 	pid = fork();
 	if (pid == -1)
 		quit_prog("error fork", main);
 	else if (pid == 0)
 	{
-		if (param->here_doc) // not here
+		if (param->pipe_before)
+			redir_pipe_before(param, main);
+		if (param->here_doc_str) // not here
 		{
-			pipe(main->pipefd_here_doc); // verif // after ?
-			here_doc(param->here_doc, main);
+			here_doc(param->here_doc_str, main);
+			close(main->pipefd_here_doc[1]);
+			close(main->pipefd_here_doc[0]);
 		}
-		redir_pipe(param, main);
-		// redirection(param, main);
+		// dup2(main->save_fd[0], STDIN_FILENO);
+		if (param->pipe_after)
+			redir_pipe_after(param, main);
+		if (param->file_fd_in[0])
+			redir_in(param->file_fd_in, main);
+		if (param->file_fd_out[0])
+			redir_out(param->file_fd_out, main);
+
 		if (!ft_strncmp(param->cmd[0], fct->name, 7))
 			fct->fct(param, main);
 		else
 			cmd_others(param, main);
-		// if (param->redir)
-		// 	close(main->file);
+		quit_prog(0, main);
+	}
+	if (param->here_doc_str)
+	{
 		close(main->pipefd_here_doc[1]);
 		close(main->pipefd_here_doc[0]);
-		quit_prog(0, main);
 	}
 }
 
@@ -32,29 +44,12 @@ void	cmd_call(t_param_cmd *param, t_main *main)
 {
 	int		i;
 
-	// printf("0\n");
-	redirection(param, main);
-	// printf("1\n");
-	
-	// int file;
-	// int file2;
-	// file = open("o", O_CREAT | O_TRUNC | O_WRONLY, 0644);
-	// if (file == -1)
-	// 	quit_prog("open() error", main);
-	// file2 = dup2(file, 1);
-	// // close(file2);
-	// dup2(main->save_fd[1], 1);
-	// return ;
-	// close(file);
+	open_fd(param, main);
+	// redirection(param, main);
 	if (!param->cmd || !param->cmd[0])
 	{
-	// printf("2\n");
 		if (param->redir)
-		{
 			dup2(main->save_fd[1], 1);
-			// close(3);
-	// printf("3\n");
-		}
 		return ;
 	}
 	i = 7;
@@ -65,11 +60,13 @@ void	cmd_call(t_param_cmd *param, t_main *main)
 		cmd_fork(param, &main->cmd_fct[i], main);
 	else
 	{
-		// redirection(param, main);
 		main->cmd_fct[i].fct(param, main);
-			// if (param->redir)
-	// 	close(main->file);
 	}
+	//
+	if (param->file_fd_in[0])
+		close(param->file_fd_in[0]);
+	if (param->file_fd_out[0])
+		close(param->file_fd_out[0]);
 	if (param->redir)
 		dup2(main->save_fd[1], 1);
 	// dup2(main->save_fd[0], 0);

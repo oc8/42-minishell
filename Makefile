@@ -16,6 +16,7 @@ LST_SRCS		= \
 	redirection/out.c \
 	redirection/here_doc.c \
 	redirection/pipe.c \
+	redirection/open_fd.c \
 	parsing/get_operator_command.c \
 	parsing/tokenization.c \
 	parsing/check_caracter_lex.c \
@@ -72,7 +73,7 @@ ${NAME}:		$(LIBFT_AR) ${OBJS_DIR} ${OBJS}
 $(OBJS_DIR)/%.o:$(SRCS_DIR)/%.c inc/*.h
 				$(MKDIR) $(dir $@)
 				${CC} ${CFLAGS} $(INCLUDE) -c  $< -o $@
-				printf "$(ERASE)--> [$(GREEN)$<$(END)] <--"
+				printf "$(ERASE)--> [$(GREEN)$<$(END)] <--\n"
 
 clean:
 				${RM} $(OBJS)

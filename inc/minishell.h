@@ -98,7 +98,10 @@ typedef struct	s_param_cmd
 	int		pipe_before;
 	int		pipe_after;
 	int		n_cmd;
-	void	*here_doc;
+	// int		flag_in_file;
+	char	*here_doc_str;
+	int		file_fd_out[2];
+	int		file_fd_in[2];
 }				t_param_cmd;
 
 struct s_main;
@@ -170,11 +173,13 @@ void	cmd_exit(t_param_cmd *param, t_main *main);
 /*
 **	-->	REDIR <--
 */
-void	redir_in(t_redir *redir, t_main *main);
-void	redir_out(t_redir *redir, t_main *main);
-void	here_doc(t_redir *redir, t_main *main);
-void	redir_pipe(t_param_cmd *param, t_main *main);
-void	save_here_doc(t_redir *redir, t_main *main);
+void	open_fd(t_param_cmd *param, t_main *main);
+void	redir_in(int fd[2], t_main *main);
+void	redir_out(int fd[2], t_main *main);
+void	here_doc(char *str, t_main *main);
+void	redir_pipe_before(t_param_cmd *param, t_main *main);
+void	redir_pipe_after(t_param_cmd *param, t_main *main);
+void	save_here_doc(t_list *param_lst, t_main *main);
 
 /*
 **	-->	UTILS <--

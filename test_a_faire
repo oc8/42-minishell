@@ -33,4 +33,6 @@ ls | grep Makefile | cat -e << test
 cat << ,.,//dkf,#f''?df | grep cyan
 ls > test | cat << test | grep 1 | cat << test | grep 1
 cat << test > test | cat << test
-cat << test << test | grep test
+cat << test << test | grep 1 <-- error
+< test cat test >> test ; cat test
+ls ; cat -e << test

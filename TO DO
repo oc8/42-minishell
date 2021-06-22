@@ -3,6 +3,7 @@ OCEAN:
 - strerrno(errno)
 - OLDPWD a NULL pour export des le debut
 - <<
+- close fd for param in quit_prog
 
 THOMAS:
 - ajouter les fd dans redirection --> OK
@@ -25,4 +26,5 @@ A PARLER ENSEMBLE :
 - signaux
 - historique
 - norme
+- verif fct (malloc...)
 
