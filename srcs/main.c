@@ -75,6 +75,22 @@ void	sigaction(int signum)
 // 	return (&job);
 // }
 
+void	sig_action(int sig)
+{
+	// ft_putchar_fd('\r', 1);
+	// ft_putchar_fd('\r', 1);
+	if (sig == SIGINT)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	else if (sig == SIGKILL)
+	{
+		printf("exit\n");
+		exit(0);
+	}
+}
+
 int	main(int argc, char *argv[], char *env[])
 {
 	t_main	main;
@@ -85,9 +101,14 @@ int	main(int argc, char *argv[], char *env[])
 		quit_prog("minishell as to be launch without args\n", &main);
 	ft_bzero(&main, sizeof(t_main));
 	signal(SIGINT, &sigaction);
+	// signal(SIGQUIT, &sig_action);
+	// signal(SIGKILL, &sig_action);
 	main.env = cpy_env(env, &main);
 	main.home_path = save_path_home(main.env, &main);
 	init_cmd_fct(&main);
+	main.save_fd[0] = dup(0);
+	main.save_fd[1] = dup(1);
+	// print_env(&main);
 	loop(&main);
 	free(main.line);
 	ft_lstclear(&main.free, free);

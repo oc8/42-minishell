@@ -20,3 +20,24 @@ export TOTO="un test"; echo $TOTO ; cat <<$$TO'\\$TO'"\$TO\"" -e ; echo fini
 echo a >> a ; ls | cat -e ; cat Makefile | grep CYAN | grep CYAN | cat -e | grep CYAN
 
 echo $TOTO ; export $TOTO="un test" ; echo $TOTO
+
+SSHLVL
+exit ' 23 0'
+exit 99999999999999
+exit 9999999999999999999999999999999999999999999999999999999999999999999999
+exit '   23       '
+
+> output sans command
+cat | > output << eof << abc | cat ; cat << aaa; 
+
+ls | grep Makefile | cat -e << test
+cat << ,.,//dkf,#f''?df | grep cyan
+ls > test | cat << test | grep 1 | cat << test | grep 1
+cat << test > test | cat << test
+cat << test << test | grep 1
+< test cat test >> test ; cat test
+ls ; cat -e << test
+cat << test << test < test_a_faire
+cd - > test
+cat > aa < bb
+exit | exit 10a 10 ; echo $?

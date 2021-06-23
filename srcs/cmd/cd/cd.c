@@ -17,7 +17,7 @@ static void	reset_pwd_var(t_main *main)
 	edit_var(var[1], i, main);
 	ft_freedoublestr(&var);
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
-		cmd_error("cd", strerror(errno), 0, 0);
+		main->exit_status = cmd_error("cd", strerror(errno), 0, 0);
 	edit_var(cwd, j, main);
 }
 
@@ -27,7 +27,7 @@ static int	arg_tilde(t_main *main)
 	{
 		if (chdir(main->home_path) == -1)
 		{
-			cmd_error("cd", strerror(errno), main->home_path, 1);
+			main->exit_status = cmd_error("cd", strerror(errno), main->home_path, 1);
 			return (1);
 		}
 	}
@@ -44,10 +44,7 @@ static int	arg_shrink(t_main *main)
 		return (cmd_error("cd", "OLDPWD not set", 0, 1));
 	var = split_var(main->env[i], main);
 	if (chdir(var[1]) == -1)
-	{
-		cmd_error("cd", strerror(errno), var[1], 1);
-		return (1);
-	}
+		return (cmd_error("cd", strerror(errno), var[1], 1));
 	ft_putstr_fd(var[1], 1);
 	ft_putstr_fd("\n", 1);
 	ft_freedoublestr(&var);
@@ -59,6 +56,7 @@ void	cmd_cd(t_param_cmd *param, t_main *main)
 	char	**arg;
 
 	arg = param->cmd + 1;
+	main->exit_status = -1;
 	if (!ft_strncmp(arg[0], ".", 2))
 		;
 	else if (arg[0][0] == '-' && !arg[0][1])
@@ -75,9 +73,10 @@ void	cmd_cd(t_param_cmd *param, t_main *main)
 	{
 		if (chdir(arg[0]) == -1)
 		{
-			cmd_error("cd", strerror(errno), arg[0], 1); // strerror ?
+			cmd_error("cd", strerror(errno), arg[0], 1);
 			return ;
 		}
 	}
+	main->exit_status = 0;
 	reset_pwd_var(main);
 }

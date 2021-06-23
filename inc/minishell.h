@@ -9,9 +9,11 @@
 # include <dirent.h>
 # include <limits.h>
 # include <string.h>
+# include <signal.h>
 # include <sys/errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <fcntl.h>
 // # include <termios.h>
 
 # include "libft.h"
@@ -91,6 +93,8 @@ typedef struct s_redir
 	char		*file;
 	t_type_lex	type;
 	char		*var_err;
+	// int			pipefd[2];
+	char		*buff;
 }				t_redir;
 
 typedef struct s_param_cmd
@@ -100,6 +104,10 @@ typedef struct s_param_cmd
 	int		pipe_before;
 	int		pipe_after;
 	int		n_cmd;
+	// int		flag_in_file;
+	char	*here_doc_str;
+	int		file_fd_out[2];
+	int		file_fd_in[2];
 }				t_param_cmd;
 
 struct			s_main;
@@ -115,15 +123,19 @@ typedef struct s_function
 typedef struct s_main
 {
 	char			*line;
-	int				exit_status;
+	unsigned char	exit_status;
 	char			**env;
 	size_t			nbr_env;
 	t_list			*lexer;
 	t_list			*histo;
 	t_list			*free;
 	t_function		cmd_fct[7];
+	pid_t			pid[10];
+	int				pid_nbr;
 	int				file;
+	int				save_fd[2];
 	int				pipefd[2][2];
+	int				pipefd_here_doc[2];
 	int				count;
 	char			*home_path;
 }				t_main;
@@ -171,11 +183,27 @@ void	cmd_exit(t_param_cmd *param, t_main *main);
 // void	test_cmd_exec(t_main *main); // temp
 
 /*
+**	-->	REDIR <--
+*/
+void	open_fd(t_param_cmd *param, t_main *main);
+void	redir_in(int fd[2], t_main *main);
+void	redir_out(int fd[2], t_main *main);
+void	here_doc(char *str, t_main *main);
+void	redir_pipe_before(t_param_cmd *param, t_main *main);
+void	redir_pipe_after(t_param_cmd *param, t_main *main);
+void	save_here_doc(t_list *param_lst, t_main *main);
+void	open_fd_out(int fd[2], t_redir *redir, t_main *main);
+void	open_fd_in(int fd[2], t_redir *redir, t_main *main);
+// void	check_fd(t_param_cmd *param, t_main *main);
+
+/*
 **	-->	UTILS <--
 */
+void	print_prompt();
 void	quit_prog(char *error_str, t_main *main);
 char	*save_path_home(char **env, t_main *main);
 char	**cpy_env(char *env[], t_main *main);
+void	free_all(t_main *main);
 int		ft_strncmp_minishell(const char *s1, const char *s2, size_t n);
 char	*ft_strdup_no_list(const char *s1);
 int		ft_atoi_redirection(const char *nptr, t_type_lex type);

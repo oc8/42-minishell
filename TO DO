@@ -3,6 +3,7 @@ OCEAN:
 - strerrno(errno)
 - OLDPWD a NULL pour export des le debut
 - <<
+- close fd for param in quit_prog
 
 THOMAS:
 - ajouter les fd dans redirection --> OK
@@ -21,6 +22,8 @@ THOMAS:
 
 A PARLER ENSEMBLE :
 - set le exit_status du main a chaque commande execute
-- relink Makefile 
+- relink Makefile
 - signaux
-- historique
+- norme
+- verif fct (malloc...)
+

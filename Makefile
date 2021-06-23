@@ -11,6 +11,12 @@ LST_SRCS		= \
 	cmd/unset/unset.c \
 	cmd/env/env.c \
 	cmd/exit/exit.c \
+	redirection/redirection.c \
+	redirection/in.c \
+	redirection/out.c \
+	redirection/here_doc.c \
+	redirection/pipe.c \
+	redirection/fd.c \
 	parsing/get_operator_command.c \
 	parsing/tokenization.c \
 	parsing/check_caracter_lex.c \
@@ -33,7 +39,6 @@ LST_SRCS		= \
 	utils/var_utils.c \
 	utils/env_utils.c \
 	utils/print_lexer.c \
-	utils/redirection.c \
 	utils/here_document.c \
 	utils/error.c \
 	utils/error_syntax.c
@@ -51,6 +56,8 @@ RM				= rm -rf
 MKDIR			= mkdir -p
 LIBFT			= libft
 LIB_RL			= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
+# LIB_RL			= -lreadline
+LIBFT_AR		= libft/libft.a
 
 all:			libft $(NAME)
 
@@ -63,14 +70,14 @@ libft:
 				$(RM) SILENT
 				printf "$(ERASE)"
 
-${NAME}:		libft ${OBJS_DIR} ${OBJS}
+${NAME}:		$(LIBFT_AR) ${OBJS_DIR} ${OBJS}
 				${CC} ${CFLAGS} ${INCLUDE} ${OBJS} -L ${LIBFT} $(LIB_RL) -lft -o ${NAME}
 				echo "$(BOLD)${GREEN}$(ERASE)--> minishell generated <--${END}"
 
 $(OBJS_DIR)/%.o:$(SRCS_DIR)/%.c inc/*.h
 				$(MKDIR) $(dir $@)
 				${CC} ${CFLAGS} $(INCLUDE) -c  $< -o $@
-				printf "$(ERASE)--> [$(GREEN)$<$(END)] <--"
+				printf "$(ERASE)--> [$(GREEN)$<$(END)] <--\n"
 
 clean:
 				${RM} $(OBJS)
