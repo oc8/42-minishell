@@ -2,14 +2,16 @@
 
 static void	cmd_fork(t_param_cmd *param, t_function *fct, t_main *main)
 {
-	pid_t	pid;
+	// pid_t	pid;
 
 	if (param->here_doc_str)
-		pipe(main->pipefd_here_doc); // verif // after ?
-	pid = fork();
-	if (pid == -1)
+	{
+		pipe(main->pipefd_here_doc);
+	} // verif // after ?
+	main->pid[main->pid_nbr] = fork();
+	if (main->pid[main->pid_nbr] == -1)
 		quit_prog("error fork", main);
-	else if (pid == 0)
+	else if (main->pid[main->pid_nbr] == 0)
 	{
 		if (param->pipe_before)
 			redir_pipe_before(param, main);
@@ -26,6 +28,7 @@ static void	cmd_fork(t_param_cmd *param, t_function *fct, t_main *main)
 			redir_in(param->file_fd_in, main);
 		if (param->file_fd_out[0])
 			redir_out(param->file_fd_out, main);
+		// printf("'%d'\n", param->file_fd_in[0]);
 
 		if (!ft_strncmp(param->cmd[0], fct->name, 7))
 			fct->fct(param, main);
@@ -38,14 +41,15 @@ static void	cmd_fork(t_param_cmd *param, t_function *fct, t_main *main)
 		close(main->pipefd_here_doc[1]);
 		close(main->pipefd_here_doc[0]);
 	}
+	main->pid_nbr++;
 }
 
 void	cmd_call(t_param_cmd *param, t_main *main)
 {
 	int		i;
 
+	// check_fd(param, main);
 	open_fd(param, main);
-	// redirection(param, main);
 	if (!param->cmd || !param->cmd[0])
 	{
 		if (param->redir)
@@ -60,6 +64,9 @@ void	cmd_call(t_param_cmd *param, t_main *main)
 		cmd_fork(param, &main->cmd_fct[i], main);
 	else
 	{
+		if (param->file_fd_out[0])
+			redir_out(param->file_fd_out, main);
+		// printf("'%d'\n", param->file_fd_in[0]);
 		main->cmd_fct[i].fct(param, main);
 	}
 	//

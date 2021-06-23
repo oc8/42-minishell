@@ -117,13 +117,15 @@ typedef struct	s_function
 typedef struct	s_main
 {
 	char			*line;
-	int				exit_status;
+	unsigned char	exit_status;
 	char			**env;
 	size_t			nbr_env;
 	t_list			*lexer;
 	t_list			*histo;
 	t_list			*free;
 	t_function		cmd_fct[7];
+	pid_t			pid[10];
+	int				pid_nbr;
 	int				file;
 	int				save_fd[2];
 	int				pipefd[2][2];
@@ -180,12 +182,16 @@ void	here_doc(char *str, t_main *main);
 void	redir_pipe_before(t_param_cmd *param, t_main *main);
 void	redir_pipe_after(t_param_cmd *param, t_main *main);
 void	save_here_doc(t_list *param_lst, t_main *main);
+void	open_fd_out(int fd[2], t_redir *redir, t_main *main);
+void	open_fd_in(int fd[2], t_redir *redir, t_main *main);
+// void	check_fd(t_param_cmd *param, t_main *main);
 
 /*
 **	-->	UTILS <--
 */
 void	print_prompt();
 void	quit_prog(char *error_str, t_main *main);
+void	free_all(t_main *main);
 int		ft_strncmp_minishell(const char *s1, const char *s2, size_t n);
 char	*ft_strdup_no_list(const char *s1);
 int		ft_atoi_redirection(const char *nptr, t_type_lex type);

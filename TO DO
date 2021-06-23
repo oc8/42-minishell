@@ -24,7 +24,6 @@ A PARLER ENSEMBLE :
 - set le exit_status du main a chaque commande execute
 - relink Makefile
 - signaux
-- historique
 - norme
 - verif fct (malloc...)
 

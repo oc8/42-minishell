@@ -33,6 +33,10 @@ ls | grep Makefile | cat -e << test
 cat << ,.,//dkf,#f''?df | grep cyan
 ls > test | cat << test | grep 1 | cat << test | grep 1
 cat << test > test | cat << test
-cat << test << test | grep 1 <-- error
+cat << test << test | grep 1
 < test cat test >> test ; cat test
 ls ; cat -e << test
+cat << test << test < test_a_faire
+cd - > test
+cat > aa < bb
+exit | exit 10a 10 ; echo $?

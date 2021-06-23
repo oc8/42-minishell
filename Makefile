@@ -16,7 +16,7 @@ LST_SRCS		= \
 	redirection/out.c \
 	redirection/here_doc.c \
 	redirection/pipe.c \
-	redirection/open_fd.c \
+	redirection/fd.c \
 	parsing/get_operator_command.c \
 	parsing/tokenization.c \
 	parsing/check_caracter_lex.c \

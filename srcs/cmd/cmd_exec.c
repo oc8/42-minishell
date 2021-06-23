@@ -30,6 +30,7 @@ void	cmd_exec(t_list *param_lst, t_main *main)
 	int			*count;
 
 	save_here_doc(param_lst, main);
+	main->pid_nbr = 0;
 	main->count = 0;
 	while (param_lst)
 	{
@@ -58,4 +59,8 @@ void	cmd_exec(t_list *param_lst, t_main *main)
 	}
 	while (wait(NULL) != -1 || errno != ECHILD)
 		;
+	// int	i;
+	// i = -1;
+	// while (main->pid[++i])
+	// 	main->exit_status = waitpid(main->pid[i], NULL, WNOHANG);
 }

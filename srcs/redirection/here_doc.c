@@ -60,20 +60,20 @@ static void	save(t_redir *redir, t_main *main)
 	{
 		buff = redir->buff;
 		if (str)
-		{
 			redir->buff = strjoin_here_doc(buff, str);
-		}
 		str = readline("> ");
 		// buff = strjoin_here_doc();
 	}
 	free(str);
 }
 
-static void	*is_here_doc_redir(t_param_cmd *param, t_main *main)
+static char	*is_here_doc_redir(t_param_cmd *param, t_main *main)
 {
 	t_redir	*redir;
 	t_list	*redir_lst;
+	char	*rs;
 
+	rs = NULL;
 	redir_lst = param->redir;
 	while (redir_lst)
 	{
@@ -81,11 +81,11 @@ static void	*is_here_doc_redir(t_param_cmd *param, t_main *main)
 		if (redir->type == HERE_DOC)
 		{
 			save(redir, main);
-			return (redir->buff);
+			rs = redir->buff;
 		}
 		redir_lst = redir_lst->next;
 	}
-	return (0);
+	return (rs);
 }
 
 void	save_here_doc(t_list *param_lst, t_main *main)
