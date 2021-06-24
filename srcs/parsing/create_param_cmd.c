@@ -65,6 +65,7 @@ void	create_param_cmd(t_list **param_lst, t_main *main)
 	while (main->lexer != NULL)
 	{
 		update_main_lexer(PIPE, &save);
+		print_lexer(main);
 		contain_var(main);
 		define_text_types(main);
 		param = ft_calloc(1, sizeof(t_param_cmd));

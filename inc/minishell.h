@@ -161,6 +161,7 @@ void	update_main_lexer(t_type_lex type, t_list **save);
 int		verif_redir_var(t_lexer *to_check, t_list *prec, t_main *main);
 void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m);
 void	create_param_cmd(t_list **param_lst, t_main *main);
+void	treat_here_doc_line(char **new, char *str, t_main *main);
 void	remplace_var_value(char **new, char *str, t_main *main);
 void	define_text_types(t_main *main);
 void	fill_struct(t_param_cmd *param, t_main *main);

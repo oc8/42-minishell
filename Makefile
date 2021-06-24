@@ -23,6 +23,7 @@ LST_SRCS		= \
 	parsing/quotes_backslash_dollar.c \
 	parsing/create_param_cmd.c \
 	parsing/manage_var_env.c \
+	parsing/manage_here_doc.c \
 	parsing/reconize_type.c \
 	parsing/verify_syntax.c \
 	parsing/fill_struct_param_cmd.c \
