@@ -34,14 +34,16 @@ static void	cmd_fork(t_param_cmd *param, t_function *fct, t_main *main)
 			fct->fct(param, main);
 		else
 			cmd_others(param, main);
-		quit_prog(0, main);
+		free_all(main);
+		printf("exit status : %d\n", main->exit_status);
+		exit(main->exit_status);
 	}
 	if (param->here_doc_str)
 	{
 		close(main->pipefd_here_doc[1]);
 		close(main->pipefd_here_doc[0]);
 	}
-	main->pid_nbr++;
+	main->pid_nbr += 1;
 }
 
 void	cmd_call(t_param_cmd *param, t_main *main)

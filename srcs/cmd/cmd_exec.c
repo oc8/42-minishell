@@ -57,10 +57,13 @@ void	cmd_exec(t_list *param_lst, t_main *main)
 		}
 		param_lst = param_lst->next;
 	}
-	while (wait(NULL) != -1 || errno != ECHILD)
-		;
-	// int	i;
-	// i = -1;
-	// while (main->pid[++i])
-	// 	main->exit_status = waitpid(main->pid[i], NULL, WNOHANG);
+	// while (wait(NULL) != -1 || errno != ECHILD)
+	// 	;
+	while (main->pid_nbr--)
+	{
+		// printf("wait %d...\n", main->pid_nbr);
+		waitpid(main->pid[main->pid_nbr], &main->exit_status, 0);
+		// printf("exit status : %d\n", main->exit_status);
+		// printf("ok\n");
+	}
 }

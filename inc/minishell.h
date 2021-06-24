@@ -123,7 +123,7 @@ typedef struct s_function
 typedef struct s_main
 {
 	char			*line;
-	unsigned char	exit_status;
+	int				exit_status;
 	char			**env;
 	size_t			nbr_env;
 	t_list			*lexer;

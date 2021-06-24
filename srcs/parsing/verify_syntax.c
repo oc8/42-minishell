@@ -104,7 +104,7 @@ void	verify_syntax(t_utils_lexer *utils, t_main *main)
 	{
 		tmp = index->content;
 		if ((tmp->type == REDIR_IN || tmp->type == REDIR_OUT
-				|| tmp->type == APP_REDIR_OUT)
+				|| tmp->type == APP_REDIR_OUT || tmp->type == HERE_DOC)
 			&& verif_redir(i, utils, main) == -1)
 			return ;
 		else if (tmp->type == NEW_COMMAND && verif_newcmd(i, utils, main) == -1)

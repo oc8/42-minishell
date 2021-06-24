@@ -35,7 +35,6 @@ void	cmd_exit(t_param_cmd *param, t_main *main)
 	else
 	{
 		status = ft_atoi(arg[0]);
-
 	}
 	main->exit_status = status;
 	free_all(main);
