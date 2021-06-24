@@ -79,5 +79,5 @@ void	create_param_cmd(t_list **param_lst, t_main *main)
 		ft_lstclear(&main->lexer, free_lexer);
 		main->lexer = save;
 	}
-	print_struct_cmd(*param_lst);
+	// print_struct_cmd(*param_lst);
 }

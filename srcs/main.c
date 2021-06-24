@@ -56,7 +56,7 @@ void	loop(t_main *main)
 	}
 }
 
-void	sigaction(int signum)
+void	sig_action(int signum)
 {
 	if (signum == SIGINT)
 	{
@@ -75,21 +75,21 @@ void	sigaction(int signum)
 // 	return (&job);
 // }
 
-void	sig_action(int sig)
-{
-	// ft_putchar_fd('\r', 1);
-	// ft_putchar_fd('\r', 1);
-	if (sig == SIGINT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-	}
-	else if (sig == SIGKILL)
-	{
-		printf("exit\n");
-		exit(0);
-	}
-}
+// void	sig_action(int sig)
+// {
+// 	// ft_putchar_fd('\r', 1);
+// 	// ft_putchar_fd('\r', 1);
+// 	if (sig == SIGINT)
+// 	{
+// 		rl_on_new_line();
+// 		rl_redisplay();
+// 	}
+// 	else if (sig == SIGKILL)
+// 	{
+// 		printf("exit\n");
+// 		exit(0);
+// 	}
+// }
 
 int	main(int argc, char *argv[], char *env[])
 {
@@ -100,7 +100,7 @@ int	main(int argc, char *argv[], char *env[])
 	if (argc != 1)
 		quit_prog("minishell as to be launch without args\n", &main);
 	ft_bzero(&main, sizeof(t_main));
-	signal(SIGINT, &sigaction);
+	signal(SIGINT, &sig_action);
 	// signal(SIGQUIT, &sig_action);
 	// signal(SIGKILL, &sig_action);
 	main.env = cpy_env(env, &main);
