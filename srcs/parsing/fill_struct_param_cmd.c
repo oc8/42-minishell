@@ -34,8 +34,8 @@ static char	*strjoin_here_doc(char **buff, char **add)
 			j++;
 			i++;
 		}
-		free(*add);
-		*add = NULL;
+		// free(*add);
+		// *add = NULL;
 	}
 	rs[i] = '\n';
 	rs[++i] = '\0';
@@ -48,22 +48,29 @@ static void	update_here_doc(char *end, t_param_cmd *param, t_main *main)
 	char	*with_var;
 	char	*here_doc;
 
-	here_doc = NULL;
+	here_doc = ft_strdup_no_list("");
 	with_var = NULL;
 	new_line = NULL;
-	while (ft_strncmp_minishell(here_doc, end, -1))
+	while (ft_strncmp_minishell(with_var, end, -1))
 	{
+		if (with_var)
+		{
+			free(with_var);
+			with_var = NULL;
+		}
 		new_line = readline("> ");
 		treat_here_doc_line(&with_var, new_line, main);
-		printf("with_var = %s\n", with_var);
-		here_doc = strjoin_here_doc(&here_doc, &with_var);
+		if (ft_strncmp_minishell(with_var, end, -1))
+			here_doc = strjoin_here_doc(&here_doc, &with_var);
 		free(new_line);
 		new_line = NULL;
-		// free(with_var);
-		// with_var = NULL;
 	}
+	free(with_var);
+	with_var = NULL;
+	if (param->here_doc_str)
+		free(param->here_doc_str);
 	param->here_doc_str = here_doc;
-	printf("here_doc = %s\n", param->here_doc_str);
+	// printf("here doc =\n%s\n", param->here_doc_str);
 }
 
 static void	update_command(t_lexer *lex, t_param_cmd *param, t_main *main)

@@ -127,7 +127,7 @@ typedef struct s_main
 	char			**env;
 	size_t			nbr_env;
 	t_list			*lexer;
-	t_list			*histo;
+	// t_list			*histo;
 	t_list			*free;
 	t_function		cmd_fct[7];
 	pid_t			pid[10];
@@ -141,6 +141,8 @@ typedef struct s_main
 }				t_main;
 
 void	loop(t_main *main);
+
+t_main	res;
 
 /*
 **	-->	PARSING <--

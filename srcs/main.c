@@ -31,6 +31,7 @@ void	create_cmd(t_main *main)
 	{
 		update_main_lexer(NEW_COMMAND, &save);
 		create_param_cmd(&param_lst, main);
+		// printf("avant cmd_exec\n");
 		cmd_exec(param_lst, main);
 		ft_lstclear(&param_lst, free_param_cmd);
 		main->lexer = save;
@@ -65,6 +66,9 @@ void	sig_action(int signum)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
+	if (signum == SIGKILL)
+		quit_prog("exit\n", &res);
+	// quit_prog()
 }
 
 // t_js	*getter_job(void)
@@ -93,24 +97,23 @@ void	sig_action(int signum)
 
 int	main(int argc, char *argv[], char *env[])
 {
-	t_main	main;
-
+	// t_main	main;
 	(void)argv;
 	setbuf(stdout, NULL);
 	if (argc != 1)
-		quit_prog("minishell as to be launch without args\n", &main);
-	ft_bzero(&main, sizeof(t_main));
+		quit_prog("minishell as to be launch without args\n", &res);
+	ft_bzero(&res, sizeof(t_main));
 	signal(SIGINT, &sig_action);
-	// signal(SIGQUIT, &sig_action);
+	signal(SIGQUIT, SIG_IGN);
 	// signal(SIGKILL, &sig_action);
-	main.env = cpy_env(env, &main);
-	main.home_path = save_path_home(main.env, &main);
-	init_cmd_fct(&main);
-	main.save_fd[0] = dup(0);
-	main.save_fd[1] = dup(1);
-	// print_env(&main);
-	loop(&main);
-	free(main.line);
-	ft_lstclear(&main.free, free);
+	res.env = cpy_env(env, &res);
+	res.home_path = save_path_home(res.env, &res);
+	init_cmd_fct(&res);
+	res.save_fd[0] = dup(0);
+	res.save_fd[1] = dup(1);
+	// print_env(&res);
+	loop(&res);
+	free(res.line);
+	ft_lstclear(&res.free, free);
 	return (0);
 }

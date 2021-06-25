@@ -45,30 +45,10 @@ static void	add_var(size_t indice, char **new, t_utils_lexer *uti, t_main *main)
 
 static void	normal_caracter(char c, char **new, t_utils_lexer *ut, t_main *main)
 {
-	if (c == '\\')
-	{
-		if (ut->echap == 0)
+	if (c == '\\' && ut->echap == 0)
 			ut->echap = 2;
-		else
-			update_word(c, new);
-	}	
-	// else if (c == '\'' && utils->echap == 0)
-	// {
-	// 	if (utils->sing_q == 0 && utils->double_q == 0)
-	// 		utils->sing_q = 1;
-	// 	else if (utils->sing_q == 1)
-	// 		utils->sing_q = 0;
-	// }
-	// else if (c == '"' && utils->echap == 0)
-	// {
-	// 	if (utils->double_q == 0 && utils->sing_q == 0)
-	// 		utils->double_q = 1;
-	// 	else if (utils->double_q == 1)
-	// 		utils->double_q = 0;
-	// }
 	else
 		update_word(c, new);
-	printf("c = %c\n", c);
 }
 
 void	treat_here_doc_line(char **new, char *str, t_main *main)
