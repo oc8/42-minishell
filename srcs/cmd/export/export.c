@@ -85,7 +85,7 @@ void	cmd_export(t_param_cmd *param, t_main *main)
 	while (arg[i])
 	{
 		if (check_var_name(arg[i]) == 1)
-			main->exit_status = cmd_error("export", "not a valid identifier", arg[i], 1);
+			cmd_error("export", "not a valid identifier", arg[i], 1);
 		var = split_var(arg[i], main);
 		flag_add = 0;
 		if (var[0][ft_strlen(var[0]) - 1] == '+')

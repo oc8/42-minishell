@@ -27,13 +27,14 @@ static void	save_last_arg(char **cmd, t_main *main)
 static void	wait_fork(t_main *main)
 {
 	size_t	i;
+	int		exit_status;
 
 	i = 0;
 	while (i < main->pid_nbr)
 	{
-		waitpid(main->pid[i], &main->exit_status, 0);
-		if (WIFEXITED(main->exit_status))
-			main->exit_status = WEXITSTATUS(main->exit_status);
+		waitpid(main->pid[i], &exit_status, 0);
+		if (WIFEXITED(exit_status))
+			global.exit_status = WEXITSTATUS(exit_status);
 		i++;
 	}
 }

@@ -17,7 +17,7 @@ static void	reset_pwd_var(t_main *main)
 	edit_var(var[1], i, main);
 	ft_freedoublestr(&var);
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
-		main->exit_status = cmd_error("cd", strerror(errno), 0, 0);
+		cmd_error("cd", strerror(errno), 0, 0);
 	edit_var(cwd, j, main);
 }
 
@@ -27,7 +27,7 @@ static int	arg_tilde(t_main *main)
 	{
 		if (chdir(main->home_path) == -1)
 		{
-			main->exit_status = cmd_error("cd", strerror(errno), main->home_path, 1);
+			cmd_error("cd", strerror(errno), main->home_path, 1);
 			return (1);
 		}
 	}
@@ -58,19 +58,16 @@ void	cmd_cd(t_param_cmd *param, t_main *main)
 	char	**arg;
 
 	arg = param->cmd + 1;
-	main->exit_status = -1;
 	if (!ft_strncmp(arg[0], ".", 2))
 		;
 	else if (arg[0][0] == '-' && !arg[0][1])
 	{
-		main->exit_status = arg_shrink(main);
-		if (main->exit_status)
+		if (arg_shrink(main))
 			return ;
 	}
 	else if (arg[0][0] == '~' && !arg[0][1])
 	{
-		main->exit_status = arg_tilde(main);
-		if (main->exit_status)
+		if (arg_tilde(main))
 			return ;
 	}
 	else
@@ -81,6 +78,6 @@ void	cmd_cd(t_param_cmd *param, t_main *main)
 			return ;
 		}
 	}
-	main->exit_status = 0;
+	global.exit_status = 0;
 	reset_pwd_var(main);
 }

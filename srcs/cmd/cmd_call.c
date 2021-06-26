@@ -33,7 +33,7 @@ static void	cmd_fork(t_param_cmd *param, t_function *fct, t_main *main)
 		else
 			cmd_others(param, main);
 		free_all(main);
-		exit(main->exit_status);
+		exit(global.exit_status);
 	}
 	if (param->here_doc_str)
 	{

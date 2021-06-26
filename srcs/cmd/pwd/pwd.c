@@ -6,7 +6,7 @@ void	cmd_pwd(t_param_cmd *param, t_main *main)
 	int		file2;
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
-		main->exit_status = cmd_error("pwd", strerror(errno), 0, 1);
+		cmd_error("pwd", strerror(errno), 0, 1);
 	else
 		printf("%s\n", cwd);
 }

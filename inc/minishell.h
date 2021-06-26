@@ -123,7 +123,6 @@ typedef struct s_function
 typedef struct s_main
 {
 	char			*line;
-	int				exit_status;
 	char			**env;
 	size_t			nbr_env;
 	t_list			*lexer;
@@ -139,6 +138,16 @@ typedef struct s_main
 	int				count;
 	char			*home_path;
 }				t_main;
+
+typedef struct	s_global
+{
+	t_main	*main; // ?
+	int		exit_status;
+	t_list	*free;
+	t_list	*fd_open;
+}				t_global;
+
+t_global	global;
 
 // t_main	main;
 

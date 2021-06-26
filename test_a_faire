@@ -1,3 +1,30 @@
+cmd error :
+mkdir test ; cd test ; rm -rf  ../test ; cd .
+
+sgnal error :
+^C in fork
+
+parsing error :
+echo $/
+echo "$"
+$1
+echo $1823980
+
+bonus :
+~
+unset OLDPWD ; cd libft ; export | grep OLD ; cd -
+
+
+
+
+
+
+
+
+
+
+
+other :
 export B="h"; export A="c$B" ; e$A\o test
 echo $USER '' $USER $USER '' $USER '' $USER -n $USER
 echo \| "" \| "" "" \| "" "" "" \| '' '' '' \| '' '' \| '' \|
@@ -41,14 +68,3 @@ cat << test << test < test_a_faire
 cd - > test
 cat > aa < bb
 exit | exit 10a 10 ; echo $?
-^C in fork
-
-parsing error :
-echo $/
-echo "$"
-$1
-echo $1823980
-
-bonus :
-~
-unset OLDPWD ; cd libft ; export | grep OLD ; cd -

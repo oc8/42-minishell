@@ -70,6 +70,10 @@ void	sig_action(int signum)
 		printf("exit\n");
 		exit(0);
 	}
+	else if (signum == SIGQUIT)
+	{
+		// printf("Quit: 3\n");
+	}
 }
 
 // t_js	*getter_job(void)
@@ -105,6 +109,7 @@ int	main(int argc, char *argv[], char *env[])
 	if (argc != 1)
 		quit_prog("minishell as to be launch without args\n", &main);
 	ft_bzero(&main, sizeof(t_main));
+	global.main = &main;
 	signal(SIGINT, &sig_action);
 	signal(SIGQUIT, &sig_action);
 	signal(SIGKILL, &sig_action);
