@@ -1,9 +1,8 @@
 OCEAN:
 - proteger les fonctions "dir"
-- strerrno(errno)
-- OLDPWD a NULL pour export des le debut
-- <<
 - close fd for param in quit_prog
+- cd . (suppr)
+- return cmd error
 
 THOMAS:
 - ajouter les fd dans redirection --> OK
@@ -21,9 +20,10 @@ THOMAS:
 - enlever setbuf et faire des tests
 
 A PARLER ENSEMBLE :
-- set le exit_status du main a chaque commande execute
+- set le exit_status du main a chaque commande execute --> ok
 - relink Makefile
 - signaux
 - norme
 - verif fct (malloc...)
+- prompt color
 

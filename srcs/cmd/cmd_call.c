@@ -21,21 +21,18 @@ static void	cmd_fork(t_param_cmd *param, t_function *fct, t_main *main)
 			close(main->pipefd_here_doc[1]);
 			close(main->pipefd_here_doc[0]);
 		}
-		// dup2(main->save_fd[0], STDIN_FILENO);
 		if (param->pipe_after)
 			redir_pipe_after(param, main);
 		if (param->file_fd_in[0])
 			redir_in(param->file_fd_in, main);
 		if (param->file_fd_out[0])
 			redir_out(param->file_fd_out, main);
-		// printf("'%d'\n", param->file_fd_in[0]);
 
 		if (!ft_strncmp(param->cmd[0], fct->name, 7))
 			fct->fct(param, main);
 		else
 			cmd_others(param, main);
 		free_all(main);
-		printf("exit status : %d\n", main->exit_status);
 		exit(main->exit_status);
 	}
 	if (param->here_doc_str)
@@ -50,7 +47,6 @@ void	cmd_call(t_param_cmd *param, t_main *main)
 {
 	int		i;
 
-	// check_fd(param, main);
 	open_fd(param, main);
 	if (!param->cmd || !param->cmd[0])
 	{
@@ -68,7 +64,6 @@ void	cmd_call(t_param_cmd *param, t_main *main)
 	{
 		if (param->file_fd_out[0])
 			redir_out(param->file_fd_out, main);
-		// printf("'%d'\n", param->file_fd_in[0]);
 		main->cmd_fct[i].fct(param, main);
 	}
 	//

@@ -41,3 +41,14 @@ cat << test << test < test_a_faire
 cd - > test
 cat > aa < bb
 exit | exit 10a 10 ; echo $?
+^C in fork
+
+parsing error :
+echo $/
+echo "$"
+$1
+echo $1823980
+
+bonus :
+~
+unset OLDPWD ; cd libft ; export | grep OLD ; cd -

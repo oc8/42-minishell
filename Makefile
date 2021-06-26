@@ -40,6 +40,7 @@ LST_SRCS		= \
 	utils/env_utils.c \
 	utils/print_lexer.c \
 	utils/here_document.c \
+	utils/reset_var.c \
 	utils/error.c \
 	utils/error_syntax.c
 SRCS_DIR		= srcs

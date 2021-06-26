@@ -109,6 +109,7 @@ int	main(int argc, char *argv[], char *env[])
 	signal(SIGQUIT, &sig_action);
 	signal(SIGKILL, &sig_action);
 	main.env = cpy_env(env, &main);
+	reset_var(&main);
 	main.home_path = save_path_home(main.env, &main);
 	init_cmd_fct(&main);
 	main.save_fd[0] = dup(0);

@@ -24,10 +24,23 @@ static void	save_last_arg(char **cmd, t_main *main)
 	}
 }
 
+static void	wait_fork(t_main *main)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < main->pid_nbr)
+	{
+		waitpid(main->pid[i], &main->exit_status, 0);
+		if (WIFEXITED(main->exit_status))
+			main->exit_status = WEXITSTATUS(main->exit_status);
+		i++;
+	}
+}
+
 void	cmd_exec(t_list *param_lst, t_main *main)
 {
 	t_param_cmd	*param;
-	int			*count;
 
 	save_here_doc(param_lst, main);
 	main->pid_nbr = 0;
@@ -35,35 +48,12 @@ void	cmd_exec(t_list *param_lst, t_main *main)
 	while (param_lst)
 	{
 		param = (t_param_cmd *)param_lst->content;
-		param->pipe_before = 0;
-		param->pipe_after = 1;
-		if (!param_lst->next)
-			param->pipe_after = 0;
-		if (main->count > 0)
-			param->pipe_before = 1;
-		if (param->pipe_after)
-		{
-			// printf("pipe[0] creat\n");
-			if (pipe(main->pipefd[main->count % 2]) == -1)
-				quit_prog("pipe()", main);
-		}
+		set_pipe(param, param_lst, main);
 		cmd_call(param, main);
 		save_last_arg(param->cmd, main);
 		main->count += 1;
-		if (main->count > 1)
-		{
-			close(main->pipefd[main->count % 2][0]);
-			close(main->pipefd[main->count % 2][1]);
-		}
+		close_pipe(main);
 		param_lst = param_lst->next;
 	}
-	// while (wait(NULL) != -1 || errno != ECHILD)
-	// 	;
-	while (main->pid_nbr--)
-	{
-		// printf("wait %d...\n", main->pid_nbr);
-		waitpid(main->pid[main->pid_nbr], &main->exit_status, 0);
-		// printf("exit status : %d\n", main->exit_status);
-		// printf("ok\n");
-	}
+	wait_fork(main);
 }

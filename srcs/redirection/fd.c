@@ -36,7 +36,7 @@ void	open_fd(t_param_cmd *param, t_main *main)
 	{
 		redir = (t_redir *)redir_lst->content;
 		if (redir->var_err)
-			cmd_error(0, "ambiguous redirect", redir->var_err, 1);
+			main->exit_status = cmd_error(0, "ambiguous redirect", redir->var_err, 1);
 		if (redir->type == REDIR_OUT || redir->type == APP_REDIR_OUT)
 			open_fd_out(param->file_fd_out, redir, main);
 		else if (redir->type == REDIR_IN)

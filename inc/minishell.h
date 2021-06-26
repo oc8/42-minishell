@@ -140,6 +140,8 @@ typedef struct s_main
 	char			*home_path;
 }				t_main;
 
+// t_main	main;
+
 void	loop(t_main *main);
 
 /*
@@ -194,6 +196,8 @@ void	redir_pipe_after(t_param_cmd *param, t_main *main);
 void	save_here_doc(t_list *param_lst, t_main *main);
 void	open_fd_out(int fd[2], t_redir *redir, t_main *main);
 void	open_fd_in(int fd[2], t_redir *redir, t_main *main);
+void	set_pipe(t_param_cmd *param, t_list *param_lst, t_main *main);
+void	close_pipe(t_main *main);
 // void	check_fd(t_param_cmd *param, t_main *main);
 
 /*
@@ -221,5 +225,6 @@ void	redirection(t_param_cmd *param, t_main *main);
 void	del_var(int index, t_main *main);
 int		is_here_doc(t_main *main);
 int		error_syntax(char *str, t_main *main);
+void	reset_var(t_main *main);
 
 #endif

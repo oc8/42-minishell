@@ -43,6 +43,8 @@ static int	arg_shrink(t_main *main)
 	if (i == -1)
 		return (cmd_error("cd", "OLDPWD not set", 0, 1));
 	var = split_var(main->env[i], main);
+	if (!var[1])
+		return (cmd_error("cd", "OLDPWD not set", 0, 1));
 	if (chdir(var[1]) == -1)
 		return (cmd_error("cd", strerror(errno), var[1], 1));
 	ft_putstr_fd(var[1], 1);
@@ -61,12 +63,14 @@ void	cmd_cd(t_param_cmd *param, t_main *main)
 		;
 	else if (arg[0][0] == '-' && !arg[0][1])
 	{
-		if (arg_shrink(main))
+		main->exit_status = arg_shrink(main);
+		if (main->exit_status)
 			return ;
 	}
 	else if (arg[0][0] == '~' && !arg[0][1])
 	{
-		if (arg_tilde(main))
+		main->exit_status = arg_tilde(main);
+		if (main->exit_status)
 			return ;
 	}
 	else
