@@ -15,6 +15,7 @@ void	update_lst(t_utils_var *utils, t_main *main)
 	else
 		utils->previous->next = NULL;
 	remplace_var_value(&utils->new, utils->str_with_var, main);
+	printf("new update_lst = %s\n", utils->new);
 	if (utils->new)
 		tokenization(utils->new, 0, main);
 	utils->last = ft_lstlast(main->lexer);
@@ -80,5 +81,5 @@ void	create_param_cmd(t_list **param_lst, t_main *main)
 		ft_lstclear(&main->lexer, free_lexer);
 		main->lexer = save;
 	}
-	// print_struct_cmd(*param_lst);
+	print_struct_cmd(*param_lst);
 }

@@ -13,7 +13,7 @@ echo $1823980
 bonus :
 ~
 unset OLDPWD ; cd libft ; export | grep OLD ; cd -
-
+export TEST="a$USER\ b\ c\ d" ; cat $TEST
 
 
 

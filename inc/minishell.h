@@ -143,6 +143,7 @@ typedef struct	s_global
 {
 	t_main	*main; // ?
 	int		exit_status;
+	int		pid;
 	t_list	*free;
 	t_list	*fd_open;
 }				t_global;

@@ -58,22 +58,18 @@ void	dollar(char c, t_utils_lexer *utils, t_main *m)
 		update_word(c, &utils->word);
 	else
 	{
-		if (utils->str[utils->i + 1] == '"' || utils->str[utils->i + 1] == '\'')
-			return ;
 		if (utils->str[utils->i + 1] == '?')
 		{
 			bash_script(utils, m);
 			return ;
 		}
+		if ((utils->str[utils->i + 1] == '"' || utils->str[utils->i + 1] == '\'')
+			&& utils->double_q == 0)
+			return ;
+		update_word('$', &utils->word);
 		if (!ft_isalpha(utils->str[utils->i + 1])
 			&& utils->str[utils->i + 1] != '_' && utils->str[utils->i + 1])
-		{
-			update_word('$', &utils->word);
-			// utils->i++;
-			// update_word(utils->str[utils->i], &utils->word);
 			return ;
-		}
-		update_word('$', &utils->word);
 		if (utils->str[utils->i + 1])
 			utils->var_env = 1;
 	}
