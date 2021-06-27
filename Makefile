@@ -8,6 +8,7 @@ LST_SRCS		= \
 	cmd/pwd/pwd.c \
 	cmd/cd/cd.c \
 	cmd/export/export.c \
+	cmd/export/print_export.c \
 	cmd/unset/unset.c \
 	cmd/env/env.c \
 	cmd/exit/exit.c \
@@ -28,20 +29,20 @@ LST_SRCS		= \
 	parsing/verify_syntax.c \
 	parsing/fill_struct_param_cmd.c \
 	utils/quit_prog.c \
-	utils/save_path_home.c \
 	utils/cpy_env.c \
+	utils/var_utils.c \
+	utils/env_utils.c \
+	utils/reset_var.c \
+	utils/init.c \
+	utils/ft_atoi_redirection.c \
+	utils/save_path_home.c \
 	utils/ft_strncmp_minishell.c \
 	utils/ft_strdup_no_list.c \
-	utils/ft_atoi_redirection.c \
 	utils/free_lexer.c \
 	utils/free_param_cmd.c \
 	utils/print_struct_cmd.c \
-	utils/init.c \
-	utils/var_utils.c \
-	utils/env_utils.c \
 	utils/print_lexer.c \
 	utils/here_document.c \
-	utils/reset_var.c \
 	utils/error.c \
 	utils/error_syntax.c
 SRCS_DIR		= srcs

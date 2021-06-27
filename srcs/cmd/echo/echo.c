@@ -7,6 +7,7 @@ void	cmd_echo(t_param_cmd *param, t_main *main)
 	int		flag_n;
 	char	**arg;
 
+	(void)main;
 	arg = param->cmd + 1;
 	if (!arg[0])
 	{
@@ -23,19 +24,17 @@ void	cmd_echo(t_param_cmd *param, t_main *main)
 		if (i > 1 && !arg[j][i])
 		{
 			flag_n = 1;
-			j++;;
+			j++;
 		}
 		else
 		{
-			j--;
+			// j--;
 			break ;
 		}
 	}
 	while (arg[j])
 	{
-		// dprintf(2, "%s\n", arg[j++]);
 		ft_putstr_fd(arg[j], 1);
-		// printf("%s", arg[j]);
 		j++;
 		if (arg[j])
 			ft_putstr_fd(" ", 1);

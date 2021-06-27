@@ -1,8 +1,6 @@
 OCEAN:
-- proteger les fonctions "dir"
 - close fd for param in quit_prog
-- cd . (suppr) & pwd
-- return cmd error
+- exit 9223372036854775808
 
 THOMAS:
 - ajouter les fd dans redirection --> OK
@@ -25,5 +23,6 @@ A PARLER ENSEMBLE :
 - signaux
 - norme
 - verif fct (malloc...)
+- nm -g minishell "U"
 - prompt color
-
+- echo $ ; echo $_

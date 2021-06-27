@@ -1,8 +1,5 @@
 cmd error :
-env -i ./minishell 
-mkdir test ; cd test ; rm -rf  ../test ; cd .
 exit 9345903475907234905790234759057845907239057902357902357
-echo -nnm test
 
 sgnal error :
 ^C in fork
@@ -25,8 +22,12 @@ unset OLDPWD ; cd libft ; export | grep OLD ; cd -
 
 
 
+start :
+mkdir test ; cd test ; rm -d ../test ; ./minishell
 
-
+first :
+echo $_
+echo $?
 
 other :
 export B="h"; export A="c$B" ; e$A\o test
@@ -72,3 +73,5 @@ cat << test << test < test_a_faire
 cd - > test
 cat > aa < bb
 exit | exit 10a 10 ; echo $?
+
+mkdir test ; cd test ; rm -rf  ../test ; cd .

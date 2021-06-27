@@ -7,6 +7,18 @@ static void	reset_pwd_var(t_main *main)
 	char	**var;
 	char	cwd[PWD_MAX_SIZE];
 
+	if (main->oldpwd)
+	{
+		ft_lstdel_content(main->free, main->oldpwd);
+		free(main->oldpwd);
+		main->oldpwd = 0;
+	}
+	if (main->pwd)
+		main->oldpwd = main->pwd;
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		cmd_error("cd", strerror(errno), 0, 0);
+	main->pwd = ft_calloc_lst(&main->free, ft_strlen(cwd) + 1, sizeof(char));
+	ft_strlcpy(main->pwd, cwd, -1);
 	i = var_defined("OLDPWD", main);
 	if (i == -1)
 		return ;
@@ -16,8 +28,6 @@ static void	reset_pwd_var(t_main *main)
 	var = split_var(main->env[j], main);
 	edit_var(var[1], i, main);
 	ft_freedoublestr(&var);
-	if (getcwd(cwd, sizeof(cwd)) == NULL)
-		cmd_error("cd", strerror(errno), 0, 0);
 	edit_var(cwd, j, main);
 }
 
@@ -56,17 +66,16 @@ static int	arg_shrink(t_main *main)
 void	cmd_cd(t_param_cmd *param, t_main *main)
 {
 	char	**arg;
-	DIR		*dir;
 
 	arg = param->cmd + 1;
 	if (!ft_strncmp(arg[0], ".", 2))
 	{
-		// if (getcwd(".", ) == NULL)
-		// {
-		// 	ft_putstr_fd(strerror(errno), STDERR_FILENO);
-		// 	return ;
-		// }
-		;
+		if (getcwd(0, 0) == NULL)
+		{
+			prog_error("cd: error retrieving current directory",		\
+			"getcwd: cannot access parent directories", strerror(errno));
+			return ;
+		}
 	}
 	else if (arg[0][0] == '-' && !arg[0][1])
 	{

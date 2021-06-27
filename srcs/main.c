@@ -31,7 +31,6 @@ void	create_cmd(t_main *main)
 	{
 		update_main_lexer(NEW_COMMAND, &save);
 		create_param_cmd(&param_lst, main);
-		// printf("avant cmd_exec\n");
 		cmd_exec(param_lst, main);
 		ft_lstclear(&param_lst, free_param_cmd);
 		main->lexer = save;

@@ -19,7 +19,7 @@ static void	change_var(int lvl, int i, t_main *main)
 	}
 }
 
-void	inc_shlvl(t_main *main)
+static void	inc_shlvl(t_main *main)
 {
 	char	**var;
 	int		i;
@@ -39,15 +39,48 @@ void	inc_shlvl(t_main *main)
 		new_var("SHLVL=1", main);
 }
 
-void	reset_var(t_main *main)
+static void	set_pwd(t_main *main)
+{
+	int		i;
+	char	cwd[PWD_MAX_SIZE];
+	char	*name_var;
+	char	*var;
+
+	i = var_defined("OLDPWD", main);
+	if (i > -1)
+		del_var(i, main);
+	new_var("OLDPWD", main);
+	i = var_defined("PWD", main);
+	if (i > -1)
+		del_var(i, main);
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		prog_error("shell-init: error retrieving current directory", 	\
+		"getcwd: cannot access parent directories", strerror(errno));
+	else
+	{
+		name_var = ft_strdup_no_list("PWD=");
+		var = ft_strjoin(name_var, cwd);
+		free(name_var);
+		new_var(var, main);
+		free(var);
+		main->pwd = ft_calloc_lst(&main->free, ft_strlen(cwd) + 1, sizeof(char));
+		ft_strlcpy(main->pwd, cwd, -1);
+	}
+}
+
+static void	set__(t_main *main)
 {
 	int	i;
 
-	inc_shlvl(main);
-	i = var_defined("OLDPWD", main);
+	i = var_defined("_", main);
 	if (i > -1)
-	{
 		del_var(i, main);
-		new_var("OLDPWD", main);
-	}
+	new_var("_=bash_des_freros", main);
+}
+
+void	reset_var(t_main *main)
+{
+	inc_shlvl(main);
+	set_pwd(main);
+	set__(main);
 }

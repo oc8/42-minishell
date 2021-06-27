@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: tdayde <tdayde@student.42lyon.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/11/23 17:35:36 by odroz-ba          #+#    #+#              #
-#    Updated: 2021/05/30 00:24:39 by tdayde           ###   ########lyon.fr    #
-#                                                                              #
-# **************************************************************************** #
-
 ERASE	= \033[2K\r
 GREY	= \033[30m
 RED		= \033[31m
@@ -43,6 +31,7 @@ LST_OBJS	= \
 	checker/ft_isprint.o \
 	conversion/ft_atoi.o \
 	conversion/ft_atoi_l.o \
+	conversion/ft_atoi_ll.o \
 	conversion/ft_itoa.o \
 	conversion/ft_tolower.o \
 	conversion/ft_toupper.o \

@@ -16,6 +16,7 @@ void	cmd_env(t_param_cmd *param, t_main *main)
 {
 	size_t	i;
 
+	(void)param;
 	i = 0;
 	while (main->env[i] && i < main->nbr_env)
 	{

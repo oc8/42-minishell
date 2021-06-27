@@ -27,7 +27,7 @@ long	ft_atoi_l(const char *nptr)
 		neg = -1;
 	if (nptr[i] == '-' || nptr[i] == '+')
 		i++;
-	while (nptr[i] >= 48 && nptr[i] <= 57)
-		rs = rs * 10 + (nptr[i++] - 48);
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+		rs = rs * 10 + (nptr[i++] - '0');
 	return (rs * neg);
 }

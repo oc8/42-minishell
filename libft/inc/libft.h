@@ -76,6 +76,7 @@ int				ft_isprint(int c);
 */
 int				ft_atoi(const char *nptr);
 long			ft_atoi_l(const char *nptr);
+long long		ft_atoi_ll(const char *str);
 char			*ft_itoa(int n);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
