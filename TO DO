@@ -1,7 +1,7 @@
 OCEAN:
 - proteger les fonctions "dir"
 - close fd for param in quit_prog
-- cd . (suppr)
+- cd . (suppr) & pwd
 - return cmd error
 
 THOMAS:

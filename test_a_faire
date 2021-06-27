@@ -1,5 +1,8 @@
 cmd error :
+env -i ./minishell 
 mkdir test ; cd test ; rm -rf  ../test ; cd .
+exit 9345903475907234905790234759057845907239057902357902357
+echo -nnm test
 
 sgnal error :
 ^C in fork
@@ -9,6 +12,7 @@ echo $/
 echo "$"
 $1
 echo $1823980
+export TEST="a b c d e f g" ; mkdir $TEST
 
 bonus :
 ~

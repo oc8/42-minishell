@@ -56,10 +56,18 @@ static int	arg_shrink(t_main *main)
 void	cmd_cd(t_param_cmd *param, t_main *main)
 {
 	char	**arg;
+	DIR		*dir;
 
 	arg = param->cmd + 1;
 	if (!ft_strncmp(arg[0], ".", 2))
+	{
+		// if (getcwd(".", ) == NULL)
+		// {
+		// 	ft_putstr_fd(strerror(errno), STDERR_FILENO);
+		// 	return ;
+		// }
 		;
+	}
 	else if (arg[0][0] == '-' && !arg[0][1])
 	{
 		if (arg_shrink(main))
