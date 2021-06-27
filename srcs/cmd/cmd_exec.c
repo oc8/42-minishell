@@ -43,7 +43,7 @@ void	cmd_exec(t_list *param_lst, t_main *main)
 {
 	t_param_cmd	*param;
 
-	save_here_doc(param_lst, main);
+	// save_here_doc(param_lst, main);
 	main->pid_nbr = 0;
 	main->count = 0;
 	while (param_lst)

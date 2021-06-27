@@ -18,11 +18,14 @@ void	free_param_cmd(void *ptr)
 	param = (t_param_cmd*)ptr;
 	if (param->cmd)	// METTRE DOUBLESTR FREE !!!!!
 	{
-		i = -1;
-		while (param->cmd[++i])
-			free(param->cmd[i]);
-		free(param->cmd);
-		param->cmd = NULL;
+		ft_freedoublestr(&param->cmd);
+		// i = -1;
+		// while (param->cmd[++i])
+		// 	free(param->cmd[i]);
+		// free(param->cmd);
+		// param->cmd = NULL;
 	}
+	free(param->here_doc_str);
+	param->here_doc_str = NULL;
 	ft_lstclear(&param->redir, free_redirection);
 }

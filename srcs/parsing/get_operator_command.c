@@ -21,5 +21,5 @@ void	get_operator_command(t_main *main)
 	new_line = ft_strdup(&main->free, main->line);
 	new_elem = ft_calloc_lst(&main->free, 1, sizeof(t_list));
 	new_elem->content = new_line;
-	ft_lstadd_front(&main->histo, new_elem);
+	// ft_lstadd_front(&main->histo, new_elem);
 }
