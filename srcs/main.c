@@ -31,6 +31,7 @@ void	create_cmd(t_main *main)
 	{
 		update_main_lexer(NEW_COMMAND, &save);
 		create_param_cmd(&param_lst, main);
+		// printf("avant cmd_exec\n");
 		cmd_exec(param_lst, main);
 		ft_lstclear(&param_lst, free_param_cmd);
 		main->lexer = save;
@@ -65,15 +66,9 @@ void	sig_action(int signum)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	else if (signum == SIGKILL)
-	{
-		printf("exit\n");
-		exit(0);
-	}
-	else if (signum == SIGQUIT)
-	{
-		// printf("Quit: 3\n");
-	}
+	if (signum == SIGKILL)
+		quit_prog("exit\n", &res);
+	// quit_prog()
 }
 
 // t_js	*getter_job(void)
@@ -103,7 +98,6 @@ void	sig_action(int signum)
 int	main(int argc, char *argv[], char *env[])
 {
 	t_main	main;
-
 	(void)argv;
 	setbuf(stdout, NULL);
 	if (argc != 1)

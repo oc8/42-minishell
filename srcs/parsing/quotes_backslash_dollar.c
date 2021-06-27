@@ -68,8 +68,9 @@ void	dollar(char c, t_utils_lexer *utils, t_main *m)
 		if (!ft_isalpha(utils->str[utils->i + 1])
 			&& utils->str[utils->i + 1] != '_' && utils->str[utils->i + 1])
 		{
-			utils->i++;
-			update_word(utils->str[utils->i], &utils->word);
+			update_word('$', &utils->word);
+			// utils->i++;
+			// update_word(utils->str[utils->i], &utils->word);
 			return ;
 		}
 		update_word('$', &utils->word);
