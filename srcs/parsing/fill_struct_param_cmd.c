@@ -34,8 +34,8 @@ static char	*strjoin_here_doc(char **buff, char **add)
 			j++;
 			i++;
 		}
-		// free(*add);
-		// *add = NULL;
+		free(*add);
+		*add = NULL;
 	}
 	rs[i] = '\n';
 	rs[++i] = '\0';
@@ -51,26 +51,32 @@ static void	update_here_doc(char *end, t_param_cmd *param, t_main *main)
 	here_doc = ft_strdup_no_list("");
 	with_var = NULL;
 	new_line = NULL;
-	while (ft_strncmp_minishell(with_var, end, -1))
+	while (ft_strncmp_minishell(new_line, end, -1))
 	{
-		if (with_var)
+		if (new_line)
 		{
-			free(with_var);
-			with_var = NULL;
+			free(new_line);
+			new_line = NULL;
 		}
 		new_line = readline("> ");
-		treat_here_doc_line(&with_var, new_line, main);
-		if (ft_strncmp_minishell(with_var, end, -1))
-			here_doc = strjoin_here_doc(&here_doc, &with_var);
-		free(new_line);
-		new_line = NULL;
+		if (!new_line)
+			new_line = ft_strdup_no_list(end);
+			// break;
+		if (ft_strncmp_minishell(new_line, end, -1))
+		{
+			treat_here_doc_line(&with_var, new_line, main);
+			if (with_var)
+				here_doc = strjoin_here_doc(&here_doc, &with_var);
+		}
+		// free(with_var);
+		// with_var = NULL;
 	}
-	free(with_var);
-	with_var = NULL;
+	free(new_line);
+	new_line = NULL;
 	if (param->here_doc_str)
 		free(param->here_doc_str);
 	param->here_doc_str = here_doc;
-	// printf("here doc =\n%s\n", param->here_doc_str);
+	// printf("here doc = \n|%s|\n", param->here_doc_str);
 }
 
 static void	update_command(t_lexer *lex, t_param_cmd *param, t_main *main)

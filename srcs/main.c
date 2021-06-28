@@ -48,9 +48,12 @@ void	loop(t_main *main)
 			main->line = NULL;
 		}
 		main->line = readline("bash_des_freros$ ");
+		if (!main->line)
+			main->line = ft_strdup_no_list("exit");
 		if (main->line && *main->line)
 			add_history(main->line);
 		tokenization(main->line, 0, main);
+		// print_lexer(main);
 		create_cmd(main);
 		if (main->lexer != NULL)
 			ft_lstclear(&main->lexer, free_lexer);
@@ -59,8 +62,10 @@ void	loop(t_main *main)
 
 void	sig_action(int signum)
 {
+	// if (signum == SIGINT && global.pid != getpid())
 	if (signum == SIGINT)
 	{
+		// printf("\npid = %d\n", getpid());
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
@@ -104,9 +109,10 @@ int	main(int argc, char *argv[], char *env[])
 		quit_prog("minishell as to be launch without args\n", &main);
 	ft_bzero(&main, sizeof(t_main));
 	global.main = &main;
+	global.pid = getpid();
+	// printf("pid bash = %d\n", getpid());
 	signal(SIGINT, &sig_action);
 	signal(SIGQUIT, &sig_action);
-	signal(SIGKILL, &sig_action);
 	main.env = cpy_env(env, &main);
 	reset_var(&main);
 	main.home_path = save_path_home(main.env, &main);

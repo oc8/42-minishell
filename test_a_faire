@@ -17,8 +17,10 @@ export TEST="a b c d e f g" ; mkdir $TEST
 bonus :
 ~
 unset OLDPWD ; cd libft ; export | grep OLD ; cd -
-
-
+export TEST="a$USER b c d" ; cat $TEST
+export TEST1="un test" ; export TEST="1$TEST1 a\ b\ c\ d" ; cat $TEST
+export TEST=" 1 2 3 4 5" ; cat un$TEST\test
+export TEST=" 1 2 3 4       5" ; echo 42 >  un$TEST\test
 
 
 
@@ -38,16 +40,17 @@ cat doesntexist 2>tmp/errors 1>tmp/file 2>tmp/file 2>>tmp/file 2>>tmp/errors ; c
 /Users
 .
 /
-export TOTO="test >>ck" ; echo 42 > a > coi$TOTO\toi >d 
-export ; export TOTO="test >>ck" ; export ; echo 42 > a > coi$TOTO\toi >d 
-export TOTO="test>>ck" ; echo 42 > a > coi$TOTO\toi >d 
 export TOTO=test>>ck ; echo 42 > a > coi$TOTO\toi >d 
+export TOTO="test>>;|$ck" ; echo 42 > a > coi$TOTO\toi >d 
+export TOTO="test >>ck" ; echo 42 > a > coi$TOTO\toi >d 
+export TOTO="test >>ck" ; echo 42 > a > coi$TOTO\toi >d 
 export
 env
 export TOTO2="1 2" ; export TOTO="test$TOTO2" ; echo 42 > a > coi$TOTO\toi >d
 export TOTO3="un test" ; export TOTO2="1$TOTO3\3" ; export TOTO="4 5$TOTO2\6" ; echo 7$TOTO\8
 echo 42 ; cat <<EOF -e ; echo fini
-export TOTO="un test"; echo $TOTO ; cat <<$$TO'\\$TO'"\$TO\"" -e ; echo fini
+export TOTO="un test"; echo $TOTO ; cat <<$$TOTO -e ; echo fini 
+export TOTO="un test"; echo $TOTO ; cat <<$$TO'\\$TO'"\$TO\"" -e ; echo fini						res : $$TO\\$TO$TO"
 echo a >> a ; ls | cat -e ; cat Makefile | grep CYAN | grep CYAN | cat -e | grep CYAN
 
 echo $TOTO ; export $TOTO="un test" ; echo $TOTO

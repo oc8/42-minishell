@@ -19,30 +19,59 @@ static int	verif_newcmd(int i, t_utils_lexer *utils, t_main *main)
 
 int	verif_redir_var(t_lexer *to_check, t_list *prec, t_main *main)
 {
-	char	*new;
+	// char	*new;
+	char	**new;
 	t_lexer	*tmp;
 	int		i;
 
 	new = NULL;
-	remplace_var_value(&new, to_check->value, main);
+	// printf("verif_redir_var\n");
+	new = remplace_var_value(to_check->value, main);
 	i = -1;
 	if (new)
 	{
-		while (new[++i])
+		// printf("new[0] = |%s|, new[1] = %s\n", new[0], new[1]);
+		if (new[1] != NULL)
 		{
-			if (new[i] == ' ')
-			{
-				tmp = prec->content;
-				free(tmp->value);
-				tmp->value = NULL;
-				tmp->value = ft_strdup_no_list(to_check->value);
-				free(new);
-				return (-1);
-			}
+			tmp = prec->content;
+			free(tmp->value);
+			tmp->value = NULL;
+			tmp->value = ft_strdup_no_list(to_check->value);
+			
+			// tmp = prec->content;
+			// tmp->value = to_check->value;
+			// printf("doit etre ambigu\n");
+			// free(tmp->value);
+			// tmp->value = NULL;
+			// tmp->value = ft_strdup_no_list(to_check->value);
+			ft_freedoublestr(&new);
+			// free(new);
+			return (0);
 		}
 	}
-	free(new);
-	return (1);
+	ft_freedoublestr(&new);
+	return(1);
+
+	// new = NULL;
+	// remplace_var_value(&new, to_check->value, main);
+	// i = -1;
+	// if (new)
+	// {
+	// 	while (new[++i])
+	// 	{
+	// 		if (new[i] == ' ')
+	// 		{
+	// 			tmp = prec->content;
+	// 			free(tmp->value);
+	// 			tmp->value = NULL;
+	// 			tmp->value = ft_strdup_no_list(to_check->value);
+	// 			free(new);
+	// 			return (-1);
+	// 		}
+	// 	}
+	// }
+	// free(new);
+	// return (1);
 }
 
 static int	verif_redir(int i, t_utils_lexer *utils, t_main *main)

@@ -63,8 +63,10 @@ typedef struct s_utils_lexer
 	int		double_q;
 	int		echap;
 	int		i_lst;
+	int		i_split;
 	int		var_env;
 	int		start_word;
+	// int		splited;
 }				t_utils_lexer;
 
 typedef struct s_lexer
@@ -81,7 +83,9 @@ typedef struct s_utils_var
 	t_lexer		*tmp;
 	t_lexer		*tmp2;
 	char		*str_with_var;
-	char		*new;
+	// char		*new;
+	char		**split;
+	int			i_split;
 	t_lexer		*tmp3;
 	t_list		*save;
 	t_list		*last;
@@ -143,6 +147,7 @@ typedef struct	s_global
 {
 	t_main	*main; // ?
 	int		exit_status;
+	int		pid;
 	t_list	*free;
 	t_list	*fd_open;
 }				t_global;
@@ -175,7 +180,9 @@ int		verif_redir_var(t_lexer *to_check, t_list *prec, t_main *main);
 void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m);
 void	create_param_cmd(t_list **param_lst, t_main *main);
 void	treat_here_doc_line(char **new, char *str, t_main *main);
-void	remplace_var_value(char **new, char *str, t_main *main);
+// void	remplace_var_value(char **new, char *str, t_main *main);
+char	**remplace_var_value(char *str, t_main *main);
+char	**split_var_parsing(char *str);
 void	define_text_types(t_main *main);
 void	fill_struct(t_param_cmd *param, t_main *main);
 void	print_struct_cmd(t_list *param);

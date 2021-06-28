@@ -21,9 +21,13 @@ THOMAS:
 
 A PARLER ENSEMBLE :
 - set le exit_status du main a chaque commande execute --> ok
-- relink Makefile
 - signaux
 - norme
 - verif fct (malloc...)
 - prompt color
+
+changer couleur erreurs (ambigous redirect)
+signaux quand dans here doc ()
+etre sur des valeur de retour $? (genre avec signaux)
+creation ficheir avec "export TOTO="test >>ck" ; echo 42 > a > coi$TOTO\toi >d "
 
