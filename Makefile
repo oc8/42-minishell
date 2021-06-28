@@ -38,6 +38,7 @@ LST_SRCS		= \
 	utils/print_struct_cmd.c \
 	utils/init.c \
 	utils/var_utils.c \
+	utils/split_var_parsing.c \
 	utils/env_utils.c \
 	utils/print_lexer.c \
 	utils/here_document.c \

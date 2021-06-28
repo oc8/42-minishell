@@ -2,7 +2,8 @@
 
 void	update_lst(t_utils_var *utils, t_main *main)
 {
-	utils->new = NULL;
+	// utils->new = NULL;
+	utils->split = NULL;
 	utils->save = utils->index->next;
 	utils->tmp3 = utils->index->content;
 	utils->str_with_var = ft_strdup_no_list(utils->tmp3->value);
@@ -14,16 +15,22 @@ void	update_lst(t_utils_var *utils, t_main *main)
 		main->lexer = NULL;
 	else
 		utils->previous->next = NULL;
-	remplace_var_value(&utils->new, utils->str_with_var, main);
-	printf("new update_lst = %s\n", utils->new);
-	if (utils->new)
-		tokenization(utils->new, 0, main);
+	utils->split = remplace_var_value(utils->str_with_var, main);
+	// printf("i_split = %d\n", )
+	if (utils->split)
+		while (utils->split[utils->i_split])
+			tokenization(utils->split[utils->i_split++], 0, main);
+	// remplace_var_value(utils->new, utils->str_with_var, main);
+	// printf("new update_lst = %s\n", utils->new);
+	// if (utils->new)
+	// 	tokenization(utils->new, 0, main);
 	utils->last = ft_lstlast(main->lexer);
 	if (utils->last)
 		utils->last->next = utils->save;
 	else
 		main->lexer = utils->save;
-	free(utils->new);
+	// free(utils->new);
+	ft_freedoublestr(&utils->split);
 	free(utils->str_with_var);
 }
 
@@ -44,7 +51,7 @@ void	contain_var(t_main *main)
 				util.tmp2 = util.previous->content;
 				if ((util.tmp2->type == REDIR_IN || util.tmp2->type == REDIR_OUT
 						|| util.tmp2->type == APP_REDIR_OUT)
-					&& verif_redir_var(util.tmp, util.previous, main) == -1)
+					&& !verif_redir_var(util.tmp, util.previous, main))
 					return ;
 			}
 			update_lst(&util, main);
@@ -78,8 +85,9 @@ void	create_param_cmd(t_list **param_lst, t_main *main)
 			quit_prog("Malloc new_element of lst in create_param_cmd", main);
 		new->content = param;
 		ft_lstadd_back(param_lst, new);
+		// print_lexer(main);
 		ft_lstclear(&main->lexer, free_lexer);
 		main->lexer = save;
 	}
-	print_struct_cmd(*param_lst);
+	// print_struct_cmd(*param_lst);
 }

@@ -53,7 +53,7 @@ void	loop(t_main *main)
 		if (main->line && *main->line)
 			add_history(main->line);
 		tokenization(main->line, 0, main);
-		print_lexer(main);
+		// print_lexer(main);
 		create_cmd(main);
 		if (main->lexer != NULL)
 			ft_lstclear(&main->lexer, free_lexer);
