@@ -17,6 +17,5 @@ long long	ft_atoi_ll(const char *str)
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 		rs = rs * 10 + (str[i++] - '0');
-	printf("rss = %lld\n", rs * neg);
 	return (rs * neg);
 }

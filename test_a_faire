@@ -1,5 +1,6 @@
 cmd error :
-exit 9345903475907234905790234759057845907239057902357902357
+.
+..
 
 sgnal error :
 ^C in fork
@@ -10,6 +11,7 @@ echo "$"
 $1
 echo $1823980
 export TEST="a b c d e f g" ; mkdir $TEST
+export test="a"b c""
 
 bonus :
 ~
@@ -28,6 +30,7 @@ mkdir test ; cd test ; rm -d ../test ; ./minishell
 first :
 echo $_
 echo $?
+echo $SHLVL
 
 other :
 export B="h"; export A="c$B" ; e$A\o test
@@ -37,23 +40,21 @@ cat doesntexist 2>tmp/errors 1>tmp/file 2>tmp/file 2>>tmp/file 2>>tmp/errors ; c
 ;; test
 ~
 /Users
-.
 /
 export TOTO="test >>ck" ; echo 42 > a > coi$TOTO\toi >d 
 export ; export TOTO="test >>ck" ; export ; echo 42 > a > coi$TOTO\toi >d 
 export TOTO="test>>ck" ; echo 42 > a > coi$TOTO\toi >d 
 export TOTO=test>>ck ; echo 42 > a > coi$TOTO\toi >d 
-export
-env
 export TOTO2="1 2" ; export TOTO="test$TOTO2" ; echo 42 > a > coi$TOTO\toi >d
 export TOTO3="un test" ; export TOTO2="1$TOTO3\3" ; export TOTO="4 5$TOTO2\6" ; echo 7$TOTO\8
 echo 42 ; cat <<EOF -e ; echo fini
 export TOTO="un test"; echo $TOTO ; cat <<$$TO'\\$TO'"\$TO\"" -e ; echo fini
 echo a >> a ; ls | cat -e ; cat Makefile | grep CYAN | grep CYAN | cat -e | grep CYAN
-
+echo -nnnnn -nnb test
 echo $TOTO ; export $TOTO="un test" ; echo $TOTO
 
-SSHLVL
+export SHLVL=1000 ; ./minishell ; echo $SHLVL
+test -sdfjldskfjdskfjldjslkj sdfljdfljlkds
 exit ' 23 0'
 exit 99999999999999
 exit 9999999999999999999999999999999999999999999999999999999999999999999999
@@ -73,5 +74,5 @@ cat << test << test < test_a_faire
 cd - > test
 cat > aa < bb
 exit | exit 10a 10 ; echo $?
-
+cd -/
 mkdir test ; cd test ; rm -rf  ../test ; cd .

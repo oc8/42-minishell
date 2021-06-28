@@ -63,8 +63,7 @@ static void	set_pwd(t_main *main)
 		free(name_var);
 		new_var(var, main);
 		free(var);
-		main->pwd = ft_calloc_lst(&main->free, ft_strlen(cwd) + 1, sizeof(char));
-		ft_strlcpy(main->pwd, cwd, -1);
+		// free(cwd);
 	}
 }
 

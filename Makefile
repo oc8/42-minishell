@@ -34,6 +34,7 @@ LST_SRCS		= \
 	utils/env_utils.c \
 	utils/reset_var.c \
 	utils/init.c \
+	utils/prompt.c \
 	utils/ft_atoi_redirection.c \
 	utils/save_path_home.c \
 	utils/ft_strncmp_minishell.c \
@@ -53,7 +54,7 @@ CC				= clang
 # CFLAGS			= -Wall -Werror -Wextra
 # CFLAGS			= -g
 # CFLAGS			= -Wall -Werror -Wextra -fsanitize=address -g3
-# CFLAGS			= -fsanitize=address -g3
+CFLAGS			= -fsanitize=address -g3
 INCLUDE			= -Iinc -I${LIBFT}/inc -I/Users/$(USER)/.brew/opt/readline/include
 RM				= rm -rf
 MKDIR			= mkdir -p

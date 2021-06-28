@@ -39,6 +39,8 @@ void	create_cmd(t_main *main)
 
 void	loop(t_main *main)
 {
+	char	*prompt;
+
 	while (42)
 	{
 		if (main->line != NULL)
@@ -46,7 +48,9 @@ void	loop(t_main *main)
 			free(main->line);
 			main->line = NULL;
 		}
-		main->line = readline("bash_des_freros$ ");
+		prompt = location(main);
+		main->line = readline(prompt);
+		free(prompt);
 		if (main->line && *main->line)
 			add_history(main->line);
 		tokenization(main->line, 0, main);
@@ -66,7 +70,7 @@ void	sig_action(int signum)
 		rl_redisplay();
 	}
 	if (signum == SIGKILL)
-		quit_prog("exit\n", &res);
+		quit_prog("exit\n", global.main);
 	// quit_prog()
 }
 

@@ -137,9 +137,7 @@ typedef struct s_main
 	int				pipefd_here_doc[2];
 	int				count;
 	char			*home_path;
-	//
 	char			*pwd;
-	char			*oldpwd;
 }				t_main;
 
 typedef struct	s_global
@@ -155,8 +153,6 @@ t_global	global;
 // t_main	main;
 
 void	loop(t_main *main);
-
-t_main	res;
 
 /*
 **	-->	PARSING <--
@@ -243,5 +239,6 @@ int		is_here_doc(t_main *main);
 int		error_syntax(char *str, t_main *main);
 void	prog_error(char *cmd, char *error, char *errorstr);
 void	reset_var(t_main *main);
+char	*location(t_main *main);
 
 #endif

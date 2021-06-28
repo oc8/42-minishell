@@ -14,6 +14,28 @@ static int	is_nbr(char *str)
 	return (1);
 }
 
+static long long	ft_atoi_exit(const char *str, unsigned char *status)
+{
+	long long	rs;
+	int			i;
+	int			neg;
+
+	neg = 1;
+	rs = 0;
+	i = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-')
+		neg = -1;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
+		rs = rs * 10 + (str[i++] - '0');
+	if (rs < 0)
+		*status = 255;
+	return (rs * neg);
+}
+
 void	cmd_exit(t_param_cmd *param, t_main *main)
 {
 	unsigned char	status;
@@ -39,14 +61,12 @@ void	cmd_exit(t_param_cmd *param, t_main *main)
 	}
 	else
 	{
-		rs = ft_atoi_ll(arg[0]);
-		printf("rs = %lld\n", rs);
-		if (ft_strlen(&arg[0][i]) > 19 || rs > LONG_MAX || rs < LONG_MIN) // error "exit 9223372036854775808"
+		rs = ft_atoi_exit(arg[0], &status);
+		if (ft_strlen(&arg[0][i]) > 19 || status == 255)
 			status = cmd_error("exit", "numeric argument required", arg[0], 255);
 		else
 			status = (unsigned char)rs;
 	}
-	
 	free_all(main);
 	exit(status);
 }

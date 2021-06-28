@@ -1,6 +1,5 @@
 OCEAN:
 - close fd for param in quit_prog
-- exit 9223372036854775808
 
 THOMAS:
 - ajouter les fd dans redirection --> OK
