@@ -14,7 +14,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
-// # include <termios.h>
 
 # include "libft.h"
 
@@ -89,7 +88,6 @@ typedef struct s_utils_var
 	t_lexer		*tmp;
 	t_lexer		*tmp2;
 	char		*str_with_var;
-	// char		*new;
 	char		**split;
 	int			i_split;
 	t_lexer		*tmp3;
@@ -103,7 +101,6 @@ typedef struct s_redir
 	char		*file;
 	t_type_lex	type;
 	char		*var_err;
-	// int			pipefd[2];
 	char		*buff;
 }				t_redir;
 
@@ -114,13 +111,12 @@ typedef struct s_param_cmd
 	int		pipe_before;
 	int		pipe_after;
 	int		n_cmd;
-	// int		flag_in_file;
 	char	*here_doc_str;
 	int		file_fd_out[2];
 	int		file_fd_in[2];
 }				t_param_cmd;
 
-struct			s_main;
+struct	s_main;
 
 typedef void	(*t_fct_cmd)(t_param_cmd *, struct s_main *);
 
@@ -134,10 +130,9 @@ typedef struct s_main
 {
 	char			*line;
 	char			**env;
-	size_t			nbr_env; // ?
+	size_t			nbr_env;
 	size_t			max;
 	t_list			*lexer;
-	// t_list			*histo;
 	t_list			*free;
 	t_function		cmd_fct[7];
 	pid_t			pid[10];
@@ -152,111 +147,106 @@ typedef struct s_main
 	char			*oldpwd;
 }				t_main;
 
-typedef struct	s_global
+typedef struct s_global
 {
-	t_main	*main; // ?
 	int		exit_status;
-	int		pid; // ?
-	void	*sig_action;
 	int		in_cmd;
 	t_list	*free;
 	t_list	*fd_open;
-}				t_global;
+}				t_glob;
 
-t_global	global;
+t_glob	g_global;
 
-// t_main	main;
-
-void	loop(t_main *main);
-void	our_sig_action(int signum);
+void			loop(t_main *main);
+void			sig_action(int signum);
 
 /*
 **	-->	PARSING <--
 */
-void	tokenization(char *str, int indice, t_main *main);
-void	update_word(char c, char **str);
-void	predefine_var(t_utils_lexer *utils, t_main *m);
-void	check_caracter_var(t_utils_lexer *utils, t_main *main);
-void	check_caracter_lex(char c, t_utils_lexer *utils, t_main *main);
-void	backslash(char c, t_utils_lexer *utils);
-void	single_quotes(char c, t_utils_lexer *utils);
-void	double_quotes(char c, t_utils_lexer *utils);
-void	dollar(char c, t_utils_lexer *utils, t_main *m);
-void	malloc_element(t_type_lex type, t_utils_lexer *utils, t_main *main);
-void	verify_syntax(t_utils_lexer *utils, t_main *main);
-void	update_main_lexer(t_type_lex type, t_list **save);
-int		verif_redir_var(t_lexer *to_check, t_list *prec, t_main *main);
-void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils);
-void	create_param_cmd(t_list **param_lst, t_main *main);
-void	treat_here_doc_line(char **new, char *str, t_main *main);
-// void	remplace_var_value(char **new, char *str, t_main *main);
-char	**remplace_var_value(char *str, t_main *main);
-char	**split_var_parsing(char *str);
-void	define_text_types(t_main *main);
-void	fill_struct(t_param_cmd *param, t_main *main);
-void	print_struct_cmd(t_list *param);
+void			tokenization(char *str, int indice, t_main *main);
+void			update_word(char c, char **str);
+void			predefine_var(t_utils_lexer *utils, t_main *m);
+void			check_caracter_var(t_utils_lexer *utils, t_main *main);
+void			check_caracter_lex(char c, t_utils_lexer *utils, t_main *main);
+void			backslash(char c, t_utils_lexer *utils);
+void			single_quotes(char c, t_utils_lexer *utils);
+void			double_quotes(char c, t_utils_lexer *utils);
+void			dollar(char c, t_utils_lexer *utils, t_main *m);
+void			malloc_element(t_type_lex type, t_utils_lexer *ut, t_main *m);
+void			verify_syntax(t_utils_lexer *utils, t_main *main);
+void			update_main_lexer(t_type_lex type, t_list **save);
+int				verif_redir_var(t_lexer *to_check, t_list *prec, t_main *main);
+void			reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils);
+void			create_param_cmd(t_list **param_lst, t_main *main);
+void			treat_here_doc_line(char **new, char *str, t_main *main);
+// void			remplace_var_value(char **new, char *str, t_main *main);
+char			**remplace_var_value(char *str, t_main *main);
+char			**split_var_parsing(char *str);
+void			define_text_types(t_main *main);
+void			fill_struct(t_param_cmd *param, t_main *main);
+void			print_struct_cmd(t_list *param);
 
 /*
 **	-->	CMD <--
 */
-void	cmd_others(t_param_cmd *param, t_main *main);
-// void	cmd_exec(t_param_cmd *param, t_main *main);
-void	cmd_exec(t_list *param_lst, t_main *main);
-void	cmd_call(t_param_cmd *param, t_main *main);
-void	cmd_echo(t_param_cmd *param, t_main *main);
-void	cmd_pwd(t_param_cmd *param, t_main *main);
-void	cmd_env(t_param_cmd *param, t_main *main);
-void	cmd_export(t_param_cmd *param, t_main *main);
-void	print_export(t_main *main);
-void	cmd_unset(t_param_cmd *param, t_main *main);
-void	cmd_cd(t_param_cmd *param, t_main *main);
-void	cmd_exit(t_param_cmd *param, t_main *main);
-// void	test_cmd_exec(t_main *main); // temp
+void			cmd_others(t_param_cmd *param, t_main *main);
+// void			cmd_exec(t_param_cmd *param, t_main *main);
+void			cmd_exec(t_list *param_lst, t_main *main);
+void			cmd_call(t_param_cmd *param, t_main *main);
+void			cmd_echo(t_param_cmd *param, t_main *main);
+void			cmd_pwd(t_param_cmd *param, t_main *main);
+void			cmd_env(t_param_cmd *param, t_main *main);
+void			cmd_export(t_param_cmd *param, t_main *main);
+void			print_export(t_main *main);
+void			cmd_unset(t_param_cmd *param, t_main *main);
+void			cmd_cd(t_param_cmd *param, t_main *main);
+void			cmd_exit(t_param_cmd *param, t_main *main);
+// void			test_cmd_exec(t_main *main); // temp
 
 /*
 **	-->	REDIR <--
 */
-void	open_fd(t_param_cmd *param, t_main *main);
-void	redir_in(int fd[2], t_main *main);
-void	redir_out(int fd[2], t_main *main);
-void	here_doc(char *str, t_main *main);
-void	redir_pipe_before(t_main *main);
-void	redir_pipe_after(t_main *main);
-void	save_here_doc(t_list *param_lst, t_main *main);
-void	open_fd_out(int fd[2], t_redir *redir, t_main *main);
-void	open_fd_in(int fd[2], t_redir *redir, t_main *main);
-void	set_pipe(t_param_cmd *param, t_list *param_lst, t_main *main);
-void	close_pipe(t_main *main);
-// void	check_fd(t_param_cmd *param, t_main *main);
+void			open_fd(t_param_cmd *param, t_main *main);
+void			redir_in(int fd[2], t_main *main);
+void			redir_out(int fd[2], t_main *main);
+void			here_doc(char *str, t_main *main);
+void			redir_pipe_before(t_main *main);
+void			redir_pipe_after(t_main *main);
+void			save_here_doc(t_list *param_lst, t_main *main);
+void			open_fd_out(int fd[2], t_redir *redir, t_main *main);
+void			open_fd_in(int fd[2], t_redir *redir, t_main *main);
+void			set_pipe(t_param_cmd *param, t_list *param_lst, t_main *main);
+void			close_pipe(t_main *main);
+// void			check_fd(t_param_cmd *param, t_main *main);
 
 /*
 **	-->	UTILS <--
 */
-void	print_prompt();
-void	quit_prog(char *error_str, t_main *main);
-char	*save_path_home(char **env, t_main *main);
-char	**cpy_env(char *env[], t_main *main);
-void	free_all(t_main *main);
-int		ft_strncmp_minishell(const char *s1, const char *s2, size_t n);
-char	*ft_strdup_no_list(const char *s1);
-int		ft_atoi_redirection(const char *nptr, t_type_lex type);
-void	free_lexer(void *s);
-void	free_param_cmd(void *ptr);
-void	init_cmd_fct(t_main *main);
-char	**split_var(char *var, t_main *main);
-int		cmd_error(char *cmd, char *error, char *arg, int nbr);
-int		check_var_name(char *name);
-char	*strjoin_here_doc_parsing(char **buff, char **add);
-int		var_defined(char *var, t_main *main);
-void	new_var(char *add, t_main *main);
-void	edit_var(char *add, size_t i, t_main *main);
-void	print_lexer(t_main *main);
-void	redirection(t_param_cmd *param, t_main *main);
-void	del_var(int index, t_main *main);
-int		is_here_doc(t_main *main);
-int		error_syntax(char *str, t_main *main);
-void	prog_error(char *cmd, char *error, char *errorstr);
-void	reset_var(t_main *main);
-char	*location(t_main *main);
+void			print_prompt(void);
+void			quit_prog(char *error_str, t_main *main);
+char			*save_path_home(char **env, t_main *main);
+char			**cpy_env(char *env[], t_main *main);
+void			free_all(t_main *main);
+int				ft_strncmp_minishell(const char *s1, const char *s2, size_t n);
+char			*ft_strdup_no_list(const char *s1);
+int				ft_atoi_redirection(const char *nptr, t_type_lex type);
+void			free_lexer(void *s);
+void			free_param_cmd(void *ptr);
+void			init_cmd_fct(t_main *main);
+char			**split_var(char *var, t_main *main);
+int				cmd_error(char *cmd, char *error, char *arg, int nbr);
+int				check_var_name(char *name);
+char			*strjoin_here_doc_parsing(char **buff, char **add);
+int				var_defined(char *var, t_main *main);
+void			new_var(char *add, t_main *main);
+void			edit_var(char *add, size_t i, t_main *main);
+void			print_lexer(t_main *main);
+void			redirection(t_param_cmd *param, t_main *main);
+void			del_var(int index, t_main *main);
+int				is_here_doc(t_main *main);
+int				error_syntax(char *str, t_main *main);
+void			prog_error(char *cmd, char *error, char *errorstr);
+void			reset_var(t_main *main);
+char			*location(t_main *main);
 
 #endif

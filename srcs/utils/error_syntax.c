@@ -14,7 +14,7 @@ int	error_syntax(char *str, t_main *main)
 		printf("bash: syntax error near unexpected token `%s'\n", fd_str);
 		free(fd_str);
 	}
-	global.exit_status = 2;
+	g_global.exit_status = 2;
 	ft_lstclear(&main->lexer, free_lexer);
 	return (-1);
 }

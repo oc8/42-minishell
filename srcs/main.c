@@ -31,11 +31,12 @@ void	create_cmd(t_main *main)
 	{
 		update_main_lexer(NEW_COMMAND, &save);
 		create_param_cmd(&param_lst, main);
-		global.in_cmd = 1;
+		signal(SIGQUIT, &sig_action);
+		g_global.in_cmd = 1;
 		cmd_exec(param_lst, main);
-		global.in_cmd = 0;
+		signal(SIGQUIT, SIG_IGN);
+		g_global.in_cmd = 0;
 		ft_lstclear(&param_lst, free_param_cmd);
-		// printf("ici\n");
 		main->lexer = save;
 	}
 }
@@ -59,7 +60,6 @@ void	loop(t_main *main)
 		if (main->line && *main->line)
 			add_history(main->line);
 		tokenization(main->line, 0, main);
-		// print_lexer(main);
 		create_cmd(main);
 		if (main->lexer != NULL)
 			ft_lstclear(&main->lexer, free_lexer);
@@ -68,73 +68,38 @@ void	loop(t_main *main)
 
 void	sig_action(int signum)
 {
-	// if (signum == SIGINT && global.pid != getpid())
 	if (signum == SIGINT)
 	{
-		// printf("\npid = %d\n", getpid());
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		if (!global.in_cmd)
+		if (!g_global.in_cmd)
 			rl_redisplay();
 	}
 	if (signum == SIGQUIT)
 	{
-		// if (!global.in_cmd)
-		// 	signal(SIGQUIT, SIG_IGN);
-		if (global.in_cmd)
-		{
-			// signal(SIGQUIT, SIG_DFL);
+		if (g_global.in_cmd)
 			printf("Quit: 3\n");
-		}
 	}
 }
-
-// t_js	*getter_job(void)
-// {
-// 	static t_js job = (t_js) {.first_job = 0, .shell_pgid = 0,
-// 	{ .c_iflag = 0, .c_oflag = 0, .c_cflag = 0, .c_lflag = 0 },
-// 	.shell_terminal = 0, .shell_is_interactive = 0};
-// 	return (&job);
-// }
-
-// void	sig_action(int sig)
-// {
-// 	// ft_putchar_fd('\r', 1);
-// 	// ft_putchar_fd('\r', 1);
-// 	if (sig == SIGINT)
-// 	{
-// 		rl_on_new_line();
-// 		rl_redisplay();
-// 	}
-// 	else if (sig == SIGKILL)
-// 	{
-// 		printf("exit\n");
-// 		exit(0);
-// 	}
-// }
 
 int	main(int argc, char *argv[], char *env[])
 {
 	t_main	main;
+
 	(void)argv;
-	setbuf(stdout, NULL);
 	if (argc != 1)
 		quit_prog("minishell as to be launch without args\n", &main);
 	ft_bzero(&main, sizeof(t_main));
-	global.main = &main;
-	global.pid = getpid();
-	global.sig_action = &sig_action;
-	// printf("pid bash = %d\n", getpid());
+	// g_global.main = &main;
 	signal(SIGINT, &sig_action);
-	signal(SIGQUIT, &sig_action);
+	signal(SIGQUIT, SIG_IGN);
 	main.env = cpy_env(env, &main);
 	reset_var(&main);
 	main.home_path = save_path_home(main.env, &main);
 	init_cmd_fct(&main);
 	main.save_fd[0] = dup(0);
 	main.save_fd[1] = dup(1);
-	// print_env(&main);
 	loop(&main);
 	free(main.line);
 	ft_lstclear(&main.free, free);

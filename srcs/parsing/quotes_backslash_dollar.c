@@ -44,7 +44,7 @@ static void	bash_script(t_utils_lexer *utils)
 	char	*exit_status;
 	int		i;
 
-	exit_status = ft_itoa(global.exit_status);
+	exit_status = ft_itoa(g_global.exit_status);
 	i = -1;
 	while (exit_status[++i])
 		update_word(exit_status[i], &utils->word);

@@ -16,7 +16,7 @@ int	cmd_error(char *cmd, char *error, char *arg, int nbr)
 	if (error)
 		ft_putstr_fd(error, STDERR_FILENO);
 	ft_putstr_fd("\n\033[0m", STDERR_FILENO);
-	global.exit_status = nbr;
+	g_global.exit_status = nbr;
 	return (nbr);
 }
 
@@ -36,5 +36,5 @@ void	prog_error(char *cmd, char *error, char *errorstr)
 	if (errorstr)
 		ft_putstr_fd(errorstr, STDERR_FILENO);
 	ft_putstr_fd("\n\033[0m", STDERR_FILENO);
-	global.exit_status = 0;
+	g_global.exit_status = 0;
 }

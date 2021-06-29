@@ -55,8 +55,6 @@ static int	arg_tilde(t_main *main)
 
 static int	arg_shrink(t_main *main)
 {
-	char	**var;
-
 	if (main->oldpwd == NULL)
 		return (cmd_error("cd", "OLDPWD not set", 0, 1));
 	if (chdir(main->oldpwd) == -1)
@@ -105,6 +103,6 @@ void	cmd_cd(t_param_cmd *param, t_main *main)
 		if (change_location(arg, main))
 			return ;
 	}
-	global.exit_status = 0;
+	g_global.exit_status = 0;
 	reset_pwd_var(main);
 }

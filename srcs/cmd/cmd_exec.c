@@ -34,7 +34,7 @@ static void	wait_fork(t_main *main)
 	{
 		waitpid(main->pid[i], &exit_status, 0);
 		if (WIFEXITED(exit_status))
-			global.exit_status = WEXITSTATUS(exit_status);
+			g_global.exit_status = WEXITSTATUS(exit_status);
 		i++;
 	}
 }

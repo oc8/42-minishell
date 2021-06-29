@@ -1,16 +1,10 @@
 #include "minishell.h"
 
-static void	sig_here_doc(int signum)
-{
-
-}
-
 static void	update_here_doc(char *end, t_param_cmd *param, t_main *main)
 {
 	t_utils_heredoc	u;
 
-	// signal(SIGINT, &sig_here_doc);
-	// signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	ft_bzero(&u, sizeof(t_utils_heredoc));
 	u.here_doc = ft_strdup_no_list("");
 	while (ft_strncmp_minishell(u.new_line, end, -1))
@@ -32,7 +26,7 @@ static void	update_here_doc(char *end, t_param_cmd *param, t_main *main)
 	free(u.new_line);
 	free(param->here_doc_str);
 	param->here_doc_str = u.here_doc;
-	// signal(SIGQUIT, global.sig_action);
+	signal(SIGQUIT, &sig_action);
 }
 
 static void	update_command(t_lexer *lex, t_param_cmd *param, t_main *main)
