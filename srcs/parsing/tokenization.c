@@ -3,9 +3,7 @@
 void	malloc_element(t_type_lex type, t_utils_lexer *utils, t_main *main)
 {
 	t_lexer	*lexer;
-	t_list	*index;
 	t_list	*new;
-	int		i;
 
 	lexer = malloc(sizeof(t_lexer));
 	if (!lexer)
@@ -15,8 +13,8 @@ void	malloc_element(t_type_lex type, t_utils_lexer *utils, t_main *main)
 	utils->word = NULL;
 	if (lexer->value == NULL)
 		quit_prog("Lexer value malloc", main);
-	if (type == -1)
-		reconize_primitive_type(lexer, utils, main);
+	if ((int)type == -1)
+		reconize_primitive_type(lexer, utils);
 	else
 		lexer->type = type;
 	new = ft_lstnew(lexer);
@@ -54,7 +52,6 @@ void	update_word(char c, char **str)
 void	tokenization(char *str, int indice, t_main *main)
 {
 	t_utils_lexer	utils;
-	t_caracter_lex	res;
 
 	ft_bzero(&utils, sizeof(t_utils_lexer));
 	utils.i_lst = indice;

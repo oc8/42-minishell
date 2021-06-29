@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static int	verif_newcmd(int i, t_utils_lexer *utils, t_main *main)
+static int	verif_newcmd(int i, t_main *main)
 {
 	t_list	*index;
 	t_lexer	*tmp;
@@ -42,7 +42,7 @@ int	verif_redir_var(t_lexer *to_check, t_list *prec, t_main *main)
 	return (1);
 }
 
-static int	verif_redir(int i, t_utils_lexer *utils, t_main *main)
+static int	verif_redir(int i, t_main *main)
 {
 	t_list	*index;
 	t_list	*prec;
@@ -61,7 +61,7 @@ static int	verif_redir(int i, t_utils_lexer *utils, t_main *main)
 	return (1);
 }
 
-static int	verif_pipe(int i, t_utils_lexer *utils, t_main *main)
+static int	verif_pipe(int i, t_main *main)
 {
 	t_list	*index;
 	t_lexer	*tmp;
@@ -102,11 +102,11 @@ void	verify_syntax(t_utils_lexer *utils, t_main *main)
 		tmp = index->content;
 		if ((tmp->type == REDIR_IN || tmp->type == REDIR_OUT
 				|| tmp->type == APP_REDIR_OUT || tmp->type == HERE_DOC)
-			&& verif_redir(i, utils, main) == -1)
+			&& verif_redir(i, main) == -1)
 			return ;
-		else if (tmp->type == NEW_COMMAND && verif_newcmd(i, utils, main) == -1)
+		else if (tmp->type == NEW_COMMAND && verif_newcmd(i, main) == -1)
 			return ;
-		else if (tmp->type == PIPE && verif_pipe(i, utils, main) == -1)
+		else if (tmp->type == PIPE && verif_pipe(i, main) == -1)
 			return ;
 		index = index->next;
 		i++;

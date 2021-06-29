@@ -27,7 +27,7 @@ static char	*get_var_name(int *ind, char *str, char **new, t_main *m)
 	return (var);
 }
 
-static void	add_var(size_t indice, char **new, t_utils_lexer *uti, t_main *main)
+static void	add_var(size_t indice, char **new, t_main *main)
 {
 	size_t	j;
 
@@ -39,7 +39,7 @@ static void	add_var(size_t indice, char **new, t_utils_lexer *uti, t_main *main)
 		update_word(main->env[indice][j++], new);
 }
 
-static void	normal_caracter(char c, char **new, t_utils_lexer *ut, t_main *main)
+static void	normal_caracter(char c, char **new, t_utils_lexer *ut)
 {
 	if (c == '\\' && ut->echap == 0)
 		ut->echap = 2;
@@ -65,12 +65,12 @@ void	treat_here_doc_line(char **new, char *str, t_main *main)
 			if (var != NULL)
 				indice_var = var_defined(var, main);
 			if (indice_var != -1)
-				add_var(indice_var, new, &utils, main);
+				add_var(indice_var, new, main);
 			if (var != NULL)
 				free(var);
 		}
 		else
-			normal_caracter(str[i], new, &utils, main);
+			normal_caracter(str[i], new, &utils);
 		if (utils.echap > 0 && str[i])
 			utils.echap--;
 	}

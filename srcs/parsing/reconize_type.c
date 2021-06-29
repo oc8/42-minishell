@@ -4,8 +4,6 @@ static int	first_command(t_main *main)
 {
 	t_list	*index;
 	t_lexer	*tmp;
-	int		start_cmd;
-	int		i;
 
 	index = main->lexer;
 	while (index != NULL)
@@ -22,7 +20,6 @@ static int	redirection_file(int i, t_main *main)
 {
 	t_list	*index;
 	t_lexer	*tmp;
-	int		size;
 
 	if (i == 0)
 		return (FALSE);
@@ -62,7 +59,7 @@ void	define_text_types(t_main *main)
 	}
 }
 
-void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m)
+void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils)
 {
 	int	i;
 

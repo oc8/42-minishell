@@ -35,6 +35,7 @@ void	create_cmd(t_main *main)
 		cmd_exec(param_lst, main);
 		global.in_cmd = 0;
 		ft_lstclear(&param_lst, free_param_cmd);
+		// printf("ici\n");
 		main->lexer = save;
 	}
 }
@@ -79,11 +80,14 @@ void	sig_action(int signum)
 	}
 	if (signum == SIGQUIT)
 	{
+		// if (!global.in_cmd)
+		// 	signal(SIGQUIT, SIG_IGN);
 		if (global.in_cmd)
+		{
+			// signal(SIGQUIT, SIG_DFL);
 			printf("Quit: 3\n");
-		// quit_prog("exit\n", global.main);
+		}
 	}
-	// quit_prog()
 }
 
 // t_js	*getter_job(void)
@@ -120,6 +124,7 @@ int	main(int argc, char *argv[], char *env[])
 	ft_bzero(&main, sizeof(t_main));
 	global.main = &main;
 	global.pid = getpid();
+	global.sig_action = &sig_action;
 	// printf("pid bash = %d\n", getpid());
 	signal(SIGINT, &sig_action);
 	signal(SIGQUIT, &sig_action);

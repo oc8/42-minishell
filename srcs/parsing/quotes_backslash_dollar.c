@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	backslash(char c, t_utils_lexer *utils, t_main *main)
+void	backslash(char c, t_utils_lexer *utils)
 {
 	if ((utils->double_q == 0 && utils->sing_q == 0 && utils->echap == 0)
 		|| (utils->double_q == 1 && utils->echap == 0))
@@ -9,7 +9,7 @@ void	backslash(char c, t_utils_lexer *utils, t_main *main)
 		update_word(c, &utils->word);
 }
 
-void	single_quotes(char c, t_utils_lexer *utils, t_main *main)
+void	single_quotes(char c, t_utils_lexer *utils)
 {
 	if (utils->double_q == 1 || utils->echap == 1)
 	{
@@ -26,7 +26,7 @@ void	single_quotes(char c, t_utils_lexer *utils, t_main *main)
 		utils->sing_q = 0;
 }
 
-void	double_quotes(char c, t_utils_lexer *utils, t_main *main)
+void	double_quotes(char c, t_utils_lexer *utils)
 {
 	if (utils->sing_q == 1 || utils->echap == 1)
 		update_word(c, &utils->word);
@@ -39,7 +39,7 @@ void	double_quotes(char c, t_utils_lexer *utils, t_main *main)
 		utils->double_q = 0;
 }
 
-static void	bash_script(t_utils_lexer *utils, t_main *main)
+static void	bash_script(t_utils_lexer *utils)
 {
 	char	*exit_status;
 	int		i;
@@ -60,7 +60,7 @@ void	dollar(char c, t_utils_lexer *utils, t_main *m)
 	{
 		if (utils->str[utils->i + 1] == '?')
 		{
-			bash_script(utils, m);
+			bash_script(utils);
 			return ;
 		}
 		if ((utils->str[utils->i + 1] == '"' || utils->str[utils->i + 1] == '\'')

@@ -25,7 +25,6 @@ char	*strjoin_here_doc_parsing(char **buff, char **add)
 {
 	char	*rs;
 	size_t	i;
-	size_t	j;
 	int		size;
 
 	if (*buff)

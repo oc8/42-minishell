@@ -56,7 +56,6 @@ static int	arg_tilde(t_main *main)
 static int	arg_shrink(t_main *main)
 {
 	char	**var;
-	int		i;
 
 	if (main->oldpwd == NULL)
 		return (cmd_error("cd", "OLDPWD not set", 0, 1));

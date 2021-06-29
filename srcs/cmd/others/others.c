@@ -120,7 +120,7 @@ static char	*cmd_path(char *cmd, t_main *main)
 	return (check_path(paths, cmd, main));
 }
 
-static int	check_dir(char *path, t_main *main)
+static int	check_dir(char *path)
 {
 	DIR				*dir;
 	struct dirent	*dirent;
@@ -148,7 +148,7 @@ void	cmd_others(t_param_cmd *param, t_main *main)
 	cmd_arg = param->cmd;
 	if (cmd_arg[0][0] == '/' || (cmd_arg[0][0] == '.' && cmd_arg[0][1] == '/'))
 	{
-		if (check_dir(cmd_arg[0], main))
+		if (check_dir(cmd_arg[0]))
 			return ;
 		cmd_name = cmd_arg[0];
 	}

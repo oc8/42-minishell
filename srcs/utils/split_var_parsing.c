@@ -49,7 +49,7 @@ static int	count_words(char *str)
 char	**split_var_parsing(char *str)
 {
 	char			**split;
-	char			ind;
+	int				ind;
 	t_utils_lexer	utils;
 	int				i;
 

@@ -157,6 +157,7 @@ typedef struct	s_global
 	t_main	*main; // ?
 	int		exit_status;
 	int		pid; // ?
+	void	*sig_action;
 	int		in_cmd;
 	t_list	*free;
 	t_list	*fd_open;
@@ -167,6 +168,7 @@ t_global	global;
 // t_main	main;
 
 void	loop(t_main *main);
+void	our_sig_action(int signum);
 
 /*
 **	-->	PARSING <--
@@ -176,15 +178,15 @@ void	update_word(char c, char **str);
 void	predefine_var(t_utils_lexer *utils, t_main *m);
 void	check_caracter_var(t_utils_lexer *utils, t_main *main);
 void	check_caracter_lex(char c, t_utils_lexer *utils, t_main *main);
-void	backslash(char c, t_utils_lexer *utils, t_main *main);
-void	single_quotes(char c, t_utils_lexer *utils, t_main *main);
-void	double_quotes(char c, t_utils_lexer *utils, t_main *main);
+void	backslash(char c, t_utils_lexer *utils);
+void	single_quotes(char c, t_utils_lexer *utils);
+void	double_quotes(char c, t_utils_lexer *utils);
 void	dollar(char c, t_utils_lexer *utils, t_main *m);
 void	malloc_element(t_type_lex type, t_utils_lexer *utils, t_main *main);
 void	verify_syntax(t_utils_lexer *utils, t_main *main);
 void	update_main_lexer(t_type_lex type, t_list **save);
 int		verif_redir_var(t_lexer *to_check, t_list *prec, t_main *main);
-void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils, t_main *m);
+void	reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils);
 void	create_param_cmd(t_list **param_lst, t_main *main);
 void	treat_here_doc_line(char **new, char *str, t_main *main);
 // void	remplace_var_value(char **new, char *str, t_main *main);

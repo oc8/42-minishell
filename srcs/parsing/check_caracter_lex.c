@@ -23,7 +23,7 @@ static t_type_lex	reconize_carac_spec(t_utils_lexer *utils)
 	return (-1);
 }
 
-void	redir_special(char c, t_utils_lexer *utils, t_main *main)
+void	redir_special(char c, t_utils_lexer *utils)
 {
 	if (c == '>')
 	{
@@ -63,7 +63,7 @@ static void	carac_special(char c, t_utils_lexer *utils, t_main *main)
 		update_word(utils->str[utils->i], &utils->word);
 		if ((utils->str[utils->i] == '>' && utils->str[utils->i + 1] == '>')
 			|| (utils->str[utils->i] == '<' && utils->str[utils->i + 1] == '<'))
-			redir_special(utils->str[utils->i], utils, main);
+			redir_special(utils->str[utils->i], utils);
 		malloc_element(reconize_carac_spec(utils), utils, main);
 	}
 }
@@ -89,7 +89,7 @@ static void	is_fd_redir(char c, t_utils_lexer *util, t_main *main)
 				update_word(util->str[util->i++], &util->word);
 			update_word(util->str[util->i], &util->word);
 			if (util->str[util->i + 1] == '>' || util->str[util->i + 1] == '<')
-				redir_special(util->str[util->i], util, main);
+				redir_special(util->str[util->i], util);
 			malloc_element(reconize_carac_spec(util), util, main);
 		}
 		else
@@ -102,11 +102,11 @@ void	check_caracter_lex(char c, t_utils_lexer *utils, t_main *main)
 	if (c == '\0')
 		return ;
 	else if (c == '\\')
-		return (backslash(c, utils, main));
+		return (backslash(c, utils));
 	else if (c == '\'')
-		return (single_quotes(c, utils, main));
+		return (single_quotes(c, utils));
 	else if (c == '"')
-		return (double_quotes(c, utils, main));
+		return (double_quotes(c, utils));
 	else if (c == '$')
 		return (dollar(c, utils, main));
 	else if (ft_isdigit(c) == TRUE)

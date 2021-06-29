@@ -27,7 +27,7 @@ static char	*get_var_name(int *ind, char *str, char **new, t_main *m)
 	return (var);
 }
 
-static void	add_var(size_t indice, char **new, t_utils_lexer *uti, t_main *main)
+static void	add_var(size_t indice, char **new, t_main *main)
 {
 	size_t	j;
 
@@ -45,7 +45,7 @@ static void	add_var(size_t indice, char **new, t_utils_lexer *uti, t_main *main)
 	}
 }
 
-void	normal_caracter(char c, char **new, t_utils_lexer *utils, t_main *main)
+void	normal_caracter(char c, char **new, t_utils_lexer *utils)
 {
 	if (c == '\\'
 		&& ((utils->double_q == 0 && utils->sing_q == 0 && utils->echap == 0)
@@ -84,12 +84,12 @@ static	void	remplace(char *str, t_utils_lexer *utils, t_main *main)
 			if (var != NULL)
 				indice_var = var_defined(var, main);
 			if (indice_var != -1)
-				add_var(indice_var, &utils->word, utils, main);
+				add_var(indice_var, &utils->word, main);
 			if (var != NULL)
 				free(var);
 		}
 		else
-			normal_caracter(str[i], &utils->word, utils, main);
+			normal_caracter(str[i], &utils->word, utils);
 		if (utils->echap > 0 && str[i])
 			utils->echap--;
 	}
