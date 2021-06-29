@@ -2,8 +2,13 @@
 
 static void	change_var(int lvl, int i, t_main *main)
 {
+	char	*str;
 	if (lvl < 1000)
-		edit_var(ft_itoa(lvl), i, main);
+	{
+		str = ft_itoa(lvl);
+		edit_var(str, i, main);
+		free(str);
+	}
 	else if (lvl == 1000)
 	{
 		del_var(i, main);
@@ -29,7 +34,6 @@ static void	inc_shlvl(t_main *main)
 	if (i > -1)
 	{
 		var = split_var(main->env[i], main);
-		// printf("%s", var[0]);
 		lvl = ft_atoi(var[1]);
 		ft_freedoublestr(&var);
 		lvl++;

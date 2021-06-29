@@ -63,7 +63,6 @@ static int	arg_shrink(t_main *main)
 		return (cmd_error("cd", strerror(errno), main->oldpwd, 1));
 	ft_putstr_fd(main->oldpwd, 1);
 	ft_putstr_fd("\n", 1);
-	ft_freedoublestr(&var);
 	return (0);
 }
 
