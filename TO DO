@@ -1,8 +1,5 @@
 OCEAN:
-- proteger les fonctions "dir"
 - close fd for param in quit_prog
-- cd . (suppr) & pwd
-- return cmd error
 
 THOMAS:
 
@@ -19,3 +16,7 @@ signaux quand dans here doc ()
 etre sur des valeur de retour $? (genre avec signaux)
 creation fichier quand ambigous redirection avec "export TOTO="test >>ck" ; echo 42 > a > coi$TOTO\toi >d "
 
+- verif fct (malloc, lstnew...)
+- nm -g minishell "U"
+- prompt color
+- echo $ ; echo $_

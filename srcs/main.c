@@ -31,8 +31,9 @@ void	create_cmd(t_main *main)
 	{
 		update_main_lexer(NEW_COMMAND, &save);
 		create_param_cmd(&param_lst, main);
-		// printf("avant cmd_exec\n");
+		global.in_cmd = 1;
 		cmd_exec(param_lst, main);
+		global.in_cmd = 0;
 		ft_lstclear(&param_lst, free_param_cmd);
 		main->lexer = save;
 	}
@@ -40,6 +41,8 @@ void	create_cmd(t_main *main)
 
 void	loop(t_main *main)
 {
+	char	*prompt;
+
 	while (42)
 	{
 		if (main->line != NULL)
@@ -47,9 +50,11 @@ void	loop(t_main *main)
 			free(main->line);
 			main->line = NULL;
 		}
-		main->line = readline("bash_des_freros$ ");
+		prompt = location(main);
+		main->line = readline(prompt);
 		if (!main->line)
 			main->line = ft_strdup_no_list("exit");
+		free(prompt);
 		if (main->line && *main->line)
 			add_history(main->line);
 		tokenization(main->line, 0, main);
@@ -69,10 +74,15 @@ void	sig_action(int signum)
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		rl_redisplay();
+		if (!global.in_cmd)
+			rl_redisplay();
 	}
-	if (signum == SIGKILL)
-		quit_prog("exit\n", &res);
+	if (signum == SIGQUIT)
+	{
+		if (global.in_cmd)
+			printf("Quit: 3\n");
+		// quit_prog("exit\n", global.main);
+	}
 	// quit_prog()
 }
 

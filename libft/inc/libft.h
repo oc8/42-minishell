@@ -59,7 +59,7 @@ t_list			*ft_lstlast(t_list *lst);
 t_list			*ft_lstmap(t_list *l, void *(*f)(void *), void (*del)(void *));
 t_list			*ft_lstnew(void *content);
 int				ft_lstsize(t_list *lst);
-void			ft_lstdel_content(t_list *lst, void *content);
+void			ft_lstdel_content(t_list **lst, void *content);
 
 /*
 **	checker
@@ -76,6 +76,7 @@ int				ft_isprint(int c);
 */
 int				ft_atoi(const char *nptr);
 long			ft_atoi_l(const char *nptr);
+long long		ft_atoi_ll(const char *str);
 char			*ft_itoa(int n);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
@@ -102,6 +103,7 @@ void			*ft_memset(void *s, int c, size_t n);
 void			*ft_memadd(void *src, size_t old, size_t new, size_t space);
 void			ft_switch(void *v1, void *v2);
 void			ft_freedoublestr(char ***src);
+void			**realloc_double(size_t new_size, void ***src);
 
 /*
 **	print

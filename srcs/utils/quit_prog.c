@@ -10,7 +10,8 @@ void	free_all(t_main *main)
 		ft_lstclear(&main->lexer, free);
 	if (main->free)
 		ft_lstclear(&main->free, free);
-
+	if (main->pwd)
+		free(main->pwd);
 	// if (main->env)
 	// 	ft_freedoublestr(&main->env);
 	// if (main->home_path)

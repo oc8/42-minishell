@@ -134,7 +134,8 @@ typedef struct s_main
 {
 	char			*line;
 	char			**env;
-	size_t			nbr_env;
+	size_t			nbr_env; // ?
+	size_t			max;
 	t_list			*lexer;
 	// t_list			*histo;
 	t_list			*free;
@@ -147,13 +148,16 @@ typedef struct s_main
 	int				pipefd_here_doc[2];
 	int				count;
 	char			*home_path;
+	char			*pwd;
+	char			*oldpwd;
 }				t_main;
 
 typedef struct	s_global
 {
 	t_main	*main; // ?
 	int		exit_status;
-	int		pid;
+	int		pid; // ?
+	int		in_cmd;
 	t_list	*free;
 	t_list	*fd_open;
 }				t_global;
@@ -163,8 +167,6 @@ t_global	global;
 // t_main	main;
 
 void	loop(t_main *main);
-
-t_main	res;
 
 /*
 **	-->	PARSING <--
@@ -203,6 +205,7 @@ void	cmd_echo(t_param_cmd *param, t_main *main);
 void	cmd_pwd(t_param_cmd *param, t_main *main);
 void	cmd_env(t_param_cmd *param, t_main *main);
 void	cmd_export(t_param_cmd *param, t_main *main);
+void	print_export(t_main *main);
 void	cmd_unset(t_param_cmd *param, t_main *main);
 void	cmd_cd(t_param_cmd *param, t_main *main);
 void	cmd_exit(t_param_cmd *param, t_main *main);
@@ -215,8 +218,8 @@ void	open_fd(t_param_cmd *param, t_main *main);
 void	redir_in(int fd[2], t_main *main);
 void	redir_out(int fd[2], t_main *main);
 void	here_doc(char *str, t_main *main);
-void	redir_pipe_before(t_param_cmd *param, t_main *main);
-void	redir_pipe_after(t_param_cmd *param, t_main *main);
+void	redir_pipe_before(t_main *main);
+void	redir_pipe_after(t_main *main);
 void	save_here_doc(t_list *param_lst, t_main *main);
 void	open_fd_out(int fd[2], t_redir *redir, t_main *main);
 void	open_fd_in(int fd[2], t_redir *redir, t_main *main);
@@ -250,6 +253,8 @@ void	redirection(t_param_cmd *param, t_main *main);
 void	del_var(int index, t_main *main);
 int		is_here_doc(t_main *main);
 int		error_syntax(char *str, t_main *main);
+void	prog_error(char *cmd, char *error, char *errorstr);
 void	reset_var(t_main *main);
+char	*location(t_main *main);
 
 #endif

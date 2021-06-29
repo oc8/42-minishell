@@ -14,7 +14,7 @@ static void	cmd_fork(t_param_cmd *param, t_function *fct, t_main *main)
 	else if (main->pid[main->pid_nbr] == 0)
 	{
 		if (param->pipe_before)
-			redir_pipe_before(param, main);
+			redir_pipe_before(main);
 		if (param->here_doc_str) // not here
 		{
 			here_doc(param->here_doc_str, main);
@@ -22,7 +22,7 @@ static void	cmd_fork(t_param_cmd *param, t_function *fct, t_main *main)
 			close(main->pipefd_here_doc[0]);
 		}
 		if (param->pipe_after)
-			redir_pipe_after(param, main);
+			redir_pipe_after(main);
 		if (param->file_fd_in[0])
 			redir_in(param->file_fd_in, main);
 		if (param->file_fd_out[0])

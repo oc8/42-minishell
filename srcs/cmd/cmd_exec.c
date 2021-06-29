@@ -26,7 +26,7 @@ static void	save_last_arg(char **cmd, t_main *main)
 
 static void	wait_fork(t_main *main)
 {
-	size_t	i;
+	int		i;
 	int		exit_status;
 
 	i = 0;
