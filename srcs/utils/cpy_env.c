@@ -9,7 +9,9 @@ char	**cpy_env(char *env[], t_main *main)
 	len = ft_doublelen((const void **)env) + 1;
 	main->nbr_env = len - 1;
 	main->max = len * 2;
-	rs = ft_calloc_lst(&main->free, main->max, sizeof(char *));
+	rs = ft_calloc_lst(&main->free, main->max + 1, sizeof(char *));
+	if (!rs)
+		quit_prog("malloc() error", main);
 	i = 0;
 	while (env[i])
 	{

@@ -46,14 +46,17 @@ int	var_defined(char *var, t_main *main)
 	size_t	i;
 	size_t	j;
 
-	i = -1;
-	while (main->env[++i] != NULL)
+	if (main->env == NULL)
+		return (-1);
+	i = 0;
+	while (main->env[i] != NULL)
 	{
 		j = 0;
 		while (var[j] && var[j] == main->env[i][j])
 			j++;
 		if (var[j] == '\0' && (main->env[i][j] == '=' || !main->env[i][j]))
 			return (i);
+		i++;
 	}
 	return (-1);
 }
