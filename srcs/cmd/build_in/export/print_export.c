@@ -44,14 +44,11 @@ void	print_export(t_main *main)
 	sort = ft_calloc(main->nbr_env, sizeof(int));
 	while (env[i] && i < main->nbr_env)
 	{
-		j = 0;
+		j = -1;
 		i_min = max_alphabetical(env);
-		while (env[j] && j < main->nbr_env)
-		{
+		while (env[++j] && j < main->nbr_env)
 			if (!sort[j] && ft_strncmp(env[j], env[i_min], -1) < 0)
 				i_min = j;
-			j++;
-		}
 		if (sort[i_min])
 			break ;
 		sort[i_min] = 1;

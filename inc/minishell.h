@@ -126,7 +126,7 @@ typedef void	(*t_fct_cmd)(t_param_cmd *, struct s_main *);
 
 typedef struct s_function
 {
-	t_fct_cmd		fct;
+	t_fct_cmd		build_in;
 	char			*name;
 }				t_function;
 
@@ -157,7 +157,6 @@ typedef struct	s_global
 	t_main	*main; // ?
 	int		exit_status;
 	int		pid; // ?
-	void	*sig_action;
 	int		in_cmd;
 	t_list	*free;
 	t_list	*fd_open;
@@ -168,7 +167,7 @@ t_global	global;
 // t_main	main;
 
 void	loop(t_main *main);
-void	our_sig_action(int signum);
+void	sig_action(int signum);
 
 /*
 **	-->	PARSING <--
@@ -199,7 +198,7 @@ void	print_struct_cmd(t_list *param);
 /*
 **	-->	CMD <--
 */
-void	cmd_others(t_param_cmd *param, t_main *main);
+void	cmd_build_out(t_param_cmd *param, t_main *main);
 // void	cmd_exec(t_param_cmd *param, t_main *main);
 void	cmd_exec(t_list *param_lst, t_main *main);
 void	cmd_call(t_param_cmd *param, t_main *main);
@@ -211,12 +210,17 @@ void	print_export(t_main *main);
 void	cmd_unset(t_param_cmd *param, t_main *main);
 void	cmd_cd(t_param_cmd *param, t_main *main);
 void	cmd_exit(t_param_cmd *param, t_main *main);
+char	*check_path(char **paths, char *cmd, t_main *main);
+int		check_dir(char *path);
+void	reset_pwd_var(t_main *main);
 // void	test_cmd_exec(t_main *main); // temp
 
 /*
 **	-->	REDIR <--
 */
-void	open_fd(t_param_cmd *param, t_main *main);
+void	redir(t_param_cmd *param, t_main *main);
+void	close_redir(t_param_cmd *param, t_main *main);
+int		open_fd(t_param_cmd *param, t_main *main);
 void	redir_in(int fd[2], t_main *main);
 void	redir_out(int fd[2], t_main *main);
 void	here_doc(char *str, t_main *main);
@@ -232,7 +236,6 @@ void	close_pipe(t_main *main);
 /*
 **	-->	UTILS <--
 */
-void	print_prompt();
 void	quit_prog(char *error_str, t_main *main);
 char	*save_path_home(char **env, t_main *main);
 char	**cpy_env(char *env[], t_main *main);

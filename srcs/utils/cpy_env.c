@@ -18,7 +18,6 @@ char	**cpy_env(char *env[], t_main *main)
 		len = ft_strlen(env[i]) + 1;
 		rs[i] = ft_calloc_lst(&main->free, len, sizeof(char));
 		ft_strlcpy(rs[i], env[i], len);
-		// printf("%s | %s : %zu\n", env[i], rs[i], len);
 		i++;
 	}
 	rs[i] = 0;

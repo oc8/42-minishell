@@ -19,7 +19,6 @@ void	edit_var(char *new, size_t i, t_main *main)
 	if (!elem)
 		quit_prog("malloc() error", main);
 	ft_lstadd_front(&main->free, elem);
-	// ft_strlcpy(main->env[i], new, len_var);
 }
 
 void	new_var(char *add, t_main *main)
@@ -29,12 +28,8 @@ void	new_var(char *add, t_main *main)
 	t_list	*elem;
 
 	len = &main->nbr_env;
-	if (*len + 1 > main->max) // >= ?
+	if (*len + 1 > main->max)
 	{
-		// for (int i = 0; main->env[i]; i++)
-		// {
-		// 	printf("%s\n", main->env[i]);
-		// }
 		main->max *= 2;
 		ft_lstdel_content(&main->free, main->env);
 		main->env = (char **)realloc_double(main->max, (void ***)&main->env);
@@ -59,6 +54,5 @@ void	del_var(int index, t_main *main)
 	main->env[index - 1] = 0;
 	ft_lstdel_content(&main->free, &main->env[index]);
 	free(main->env[index]);
-	// main->env = ft_memadd(main->env, *len, *len - 1, sizeof(char *));
 	*len -= 1;
 }

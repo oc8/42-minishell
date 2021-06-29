@@ -27,12 +27,16 @@ void	create_cmd(t_main *main)
 
 	param_lst = NULL;
 	save = main->lexer;
+	if (!main->lexer)
+		global.exit_status = 0;
 	while (main->lexer != NULL)
 	{
 		update_main_lexer(NEW_COMMAND, &save);
 		create_param_cmd(&param_lst, main);
+		signal(SIGQUIT, &sig_action);
 		global.in_cmd = 1;
 		cmd_exec(param_lst, main);
+		signal(SIGQUIT, SIG_IGN);
 		global.in_cmd = 0;
 		ft_lstclear(&param_lst, free_param_cmd);
 		// printf("ici\n");
@@ -71,12 +75,16 @@ void	sig_action(int signum)
 	// if (signum == SIGINT && global.pid != getpid())
 	if (signum == SIGINT)
 	{
-		// printf("\npid = %d\n", getpid());
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		if (!global.in_cmd)
+		{
+			global.exit_status = 1;
 			rl_redisplay();
+		}
+		else
+			global.exit_status = 130;
 	}
 	if (signum == SIGQUIT)
 	{
@@ -84,39 +92,17 @@ void	sig_action(int signum)
 		// 	signal(SIGQUIT, SIG_IGN);
 		if (global.in_cmd)
 		{
-			// signal(SIGQUIT, SIG_DFL);
 			printf("Quit: 3\n");
+			global.exit_status = 131;
 		}
+		// quit_prog("exit\n", global.main);
 	}
 }
-
-// t_js	*getter_job(void)
-// {
-// 	static t_js job = (t_js) {.first_job = 0, .shell_pgid = 0,
-// 	{ .c_iflag = 0, .c_oflag = 0, .c_cflag = 0, .c_lflag = 0 },
-// 	.shell_terminal = 0, .shell_is_interactive = 0};
-// 	return (&job);
-// }
-
-// void	sig_action(int sig)
-// {
-// 	// ft_putchar_fd('\r', 1);
-// 	// ft_putchar_fd('\r', 1);
-// 	if (sig == SIGINT)
-// 	{
-// 		rl_on_new_line();
-// 		rl_redisplay();
-// 	}
-// 	else if (sig == SIGKILL)
-// 	{
-// 		printf("exit\n");
-// 		exit(0);
-// 	}
-// }
 
 int	main(int argc, char *argv[], char *env[])
 {
 	t_main	main;
+
 	(void)argv;
 	setbuf(stdout, NULL);
 	if (argc != 1)
@@ -124,17 +110,14 @@ int	main(int argc, char *argv[], char *env[])
 	ft_bzero(&main, sizeof(t_main));
 	global.main = &main;
 	global.pid = getpid();
-	global.sig_action = &sig_action;
-	// printf("pid bash = %d\n", getpid());
 	signal(SIGINT, &sig_action);
-	signal(SIGQUIT, &sig_action);
+	signal(SIGQUIT, SIG_IGN);
 	main.env = cpy_env(env, &main);
 	reset_var(&main);
 	main.home_path = save_path_home(main.env, &main);
 	init_cmd_fct(&main);
 	main.save_fd[0] = dup(0);
 	main.save_fd[1] = dup(1);
-	// print_env(&main);
 	loop(&main);
 	free(main.line);
 	ft_lstclear(&main.free, free);

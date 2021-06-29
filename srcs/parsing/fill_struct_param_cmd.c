@@ -2,7 +2,7 @@
 
 static void	sig_here_doc(int signum)
 {
-
+	(void)signum;
 }
 
 static void	update_here_doc(char *end, t_param_cmd *param, t_main *main)

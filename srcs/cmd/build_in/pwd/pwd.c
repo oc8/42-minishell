@@ -16,6 +16,5 @@ void	cmd_pwd(t_param_cmd *param, t_main *main)
 	else
 	{
 		printf("%s\n", cwd);
-		// free(cwd);
 	}
 }

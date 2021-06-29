@@ -27,7 +27,7 @@ void	set_pipe(t_param_cmd *param, t_list *param_lst, t_main *main)
 	if (param->pipe_after)
 	{
 		if (pipe(main->pipefd[main->count % 2]) == -1)
-			quit_prog("pipe()", main);
+			quit_prog("pipe() error", main);
 	}
 }
 

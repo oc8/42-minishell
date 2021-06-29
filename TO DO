@@ -1,5 +1,6 @@
 OCEAN:
 - close fd for param in quit_prog
+- +=
 
 THOMAS:
 
@@ -12,7 +13,6 @@ A PARLER ENSEMBLE :
 - prompt color
 
 changer couleur erreurs (ambigous redirect)
-signaux quand dans here doc ()
 etre sur des valeur de retour $? (genre avec signaux)
 creation fichier quand ambigous redirection avec "export TOTO="test >>ck" ; echo 42 > a > coi$TOTO\toi >d "
 

@@ -45,15 +45,13 @@ char	*location(t_main *main)
 
 	if (main->pwd)
 	{
-		// ft_lstdel_content(&main->free, main->pwd);
+		ft_lstdel_content(&main->free, main->pwd);
 		free(main->pwd);
 		main->pwd = 0;
 	}
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 		return (ft_strdup_no_list("."));
-	main->pwd = ft_calloc(ft_strlen(cwd) + 1, sizeof(char));
-	// main->pwd = ft_calloc_lst(&main->free, ft_strlen(cwd) + 1, sizeof(char));
+	main->pwd = ft_calloc_lst(&main->free, ft_strlen(cwd) + 1, sizeof(char));
 	ft_strlcpy(main->pwd, cwd, -1);
-	// free(cwd);
 	return (prompt(cwd, main));
 }

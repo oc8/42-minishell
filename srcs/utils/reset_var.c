@@ -3,6 +3,7 @@
 static void	change_var(int lvl, int i, t_main *main)
 {
 	char	*str;
+
 	if (lvl < 1000)
 	{
 		str = ft_itoa(lvl);
@@ -58,7 +59,7 @@ static void	set_pwd(t_main *main)
 	if (i > -1)
 		del_var(i, main);
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
-		prog_error("shell-init: error retrieving current directory", 	\
+		prog_error("shell-init: error retrieving current directory", \
 		"getcwd: cannot access parent directories", strerror(errno));
 	else
 	{
@@ -67,7 +68,6 @@ static void	set_pwd(t_main *main)
 		free(name_var);
 		new_var(var, main);
 		free(var);
-		// free(cwd);
 	}
 }
 
