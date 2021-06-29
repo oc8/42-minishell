@@ -1,82 +1,30 @@
 #include "minishell.h"
 
-static char	*strjoin_here_doc(char **buff, char **add)
-{
-	char	*rs;
-	size_t	i;
-	size_t	j;
-	int		size;
-
-	if (*buff)
-		size = ft_strlen(*buff) + ft_strlen(*add) + 2;
-	else
-		size = ft_strlen(*add) + 2;
-	rs = ft_calloc(size, sizeof(1));
-	if (!rs)
-		return (0);
-	i = 0;
-	if (*buff)
-	{
-		while ((*buff)[i])
-		{
-			rs[i] = (*buff)[i];
-			i++;
-		}
-		free(*buff);
-		*buff = NULL;
-	}
-	if (*add)
-	{
-		j = 0;
-		while ((*add)[j])
-		{
-			rs[i] = (*add)[j];
-			j++;
-			i++;
-		}
-		free(*add);
-		*add = NULL;
-	}
-	rs[i] = '\n';
-	rs[++i] = '\0';
-	return (rs);
-}
-
 static void	update_here_doc(char *end, t_param_cmd *param, t_main *main)
 {
-	char	*new_line;
-	char	*with_var;
-	char	*here_doc;
+	t_utils_heredoc	u;
 
-	here_doc = ft_strdup_no_list("");
-	with_var = NULL;
-	new_line = NULL;
-	while (ft_strncmp_minishell(new_line, end, -1))
+	ft_bzero(&u, sizeof(t_utils_heredoc));
+	u.here_doc = ft_strdup_no_list("");
+	while (ft_strncmp_minishell(u.new_line, end, -1))
 	{
-		if (new_line)
+		free(u.new_line);
+		u.new_line = NULL;
+		u.new_line = readline("> ");
+		if (!u.new_line)
+			u.new_line = ft_strdup_no_list(end);
+		if (ft_strncmp_minishell(u.new_line, end, -1))
 		{
-			free(new_line);
-			new_line = NULL;
+			treat_here_doc_line(&u.with_var, u.new_line, main);
+			if (u.with_var)
+				u.here_doc = strjoin_here_doc_parsing(&u.here_doc, &u.with_var);
+			free(u.with_var);
+			u.with_var = NULL;
 		}
-		new_line = readline("> ");
-		if (!new_line)
-			new_line = ft_strdup_no_list(end);
-			// break;
-		if (ft_strncmp_minishell(new_line, end, -1))
-		{
-			treat_here_doc_line(&with_var, new_line, main);
-			if (with_var)
-				here_doc = strjoin_here_doc(&here_doc, &with_var);
-		}
-		// free(with_var);
-		// with_var = NULL;
 	}
-	free(new_line);
-	new_line = NULL;
-	if (param->here_doc_str)
-		free(param->here_doc_str);
-	param->here_doc_str = here_doc;
-	// printf("here doc = \n|%s|\n", param->here_doc_str);
+	free(u.new_line);
+	free(param->here_doc_str);
+	param->here_doc_str = u.here_doc;
 }
 
 static void	update_command(t_lexer *lex, t_param_cmd *param, t_main *main)
@@ -147,9 +95,6 @@ void	fill_struct(t_param_cmd *param, t_main *main)
 		tmp = index->content;
 		if (tmp->type == COMMAND || tmp->type == ARGUMENT)
 			update_command(tmp, param, main);
-		// if (tmp->type == REDIR_IN || tmp->type == REDIR_OUT
-		// 	|| tmp->type == APP_REDIR_OUT || tmp->type == HERE_DOC)
-		// 	update_redirs_lst(index, param, main);
 		if (tmp->type == REDIR_IN || tmp->type == REDIR_OUT
 			|| tmp->type == APP_REDIR_OUT)
 			update_redirs_lst(index, param, main);

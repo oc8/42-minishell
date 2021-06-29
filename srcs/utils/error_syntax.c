@@ -4,7 +4,7 @@ int	error_syntax(char *str, t_main *main)
 {
 	int		fd_int;
 	char	*fd_str;
-	
+
 	if (!ft_isdigit(str[0]))
 		printf("bash: syntax error near unexpected token `%s'\n", str);
 	else

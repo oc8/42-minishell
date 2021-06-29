@@ -2,7 +2,6 @@
 
 void	update_lst(t_utils_var *utils, t_main *main)
 {
-	// utils->new = NULL;
 	utils->split = NULL;
 	utils->save = utils->index->next;
 	utils->tmp3 = utils->index->content;
@@ -16,20 +15,14 @@ void	update_lst(t_utils_var *utils, t_main *main)
 	else
 		utils->previous->next = NULL;
 	utils->split = remplace_var_value(utils->str_with_var, main);
-	// printf("i_split = %d\n", )
 	if (utils->split)
 		while (utils->split[utils->i_split])
 			tokenization(utils->split[utils->i_split++], 0, main);
-	// remplace_var_value(utils->new, utils->str_with_var, main);
-	// printf("new update_lst = %s\n", utils->new);
-	// if (utils->new)
-	// 	tokenization(utils->new, 0, main);
 	utils->last = ft_lstlast(main->lexer);
 	if (utils->last)
 		utils->last->next = utils->save;
 	else
 		main->lexer = utils->save;
-	// free(utils->new);
 	ft_freedoublestr(&utils->split);
 	free(utils->str_with_var);
 }
@@ -73,7 +66,6 @@ void	create_param_cmd(t_list **param_lst, t_main *main)
 	while (main->lexer != NULL)
 	{
 		update_main_lexer(PIPE, &save);
-		// print_lexer(main);
 		contain_var(main);
 		define_text_types(main);
 		param = ft_calloc(1, sizeof(t_param_cmd));
@@ -85,9 +77,7 @@ void	create_param_cmd(t_list **param_lst, t_main *main)
 			quit_prog("Malloc new_element of lst in create_param_cmd", main);
 		new->content = param;
 		ft_lstadd_back(param_lst, new);
-		// print_lexer(main);
 		ft_lstclear(&main->lexer, free_lexer);
 		main->lexer = save;
 	}
-	// print_struct_cmd(*param_lst);
 }

@@ -10,14 +10,13 @@ void	free_all(t_main *main)
 		ft_lstclear(&main->lexer, free);
 	if (main->free)
 		ft_lstclear(&main->free, free);
-	
+
 	// if (main->env)
 	// 	ft_freedoublestr(&main->env);
 	// if (main->home_path)
 	// 	free(main->home_path);
 	if (main->file)
 		close(main->file);
-	
 }
 
 void	quit_prog(char *str, t_main *main)

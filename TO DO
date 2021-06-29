@@ -5,29 +5,17 @@ OCEAN:
 - return cmd error
 
 THOMAS:
-- ajouter les fd dans redirection --> OK
-- fin fill_struct --> OK
-- free param_cmd --> OK
-- gerer les espaces dans les tokenisation de VAR_ENV --> OK
-- gerer si il y a des "" '' --> OK
-- gerer message bash: $TOTO: ambiguous redirect --> OK
-- voir les synthax error avec tests thallard (pipes) --> OK
-- faire script $? --> OK
-- set exit_statis quand error synthax --> OK
-- faire une liste de structure pour les commandes pipe --> OK
-- free list_structs --> OK
-- mettre a la norme
-- enlever setbuf et faire des tests
 
 A PARLER ENSEMBLE :
 - set le exit_status du main a chaque commande execute --> ok
 - signaux
 - norme
+- norme LIBFT
 - verif fct (malloc...)
 - prompt color
 
 changer couleur erreurs (ambigous redirect)
 signaux quand dans here doc ()
 etre sur des valeur de retour $? (genre avec signaux)
-creation ficheir avec "export TOTO="test >>ck" ; echo 42 > a > coi$TOTO\toi >d "
+creation fichier quand ambigous redirection avec "export TOTO="test >>ck" ; echo 42 > a > coi$TOTO\toi >d "
 

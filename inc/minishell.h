@@ -54,6 +54,13 @@ typedef enum e_index_cmd
 	I_EXIT
 }				t_index_cmd;
 
+typedef struct s_utils_heredoc
+{
+	char	*new_line;
+	char	*with_var;
+	char	*here_doc;
+}				t_utils_heredoc;
+
 typedef struct s_utils_lexer
 {
 	char	*str;
@@ -66,7 +73,6 @@ typedef struct s_utils_lexer
 	int		i_split;
 	int		var_env;
 	int		start_word;
-	// int		splited;
 }				t_utils_lexer;
 
 typedef struct s_lexer
@@ -163,7 +169,6 @@ t_main	res;
 /*
 **	-->	PARSING <--
 */
-void	get_operator_command(t_main *main);
 void	tokenization(char *str, int indice, t_main *main);
 void	update_word(char c, char **str);
 void	predefine_var(t_utils_lexer *utils, t_main *m);
@@ -236,6 +241,7 @@ void	init_cmd_fct(t_main *main);
 char	**split_var(char *var, t_main *main);
 int		cmd_error(char *cmd, char *error, char *arg, int nbr);
 int		check_var_name(char *name);
+char	*strjoin_here_doc_parsing(char **buff, char **add);
 int		var_defined(char *var, t_main *main);
 void	new_var(char *add, t_main *main);
 void	edit_var(char *add, size_t i, t_main *main);

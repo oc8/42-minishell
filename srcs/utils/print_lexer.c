@@ -30,7 +30,7 @@ void	print_lexer(t_main *main)
 {
 	t_lexer	*tmp;
 	t_list	*iter;
-	
+
 	printf("Lexer , size = %d : \n", ft_lstsize(main->lexer));
 	iter = main->lexer;
 	while (iter != NULL)

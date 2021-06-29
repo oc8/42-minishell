@@ -35,8 +35,6 @@ static void	add_var(size_t indice, char **new, t_utils_lexer *uti, t_main *main)
 	while (main->env[indice][j] != '=')
 		j++;
 	j++;
-	// if (uti->double_q == 0)
-	// 	update_word('"', new);
 	while (main->env[indice][j])
 	{
 		if (main->env[indice][j] == '\\' || main->env[indice][j] == '>'
@@ -44,11 +42,7 @@ static void	add_var(size_t indice, char **new, t_utils_lexer *uti, t_main *main)
 			|| main->env[indice][j] == ';')
 			update_word('\\', new);
 		update_word(main->env[indice][j++], new);
-		// if (main->env[indice][j] == ' ' && uti->double_q == 0)
-		// 	uti->splited;
 	}
-	// if (uti->double_q == 0)
-	// 	update_word('"', new);
 }
 
 void	normal_caracter(char c, char **new, t_utils_lexer *utils, t_main *main)
@@ -71,44 +65,44 @@ void	normal_caracter(char c, char **new, t_utils_lexer *utils, t_main *main)
 		else if (utils->double_q == 1)
 			utils->double_q = 0;
 	}
-	// if (c == '\\' && utils->echap == 1)
-	// 	update_word('\'', new);
 	update_word(c, new);
 }
 
-// void	remplace_var_value(char **new, char *str, t_main *main)
-char	**remplace_var_value(char *str, t_main *main)
+static	void	remplace(char *str, t_utils_lexer *utils, t_main *main)
 {
-	int				indice_var;
-	char			**split;
-	t_utils_lexer	utils;
-	char			*var;
-	int				i;
+	int		i;
+	int		indice_var;
+	char	*var;
 
-	ft_bzero(&utils, sizeof(t_utils_lexer));
-	split = NULL;
-	// new = NULL;
 	i = -1;
 	while (str[++i])
 	{
-		if (str[i] == '$' && !utils.sing_q && !utils.echap)
+		if (str[i] == '$' && !utils->sing_q && !utils->echap)
 		{
 			indice_var = -1;
-			var = get_var_name(&i, str, &utils.word, main);
+			var = get_var_name(&i, str, &utils->word, main);
 			if (var != NULL)
 				indice_var = var_defined(var, main);
 			if (indice_var != -1)
-				add_var(indice_var, &utils.word, &utils, main);
+				add_var(indice_var, &utils->word, utils, main);
 			if (var != NULL)
 				free(var);
 		}
 		else
-			normal_caracter(str[i], &utils.word, &utils, main);
-		if (utils.echap > 0 && str[i])
-			utils.echap--;
+			normal_caracter(str[i], &utils->word, utils, main);
+		if (utils->echap > 0 && str[i])
+			utils->echap--;
 	}
-	// printf("utils->word remplace = |%s|\n", utils.word);
-	// if (utils.splited == 1)
+}
+
+char	**remplace_var_value(char *str, t_main *main)
+{
+	char			**split;
+	t_utils_lexer	utils;
+
+	ft_bzero(&utils, sizeof(t_utils_lexer));
+	split = NULL;
+	remplace(str, &utils, main);
 	split = split_var_parsing(utils.word);
 	free(utils.word);
 	return (split);

@@ -17,7 +17,6 @@ LST_SRCS		= \
 	redirection/here_doc.c \
 	redirection/pipe.c \
 	redirection/fd.c \
-	parsing/get_operator_command.c \
 	parsing/tokenization.c \
 	parsing/check_caracter_lex.c \
 	parsing/quotes_backslash_dollar.c \
@@ -33,6 +32,7 @@ LST_SRCS		= \
 	utils/ft_strncmp_minishell.c \
 	utils/ft_strdup_no_list.c \
 	utils/ft_atoi_redirection.c \
+	utils/strjoin_here_doc.c \
 	utils/free_lexer.c \
 	utils/free_param_cmd.c \
 	utils/print_struct_cmd.c \
@@ -53,7 +53,7 @@ CC				= clang
 # CFLAGS			= -Wall -Werror -Wextra
 # CFLAGS			= -g
 # CFLAGS			= -Wall -Werror -Wextra -fsanitize=address -g3
-# CFLAGS			= -fsanitize=address -g3
+CFLAGS			= -fsanitize=address -g3
 INCLUDE			= -Iinc -I${LIBFT}/inc -I/Users/$(USER)/.brew/opt/readline/include
 RM				= rm -rf
 MKDIR			= mkdir -p

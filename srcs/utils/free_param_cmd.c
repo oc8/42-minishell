@@ -4,7 +4,7 @@ static void	free_redirection(void *to_free)
 {
 	t_redir	*redir;
 
-	redir = (t_redir*)to_free;
+	redir = (t_redir *)to_free;
 	free(redir->file);
 	free(redir->var_err);
 	free(redir);
@@ -13,18 +13,11 @@ static void	free_redirection(void *to_free)
 void	free_param_cmd(void *ptr)
 {
 	t_param_cmd	*param;
-	int	i;
+	int			i;
 
-	param = (t_param_cmd*)ptr;
-	if (param->cmd)	// METTRE DOUBLESTR FREE !!!!!
-	{
+	param = (t_param_cmd *)ptr;
+	if (param->cmd)
 		ft_freedoublestr(&param->cmd);
-		// i = -1;
-		// while (param->cmd[++i])
-		// 	free(param->cmd[i]);
-		// free(param->cmd);
-		// param->cmd = NULL;
-	}
 	free(param->here_doc_str);
 	param->here_doc_str = NULL;
 	ft_lstclear(&param->redir, free_redirection);

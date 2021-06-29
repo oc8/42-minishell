@@ -44,8 +44,8 @@ void	redir_special(char c, t_utils_lexer *utils, t_main *main)
 
 static void	carac_special(char c, t_utils_lexer *utils, t_main *main)
 {
-	if (utils->sing_q == 1 || (utils->double_q == 1) || 
-		utils->echap == 1)
+	if (utils->sing_q == 1 || (utils->double_q == 1)
+		|| utils->echap == 1)
 	{
 		if (utils->double_q == 1 && utils->echap == 1)
 			update_word('\\', &utils->word);

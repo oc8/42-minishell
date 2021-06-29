@@ -35,18 +35,14 @@ static void	add_var(size_t indice, char **new, t_utils_lexer *uti, t_main *main)
 	while (main->env[indice][j] != '=')
 		j++;
 	j++;
-	// if (uti->double_q == 0)
-	// 	update_word('"', new);
 	while (main->env[indice][j])
 		update_word(main->env[indice][j++], new);
-	// if (uti->double_q == 0)
-	// 	update_word('"', new);
 }
 
 static void	normal_caracter(char c, char **new, t_utils_lexer *ut, t_main *main)
 {
 	if (c == '\\' && ut->echap == 0)
-			ut->echap = 2;
+		ut->echap = 2;
 	else
 		update_word(c, new);
 }
