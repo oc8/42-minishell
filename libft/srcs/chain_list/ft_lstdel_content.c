@@ -1,23 +1,31 @@
 #include "libft.h"
 
-void	ft_lstdel_content(t_list *lst, void *content)
+void	ft_lstdel_content(t_list **lst, void *content)
 {
 	t_list	*tmp;
+	t_list	*elem;
 
+	elem = *lst;
 	if (content == NULL)
 		return ;
-	while (lst)
+	if (elem->content == content)
 	{
-		if (lst->content == content)
+		*lst = (*lst)->next;
+		free(elem);
+		return ;
+	}
+	while (elem)
+	{
+		if (elem->content == content)
 		{
-			tmp->next = lst->next;
-			free(lst);
-			lst = tmp->next;
+			tmp->next = elem->next;
+			free(elem);
+			elem = tmp->next;
 		}
 		else
 		{
-			tmp = lst;
-			lst = lst->next;
+			tmp = elem;
+			elem = elem->next;
 		}
 	}
 }

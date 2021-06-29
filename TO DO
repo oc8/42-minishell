@@ -21,7 +21,7 @@ A PARLER ENSEMBLE :
 - relink Makefile
 - signaux
 - norme
-- verif fct (malloc...)
+- verif fct (malloc, lstnew...)
 - nm -g minishell "U"
 - prompt color
 - echo $ ; echo $_

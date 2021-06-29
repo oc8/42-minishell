@@ -20,6 +20,6 @@ t_list	*ft_lstnew(void *content)
 	if (!list)
 		return (0);
 	list->content = content;
-	list->next = 0;
+	list->next = NULL;
 	return (list);
 }

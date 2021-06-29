@@ -49,6 +49,7 @@ LST_OBJS	= \
 	memory/ft_memadd.o \
 	memory/ft_switch.o \
 	memory/ft_freedoublestr.o \
+	memory/realloc_double.o \
 	print/ft_putchar_fd.o \
 	print/ft_putendl_fd.o \
 	print/ft_putnbr_fd.o \

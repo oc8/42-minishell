@@ -8,7 +8,8 @@ char	**cpy_env(char *env[], t_main *main)
 
 	len = ft_doublelen((const void **)env) + 1;
 	main->nbr_env = len - 1;
-	rs = ft_calloc_lst(&main->free, len, sizeof(char *));
+	main->max = len * 2;
+	rs = ft_calloc_lst(&main->free, main->max, sizeof(char *));
 	i = 0;
 	while (env[i])
 	{

@@ -124,7 +124,8 @@ typedef struct s_main
 {
 	char			*line;
 	char			**env;
-	size_t			nbr_env;
+	size_t			nbr_env; // ?
+	size_t			max;
 	t_list			*lexer;
 	// t_list			*histo;
 	t_list			*free;
@@ -138,12 +139,14 @@ typedef struct s_main
 	int				count;
 	char			*home_path;
 	char			*pwd;
+	char			*oldpwd;
 }				t_main;
 
 typedef struct	s_global
 {
 	t_main	*main; // ?
 	int		exit_status;
+	int		in_cmd;
 	t_list	*free;
 	t_list	*fd_open;
 }				t_global;

@@ -31,7 +31,9 @@ void	create_cmd(t_main *main)
 	{
 		update_main_lexer(NEW_COMMAND, &save);
 		create_param_cmd(&param_lst, main);
+		global.in_cmd = 1;
 		cmd_exec(param_lst, main);
+		global.in_cmd = 0;
 		ft_lstclear(&param_lst, free_param_cmd);
 		main->lexer = save;
 	}
@@ -67,10 +69,15 @@ void	sig_action(int signum)
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		rl_redisplay();
+		if (!global.in_cmd)
+			rl_redisplay();
 	}
-	if (signum == SIGKILL)
-		quit_prog("exit\n", global.main);
+	if (signum == SIGQUIT)
+	{
+		if (global.in_cmd)
+			printf("Quit: 3\n");
+		// quit_prog("exit\n", global.main);
+	}
 	// quit_prog()
 }
 
@@ -109,7 +116,6 @@ int	main(int argc, char *argv[], char *env[])
 	global.main = &main;
 	signal(SIGINT, &sig_action);
 	signal(SIGQUIT, &sig_action);
-	signal(SIGKILL, &sig_action);
 	main.env = cpy_env(env, &main);
 	reset_var(&main);
 	main.home_path = save_path_home(main.env, &main);

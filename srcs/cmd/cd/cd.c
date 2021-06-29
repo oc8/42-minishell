@@ -1,5 +1,22 @@
 #include "minishell.h"
 
+static void	save_pwd(t_main *main)
+{
+	char	cwd[PWD_MAX_SIZE];
+
+	if (main->oldpwd)
+	{
+		free(main->oldpwd);
+		main->oldpwd = 0;
+	}
+	if (main->pwd)
+		main->oldpwd = main->pwd;
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		return ;
+	main->pwd = ft_calloc(ft_strlen(cwd) + 1, sizeof(char));
+	ft_strlcpy(main->pwd, cwd, -1);
+}
+
 static void	reset_pwd_var(t_main *main)
 {
 	int		i;
@@ -7,6 +24,7 @@ static void	reset_pwd_var(t_main *main)
 	char	**var;
 	char	cwd[PWD_MAX_SIZE];
 
+	save_pwd(main);
 	i = var_defined("OLDPWD", main);
 	if (i == -1)
 		return ;
@@ -40,15 +58,11 @@ static int	arg_shrink(t_main *main)
 	char	**var;
 	int		i;
 
-	i = var_defined("OLDPWD", main);
-	if (i == -1)
+	if (main->oldpwd == NULL)
 		return (cmd_error("cd", "OLDPWD not set", 0, 1));
-	var = split_var(main->env[i], main);
-	if (!var[1])
-		return (cmd_error("cd", "OLDPWD not set", 0, 1));
-	if (chdir(var[1]) == -1)
-		return (cmd_error("cd", strerror(errno), var[1], 1));
-	ft_putstr_fd(var[1], 1);
+	if (chdir(main->oldpwd) == -1)
+		return (cmd_error("cd", strerror(errno), main->oldpwd, 1));
+	ft_putstr_fd(main->oldpwd, 1);
 	ft_putstr_fd("\n", 1);
 	ft_freedoublestr(&var);
 	return (0);
