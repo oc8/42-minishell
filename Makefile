@@ -71,6 +71,13 @@ all:			libft $(NAME)
 $(OBJS_DIR):
 				$(MKDIR) $@
 
+color:			
+				mkdir -p bonus/switch
+				mv srcs/utils/prompt.c bonus/switch/
+				mv bonus/prompt.c srcs/utils/
+				mv bonus/switch/prompt.c bonus/
+				make re
+
 libft:
 				printf "$(ERASE)${GREEN}--> LIBFT <--${END}"
 				make -C ${LIBFT} > SILENT
@@ -101,7 +108,7 @@ fclean:			clean
 re:				fclean all
 
 .PHONY: 		clean fclean all re compil libft
-.SILENT:		clean fclean all re compil libft $(OBJS) $(NAME) $(OBJS_DIR)
+.SILENT:		clean fclean all re compil libft $(OBJS) $(NAME) $(OBJS_DIR) color
 
 ERASE	= \033[2K\r
 GREY	= \033[30m
