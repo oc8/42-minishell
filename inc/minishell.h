@@ -116,7 +116,7 @@ typedef struct s_param_cmd
 	int		file_fd_in[2];
 }				t_param_cmd;
 
-struct	s_main;
+struct			s_main;
 
 typedef void	(*t_fct_cmd)(t_param_cmd *, struct s_main *);
 
@@ -155,7 +155,7 @@ typedef struct s_global
 	t_list	*fd_open;
 }				t_glob;
 
-t_glob	g_global;
+t_glob			g_global;
 
 void			loop(t_main *main);
 void			sig_action(int signum);

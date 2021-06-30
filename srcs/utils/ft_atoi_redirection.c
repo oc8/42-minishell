@@ -19,7 +19,7 @@ int	ft_atoi_redirection(const char *nptr, t_type_lex type)
 	{
 		rs = rs * 10 + (nptr[i++] - '0');
 		if (rs > INT_MAX)
-			return (INT_MAX);
+			return (-1);
 	}
 	return (rs);
 }

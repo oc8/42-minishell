@@ -54,7 +54,7 @@ static void	bash_script(t_utils_lexer *utils)
 
 void	dollar(char c, t_utils_lexer *utils, t_main *m)
 {
-	if (utils->sing_q == 1 || utils->echap == 1 || is_here_doc(m))
+	if (utils->sing_q == 1 || utils->echap == 1 || (m->lexer && is_here_doc(m)))
 		update_word(c, &utils->word);
 	else
 	{
