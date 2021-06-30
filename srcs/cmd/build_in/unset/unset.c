@@ -13,7 +13,7 @@ void	cmd_unset(t_param_cmd *param, t_main *main)
 	while (arg[i])
 	{
 		if (check_var_name(arg[i]) != 2)
-			cmd_error("export", "not a valid identifier", arg[i], 1);
+			cmd_error("unset", "not a valid identifier", arg[i], 1);
 		if (!ft_strncmp("OLDPWD", arg[0], 6))
 			main->oldpwd = NULL;
 		index = var_defined(arg[i], main);

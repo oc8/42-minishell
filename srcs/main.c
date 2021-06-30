@@ -85,14 +85,11 @@ void	sig_action(int signum)
 	}
 	if (signum == SIGQUIT)
 	{
-		// if (!global.in_cmd)
-		// 	signal(SIGQUIT, SIG_IGN);
 		if (g_global.in_cmd)
 		{
 			printf("Quit: 3\n");
 			g_global.exit_status = 131;
 		}
-		// quit_prog("exit\n", global.main);
 	}
 }
 
@@ -104,7 +101,6 @@ int	main(int argc, char *argv[], char *env[])
 	if (argc != 1)
 		quit_prog("minishell as to be launch without args\n", &main);
 	ft_bzero(&main, sizeof(t_main));
-	// g_global.main = &main;
 	signal(SIGINT, &sig_action);
 	signal(SIGQUIT, SIG_IGN);
 	main.env = cpy_env(env, &main);

@@ -179,7 +179,6 @@ int				verif_redir_var(t_lexer *to_check, t_list *prec, t_main *main);
 void			reconize_primitive_type(t_lexer *lex, t_utils_lexer *utils);
 void			create_param_cmd(t_list **param_lst, t_main *main);
 void			treat_here_doc_line(char **new, char *str, t_main *main);
-// void			remplace_var_value(char **new, char *str, t_main *main);
 char			**remplace_var_value(char *str, t_main *main);
 char			**split_var_parsing(char *str);
 void			define_text_types(t_main *main);
@@ -190,7 +189,6 @@ void			print_struct_cmd(t_list *param);
 **	-->	CMD <--
 */
 void			cmd_build_out(t_param_cmd *param, t_main *main);
-// void			cmd_exec(t_param_cmd *param, t_main *main);
 void			cmd_exec(t_list *param_lst, t_main *main);
 void			cmd_call(t_param_cmd *param, t_main *main);
 void			cmd_echo(t_param_cmd *param, t_main *main);
@@ -204,7 +202,6 @@ void			cmd_exit(t_param_cmd *param, t_main *main);
 char			*check_path(char **paths, char *cmd, t_main *main);
 int				check_dir(char *path);
 void			reset_pwd_var(t_main *main);
-// void			test_cmd_exec(t_main *main); // temp
 
 /*
 **	-->	REDIR <--
@@ -222,7 +219,6 @@ void			open_fd_out(int fd[2], t_redir *redir, t_main *main);
 void			open_fd_in(int fd[2], t_redir *redir, t_main *main);
 void			set_pipe(t_param_cmd *param, t_list *param_lst, t_main *main);
 void			close_pipe(t_main *main);
-// void			check_fd(t_param_cmd *param, t_main *main);
 
 /*
 **	-->	UTILS <--

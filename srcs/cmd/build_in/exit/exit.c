@@ -5,12 +5,22 @@ static int	is_nbr(char *str)
 	size_t	i;
 
 	i = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-')
+		i++;
 	while (str[i])
 	{
+		if (str[i] == ' ' && i > 1 && str[i - 1] != '-')
+			break ;
 		if (!(str[i] >= '0' && str[i] <= '9'))
 			return (0);
 		i++;
 	}
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i])
+		return (0);
 	return (1);
 }
 
@@ -46,7 +56,7 @@ static int	calc_exit_status(char **arg, size_t i)
 		status = cmd_error("exit", "numeric argument required", \
 			arg[0], 255);
 	else
-		status = (unsigned char)rs;
+		status = (unsigned char)(rs % 256);
 	return (status);
 }
 
@@ -73,7 +83,7 @@ void	cmd_exit(t_param_cmd *param, t_main *main)
 		loop(main);
 	}
 	else
-		calc_exit_status(arg, i);
+		status = calc_exit_status(arg, i);
 	free_all(main);
 	exit(status);
 }

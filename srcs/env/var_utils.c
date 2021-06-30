@@ -2,7 +2,6 @@
 
 static char	*content_var(size_t equal, char *var, size_t i, t_main *main)
 {
-	char	*name;
 	char	*content;
 
 	content = ft_calloc(ft_strlen(&var[i + 1]) + 1, sizeof(char));
