@@ -103,6 +103,8 @@ char	**remplace_var_value(char *str, t_main *main)
 	ft_bzero(&utils, sizeof(t_utils_lexer));
 	split = NULL;
 	remplace(str, &utils, main);
+	if (!utils.word)
+		return (NULL);
 	split = split_var_parsing(utils.word);
 	free(utils.word);
 	return (split);

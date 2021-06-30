@@ -27,6 +27,8 @@ void	create_cmd(t_main *main)
 
 	param_lst = NULL;
 	save = main->lexer;
+	if (!main->lexer)
+		g_global.exit_status = 0;
 	while (main->lexer != NULL)
 	{
 		update_main_lexer(NEW_COMMAND, &save);
@@ -74,12 +76,23 @@ void	sig_action(int signum)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		if (!g_global.in_cmd)
+		{
+			g_global.exit_status = 1;
 			rl_redisplay();
+		}
+		else
+			g_global.exit_status = 130;
 	}
 	if (signum == SIGQUIT)
 	{
+		// if (!global.in_cmd)
+		// 	signal(SIGQUIT, SIG_IGN);
 		if (g_global.in_cmd)
+		{
 			printf("Quit: 3\n");
+			g_global.exit_status = 131;
+		}
+		// quit_prog("exit\n", global.main);
 	}
 }
 

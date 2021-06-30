@@ -1,17 +1,19 @@
 NAME			= minishell
 LST_SRCS		= \
 	main.c \
-	cmd/others/others.c \
 	cmd/cmd_exec.c \
 	cmd/cmd_call.c \
-	cmd/echo/echo.c \
-	cmd/pwd/pwd.c \
-	cmd/cd/cd.c \
-	cmd/export/export.c \
-	cmd/export/print_export.c \
-	cmd/unset/unset.c \
-	cmd/env/env.c \
-	cmd/exit/exit.c \
+	cmd/build_out/build_out.c \
+	cmd/build_out/utils.c \
+	cmd/build_in/echo/echo.c \
+	cmd/build_in/pwd/pwd.c \
+	cmd/build_in/cd/cd.c \
+	cmd/build_in/export/export.c \
+	cmd/build_in/export/print_export.c \
+	cmd/build_in/unset/unset.c \
+	cmd/build_in/env/env.c \
+	cmd/build_in/exit/exit.c \
+	cmd/build_in/cd/change_var.c \
 	redirection/redirection.c \
 	redirection/in.c \
 	redirection/out.c \
@@ -52,10 +54,10 @@ OBJS_DIR		= objs
 SRCS			= $(addprefix $(SRCS_DIR)/,$(LST_SRCS))
 OBJS			= $(LST_SRCS:%.c=$(OBJS_DIR)/%.o)
 CC				= clang
-CFLAGS			= -Wall -Werror -Wextra
+# CFLAGS			= -Wall -Werror -Wextra
 # CFLAGS			= -g
 # CFLAGS			= -Wall -Werror -Wextra -fsanitize=address -g3
-# CFLAGS			= -fsanitize=address -g3
+CFLAGS			= -fsanitize=address -g3
 INCLUDE			= -Iinc -I${LIBFT}/inc -I/Users/$(USER)/.brew/opt/readline/include
 RM				= rm -rf
 MKDIR			= mkdir -p

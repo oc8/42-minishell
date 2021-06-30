@@ -25,6 +25,5 @@ void	*ft_memadd(void *src, size_t old_size, size_t new_size, size_t space)
 		i++;
 	}
 	new[i] = 0;
-	// free(src); // leaks ??
 	return (new);
 }

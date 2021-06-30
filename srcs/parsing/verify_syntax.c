@@ -38,7 +38,8 @@ int	verif_redir_var(t_lexer *to_check, t_list *prec, t_main *main)
 			return (0);
 		}
 	}
-	ft_freedoublestr(&new);
+	if (new)
+		ft_freedoublestr(&new);
 	return (1);
 }
 

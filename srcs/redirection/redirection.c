@@ -1,32 +1,25 @@
 #include "minishell.h"
 
-// static int	redir_chevron(t_param_cmd *param, t_main *main) // no
-// {
-// 	t_redir	*redir;
-// 	t_list	*redir_lst;
+void	redir(t_param_cmd *param, t_main *main)
+{
+	if (param->pipe_before)
+		redir_pipe_before(main);
+	if (param->here_doc_str)
+		here_doc(param->here_doc_str, main);
+	if (param->pipe_after)
+		redir_pipe_after(main);
+	if (param->file_fd_in[0])
+		redir_in(param->file_fd_in, main);
+	if (param->file_fd_out[0])
+		redir_out(param->file_fd_out, main);
+}
 
-// 	redir_lst = param->redir;
-// 	while (redir_lst)
-// 	{
-// 		redir = (t_redir *)redir_lst->content;
-// 		if (redir->var_err)
-// 			return (cmd_error(0, "ambiguous redirect", redir->var_err, 1));
-// 		if (redir->type == REDIR_OUT || redir->type == APP_REDIR_OUT)
-// 		{
-// 			redir_out(param->file_fd_out, main);
-// 			// param->flag_in_file = 1;
-// 		}
-// 		else if (redir->type == REDIR_IN)
-// 			redir_in(param->file_fd_in, main);
-// 		// else if (redir->type == HERE_DOC)
-// 		// 	here_doc(redir, main);
-// 		redir_lst = redir_lst->next;
-// 	}
-// 	return (0);
-// }
-
-// void	redirection(t_param_cmd *param, t_main *main)
-// {
-// 	if (param->redir)
-// 		redir_chevron(param, main);
-// }
+void	close_redir(t_param_cmd *param, t_main *main)
+{
+	if (param->file_fd_in[0])
+		close(param->file_fd_in[0]);
+	if (param->file_fd_out[0])
+		close(param->file_fd_out[0]);
+	if (param->redir)
+		dup2(main->save_fd[1], 1);
+}

@@ -23,7 +23,8 @@ void	update_lst(t_utils_var *utils, t_main *main)
 		utils->last->next = utils->save;
 	else
 		main->lexer = utils->save;
-	ft_freedoublestr(&utils->split);
+	if (utils->split)
+		ft_freedoublestr(&utils->split);
 	free(utils->str_with_var);
 }
 

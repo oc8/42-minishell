@@ -23,9 +23,9 @@
 #  define BUFFER_SIZE 42
 # endif
 
-typedef struct s_main t_main;
+typedef struct s_main	t_main;
 
-typedef enum	e_type
+typedef enum e_type
 {
 	TYPE_SIZE_T,
 	TYPE_INT,

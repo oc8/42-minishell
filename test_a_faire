@@ -85,3 +85,4 @@ mkdir test ; cd test ; rm -rf  ../test ; cd .
 cat | ls
 echo test > test | cat >> test < test
 > \>
+export TOTO="export TOTO="test >>ck" ; cd libft   a > coi$TOTO\toi >d

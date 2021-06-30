@@ -36,10 +36,23 @@ static long long	ft_atoi_exit(const char *str, unsigned char *status)
 	return (rs * neg);
 }
 
+static int	calc_exit_status(char **arg, size_t i)
+{
+	long long		rs;
+	unsigned char	status;
+
+	rs = ft_atoi_exit(arg[0], &status);
+	if (ft_strlen(&arg[0][i]) > 19 || status == 255)
+		status = cmd_error("exit", "numeric argument required", \
+			arg[0], 255);
+	else
+		status = (unsigned char)rs;
+	return (status);
+}
+
 void	cmd_exit(t_param_cmd *param, t_main *main)
 {
 	unsigned char	status;
-	long long		rs;
 	char			**arg;
 	size_t			i;
 
@@ -60,13 +73,7 @@ void	cmd_exit(t_param_cmd *param, t_main *main)
 		loop(main);
 	}
 	else
-	{
-		rs = ft_atoi_exit(arg[0], &status);
-		if (ft_strlen(&arg[0][i]) > 19 || status == 255)
-			status = cmd_error("exit", "numeric argument required", arg[0], 255);
-		else
-			status = (unsigned char)rs;
-	}
+		calc_exit_status(arg, i);
 	free_all(main);
 	exit(status);
 }
