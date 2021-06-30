@@ -54,9 +54,9 @@ OBJS_DIR		= objs
 SRCS			= $(addprefix $(SRCS_DIR)/,$(LST_SRCS))
 OBJS			= $(LST_SRCS:%.c=$(OBJS_DIR)/%.o)
 CC				= clang
-# CFLAGS			= -Wall -Werror -Wextra
+CFLAGS			= -Wall -Werror -Wextra
 # CFLAGS			= -Wall -Werror -Wextra -g
-CFLAGS			= -Wall -Werror -Wextra -fsanitize=address -g3
+# CFLAGS			= -Wall -Werror -Wextra -fsanitize=address -g3
 # CFLAGS			= -fsanitize=address -g3
 INCLUDE			= -Iinc -I${LIBFT}/inc -I/Users/$(USER)/.brew/opt/readline/include
 RM				= rm -rf
@@ -84,7 +84,7 @@ ${NAME}:		$(LIBFT_AR) ${OBJS_DIR} ${OBJS}
 $(OBJS_DIR)/%.o:$(SRCS_DIR)/%.c inc/*.h
 				$(MKDIR) $(dir $@)
 				${CC} ${CFLAGS} $(INCLUDE) -c  $< -o $@
-				printf "$(ERASE)--> [$(GREEN)$<$(END)] <--\n"
+				printf "$(ERASE)--> [$(GREEN)$<$(END)] <--"
 
 clean:
 				${RM} $(OBJS)
