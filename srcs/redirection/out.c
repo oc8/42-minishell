@@ -21,4 +21,6 @@ void	open_fd_out(int fd[2], t_redir *redir, t_main *main)
 		loop(main);
 	}
 	fd[1] = redir->fd;
+	if (redir->fd == 2)
+		redir_out(fd, main);
 }

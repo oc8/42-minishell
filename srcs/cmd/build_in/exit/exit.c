@@ -76,10 +76,10 @@ void	cmd_exit(t_param_cmd *param, t_main *main)
 	if (!arg[0])
 		;
 	else if (!is_nbr(&arg[0][i]))
-		cmd_error("exit", "numeric argument required", arg[0], 255);
+		status = cmd_error("exit", "numeric argument required", arg[0], 1);
 	else if (arg[1])
 	{
-		cmd_error("exit", "too many arguments", 0, 1);
+		status = cmd_error("exit", "too many arguments", 0, 1);
 		loop(main);
 	}
 	else

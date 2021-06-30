@@ -6,8 +6,9 @@ static void	save_pwd(t_main *main)
 
 	if (main->oldpwd)
 	{
+		ft_lstdel_content(&main->free, main->oldpwd);
 		free(main->oldpwd);
-		main->oldpwd = 0;
+		main->oldpwd = NULL;
 	}
 	if (main->pwd)
 		main->oldpwd = main->pwd;

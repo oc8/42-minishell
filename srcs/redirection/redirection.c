@@ -10,7 +10,7 @@ void	redir(t_param_cmd *param, t_main *main)
 		redir_pipe_after(main);
 	if (param->file_fd_in[0])
 		redir_in(param->file_fd_in, main);
-	if (param->file_fd_out[0])
+	if (param->file_fd_out[0] && param->file_fd_out[1] != 2)
 		redir_out(param->file_fd_out, main);
 }
 

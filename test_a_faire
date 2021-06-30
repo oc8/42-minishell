@@ -23,6 +23,7 @@ export TEST="a$USER b c d" ; cat $TEST
 export TEST1="un test" ; export TEST="1$TEST1 a\ b\ c\ d" ; cat $TEST
 export TEST=" 1 2 3 4 5" ; cat un$TEST\test
 export TEST=" 1 2 3 4       5" ; echo 42 >  un$TEST\test
+cd ~/
 
 
 
@@ -86,3 +87,7 @@ cat | ls
 echo test > test | cat >> test < test
 > \>
 export TOTO="export TOTO="test >>ck" ; cd libft   a > coi$TOTO\toi >d
+
+echo qwe 2>test < weqewew
+echo 2566666666666>23
+cd // ; pwd

@@ -14,6 +14,18 @@ static void	here_doc_or_in(int flag_here_doc, t_param_cmd *param)
 	}
 }
 
+static int	check_redir(t_redir *redir)
+{
+	if (redir->var_err)
+		return (cmd_error(0, "ambiguous redirect", redir->var_err, 1));
+	if (redir->fd > 255)
+		return (cmd_error(0, "Bad file descriptor", ft_itoa(redir->fd), 1));
+	if (redir->fd < 0)
+		return (cmd_error(0, \
+			"file descriptor out of range: Bad file descriptor", 0, 1));
+	return (0);
+}
+
 int	open_fd(t_param_cmd *param, t_main *main)
 {
 	t_list	*redir_lst;
@@ -25,8 +37,8 @@ int	open_fd(t_param_cmd *param, t_main *main)
 	while (redir_lst)
 	{
 		redir = (t_redir *)redir_lst->content;
-		if (redir->var_err)
-			return (cmd_error(0, "ambiguous redirect", redir->var_err, 1));
+		if (check_redir(redir))
+			return (1);
 		if (redir->type == REDIR_OUT || redir->type == APP_REDIR_OUT)
 			open_fd_out(param->file_fd_out, redir, main);
 		else if (redir->type == REDIR_IN)

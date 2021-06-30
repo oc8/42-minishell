@@ -20,3 +20,8 @@ creation fichier quand ambigous redirection avec "export TOTO="test >>ck" ; echo
 - nm -g minishell "U"
 - prompt color
 - echo $ ; echo $_
+
+BONUS :
+^L
+;
+\

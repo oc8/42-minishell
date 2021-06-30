@@ -54,5 +54,6 @@ void	del_var(int index, t_main *main)
 	main->env[index - 1] = 0;
 	ft_lstdel_content(&main->free, &main->env[index]);
 	free(main->env[index]);
+	main->env[index] = NULL;
 	*len -= 1;
 }
