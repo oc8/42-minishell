@@ -49,6 +49,13 @@ void	cmd_cd(t_param_cmd *param, t_main *main)
 	char	**arg;
 
 	arg = param->cmd + 1;
+	if (!arg)
+		return ;
+	if (!arg[0])
+	{
+		arg_tilde(main);
+		return ;
+	}
 	if (!ft_strncmp(arg[0], ".", 2))
 	{
 		if (getcwd(0, 0) == NULL)

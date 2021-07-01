@@ -46,7 +46,7 @@ static void	export_var(char **arg, int i, t_main *main)
 	else if (index > -1)
 		add_to_var(var[1], index, main);
 	else
-		new_var(arg[i], main);
+		add_var_export(flag_add, arg[i], main);
 	ft_freedoublestr(&var);
 }
 

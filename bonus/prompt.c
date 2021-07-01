@@ -19,7 +19,6 @@ static char	*prompt(char *cwd, t_main *main)
 {
 	char	*current_dir;
 	char	*prompt;
-	char	*color;
 	size_t	i;
 	size_t	j;
 
@@ -32,10 +31,8 @@ static char	*prompt(char *cwd, t_main *main)
 	if (!current_dir)
 		quit_prog("malloc() error", main);
 	cpy_prompt(i, j, current_dir, cwd);
-	color = ft_strjoin("\033[32m\033[1m", current_dir);
+	prompt = ft_strjoin(current_dir, "$> ");
 	free(current_dir);
-	prompt = ft_strjoin(color, "$> \033[0m");
-	free(color);
 	return (prompt);
 }
 

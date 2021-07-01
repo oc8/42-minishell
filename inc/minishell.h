@@ -202,6 +202,7 @@ void			cmd_exit(t_param_cmd *param, t_main *main);
 char			*check_path(char **paths, char *cmd, t_main *main);
 int				check_dir(char *path);
 void			reset_pwd_var(t_main *main);
+void			add_var_export(int flag_add, char *arg, t_main *main);
 
 /*
 **	-->	REDIR <--

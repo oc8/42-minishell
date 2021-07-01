@@ -10,6 +10,7 @@ LST_SRCS		= \
 	cmd/build_in/cd/cd.c \
 	cmd/build_in/export/export.c \
 	cmd/build_in/export/print_export.c \
+	cmd/build_in/export/utils.c \
 	cmd/build_in/unset/unset.c \
 	cmd/build_in/env/env.c \
 	cmd/build_in/exit/exit.c \
@@ -55,9 +56,6 @@ SRCS			= $(addprefix $(SRCS_DIR)/,$(LST_SRCS))
 OBJS			= $(LST_SRCS:%.c=$(OBJS_DIR)/%.o)
 CC				= clang
 CFLAGS			= -Wall -Werror -Wextra
-# CFLAGS			= -Wall -Werror -Wextra -g
-# CFLAGS			= -Wall -Werror -Wextra -fsanitize=address -g3
-# CFLAGS			= -fsanitize=address -g3
 INCLUDE			= -Iinc -I${LIBFT}/inc -I/Users/$(USER)/.brew/opt/readline/include
 RM				= rm -rf
 MKDIR			= mkdir -p
